@@ -12,32 +12,46 @@
 
 #include "../minishell.h"
 
+void	check_fileout(char *fileout, t_pipex *pipex)
+{
+	if (pipex->stout == 1)
+	{
+		pipex->fdout = open(fileout, O_TRUNC | O_RDWR | O_CREAT, 0666);
+		if (pipex->fdout < 0)
+			msg_error(ERR_OUTFILE);
+	}
+	else if (pipex->stout == 2)
+	{
+		pipex->fdout = open(fileout, O_APPEND | O_RDWR | O_CREAT, 0666);
+		if (pipex->fdout < 0)
+			msg_error(ERR_OUTFILE);
+	}
+	else
+	{
+		pipex->fdout = open("tmp", O_TRUNC | O_RDWR | O_CREAT, 0666);
+		if (pipex->fdout < 0)
+			msg_error(ERR_OUTFILE);
+	}
+}
+
 void	check_file(char *filein, char *fileout, t_pipex *pipex)
 {
 	if (access(filein, F_OK) == 0)
 	{
-		pipex->stout = 0;
 		pipex->fdin = open(filein, O_RDONLY);
 		if (pipex->fdin < 0)
 			msg_error(ERR_INFILE);
-		if (fileout != 0)
-		{
-			pipex->fdout = open(fileout, O_TRUNC | O_RDWR | O_CREAT, 0666);
-			if (pipex->fdout < 0)
-				msg_error(ERR_OUTFILE);
-		}
-		else
-		{
-			pipex->stout = 1;
-			pipex->fdout = open("tmp", O_TRUNC | O_RDWR | O_CREAT, 0666);
-			if (pipex->fdout < 0)
-				msg_error(ERR_OUTFILE);
-		}
+		check_fileout(fileout, pipex);
 		return ;
 	}
 	printf("zs: %s: %s\n", strerror(errno), filein);
 	exit (0);
 }
+
+/*void	process()
+{
+
+}*/
 
 void	child1(t_pipex pipex, char **argv, char **envp)
 {
@@ -74,18 +88,19 @@ void	child2(t_pipex *pipex, char **argv, char **envp)
 	return ;
 }
 
-void	exe(char **argv, char *envp[])
+void	exe(char **argv, char **envp)
 {
 	pid_t	p1;
 	pid_t	p2;
 	t_pipex	pipex;
 
+	ft_create_envp(&pipex, envp);
+	//ft_env(&pipex);
 	p2 = 0;
 	check_file(argv[0], argv[3], &pipex);
 	path(envp, &pipex);
 	pipe(pipex.fd);
-	if (pipe(pipex.fd) < 0)
-		msg_error(ERR_PIPE);
+	if (pipe(pipex.fd) < 0)		msg_error(ERR_PIPE);
 	p1 = fork();
 	if (p1 == 0)
 		child1(pipex, argv, envp);

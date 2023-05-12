@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   envp_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,29 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	ft_create_envp(t_pipex *pipex, char **envp)
+{
+	int	i;
 
-//libreria libft
-# include "libft/libft.h"
+	i = 0;
+	while (envp[i] != 0)
+		i++;
+	pipex->envp = malloc((i + 1) * sizeof(char *));
+	i = -1;
+	while (envp[++i] != 0)
+		pipex->envp[i] = ft_strdup(envp[i]);
+	pipex->envp[i] = 0;
+}
 
-//libreria per pipex
-# include "pipex/pipex.h"
+void	free_envp(t_pipex *pipex)
+{
+	int	i;
 
-//libreria per builtin
-# include "builtin/builtin.h"
+	i = -1;
+	while (pipex->envp[++i])
+		free(pipex->envp[i]);
+	free(pipex->envp);
+}
 
-#endif
+void	ft_env(t_pipex *pipex)
+{
+	int	i;
+
+	i = -1;
+	while (pipex->envp[++i])
+	{
+		write(1, pipex->envp[i], ft_strlen(pipex->envp[i]));
+		write(1, "\n", 1);
+	}
+}

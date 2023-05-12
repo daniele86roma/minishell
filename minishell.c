@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char *envp[])
 {
-	char	*input;
+	//char	*input;
 	char	**comandi;
 	//int		fdcopy;
 	//int		fd2copy;
@@ -25,22 +25,23 @@ int	main(int argc, char **argv, char *envp[])
 	comandi = malloc(4 * sizeof(char *));
 	comandi[0] = "in";
 	comandi[3] = "ciao";
-	comandi[1] = "cat";
+	comandi[1] = "echo";
 	comandi[2] = "cat";
 	(void)argc;
 	(void)argv;
+	ft_pwd();
 	exe(comandi, envp);
 	/*dup2(fdcopy, 1);
 	dup2(fd2copy, 0);
 	close(fdcopy);
 	close(fd2copy);*/
-	while (1)
+	/*while (1)
 	{
 		input = readline("MiniShell> ");
-		if (input[0] == 48)
-			break ;
+		if (*input == 48)
+		exit (0);
 		using_history();
 		add_history(input);
-	}
+	}*/
 	return (0);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-# define ERR_CMD "Command not found\n"
-# define ERR_INFILE "Infile"
-# define ERR_OUTFILE "Outfile"
-# define ERR_INPUT "Invalid number of arguments.\n"
-# define ERR_PIPE "Pipe"
+//ENV
+void	ft_create_envp(t_pipex *pipex, char **envp);
+void	free_envp(t_pipex *pipex);
+void	ft_env(t_pipex *pipex);
 
-typedef struct s_pipex
-{
-	char	**path;
-	int		fdin;
-	int		fdout;
-	char	*command;
-	char	**cmd_args;
-	int		stout;
-	int		stin;
-	int		fd[2];
-	char	**envp;
-}	t_pipex;
+//PWD
+void	ft_pwd(void);
 
-int		msg(char *err);
-void	msg_error(char *err);
-void	exe(char **argv, char *envp[]);
-void	path(char *envp[], t_pipex *pipex);
-char	*get_cmd(char **paths, char *cmd);
-void	free_all(t_pipex *pipex);
-void	child_free(t_pipex *pipex);
-void	child2(t_pipex *pipex, char **argv, char **envp);
-void	child1(t_pipex pipex, char **argv, char **envp);
-void	print_file(void);
+//EXIT
+void	ft_exit(void);
 #endif

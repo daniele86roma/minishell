@@ -14,7 +14,9 @@ NAME	= minishell
 FLAGS	=  -Wall -Wextra -Werror
 CC		= gcc ${FLAGS}
 RM		= rm -f
-SRC		= minishell.c pipex/error.c pipex/pipex_utils.c pipex/pipex.c pipex/print_file.c
+SRC		= minishell.c  free.c ${BLT} ${PIP}
+BLT     = builtin/envp_utils.c builtin/pwd_utils.c builtin/exit_utils.c
+PIP		= pipex/error.c pipex/pipex_utils.c pipex/pipex.c pipex/print_file.c
 OBJ		= ${SRC:.c=.o}
 LFT		= libft/libft.a
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,29 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-//libreria libft
-# include "libft/libft.h"
-
-//libreria per pipex
-# include "pipex/pipex.h"
-
-//libreria per builtin
-# include "builtin/builtin.h"
-
-#endif
+void	ft_exit(void)
+{
+	write(1, "exit\n", 5);
+	exit (0);
+}
