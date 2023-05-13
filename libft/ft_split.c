@@ -81,13 +81,9 @@ static void	allocate(char c, char **strs, char const *s)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
 	int		word;
 	char	**strs;
-	int		j;
 
-	i = 0;
-	j = -1;
 	word = ft_count_word(s, c);
 	strs = (char **)malloc((word + 1) * sizeof(char *));
 	if (!strs)
