@@ -18,6 +18,17 @@ int	msg(char *err)
 	return (1);
 }
 
+int	error(char *str, char *err)
+{
+	while (*str)
+		write(2, str++, 1);
+	if (err)
+		while (*err)
+			write(2, err++, 1);
+	write(2, "\n", 1);
+	return (1);
+}
+
 void	msg_error(char *err)
 {
 	perror(err);
