@@ -19,14 +19,14 @@
 
 typedef struct s_commands
 {
-	int				redout;
-	int				fdin;
-	int				fdout;
-	char				*args;
-	char				**cmd_args;
-	char				*command;
-	char				*filein;
-	char				*fileout;
+	int			redout;
+	int			fdin;
+	int			fdout;
+	char			*args;
+	char			**cmd_args;
+	char			*command;
+	char			*filein;
+	char			*fileout;
 	struct s_commands	*next;
 }	t_commands;
 
