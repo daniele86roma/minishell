@@ -16,30 +16,33 @@
 # define ERR_CMD "Command not found\n"
 # define ERR_INFILE "Infile"
 # define ERR_OUTFILE "Outfile"
-# define ERR_INPUT "Invalid number of arguments.\n"
-# define ERR_PIPE "Pipe"
 
-typedef struct s_pipex
+typedef struct s_commands
 {
-	char	**path;
-	int		fdin;
-	int		fdout;
-	char	*command;
-	char	**cmd_args;
-	int		stout;
-	int		stin;
-	int		fd[2];
-	char	**envp;
+	int				redout;
+	int				fdin;
+	int				fdout;
+	char				*args;
+	char				**cmd_args;
+	char				*command;
+	char				*filein;
+	char				*fileout;
+	struct s_commands	*next;
+}	t_commands;
+
+typedef struct s_init
+{
+	char		**path;
+	char		**envp;
+	t_commands	*commands;
+	
 }	t_pipex;
 
-int		msg(char *err);
+int	msg(char *err);
 void	msg_error(char *err);
-void	exe(char **argv, char *envp[]);
+int	error(char *str, char *err);
 void	path(char *envp[], t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
-void	free_all(t_pipex *pipex);
-void	child_free(t_pipex *pipex);
-void	child2(t_pipex *pipex, char **argv, char **envp);
-void	child1(t_pipex pipex, char **argv, char **envp);
-void	print_file(void);
+void	exe(t_pipex *pipex);
+
 #endif
