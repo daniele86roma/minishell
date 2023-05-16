@@ -16,6 +16,7 @@ int	msg(char *err)
 {
 	write(2, err, ft_strlen(err));
 	return (1);
+	
 }
 
 int	error(char *str, char *err)

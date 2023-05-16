@@ -15,26 +15,22 @@
 int	main(int argc, char **argv, char *envp[])
 {
 	//char	*input;
-	char	**comandi;
-	//int		fdcopy;
-	//int		fd2copy;
+	t_pipex	pipex;
+	t_commands *command;
 
-	(void)envp;
-	/*fdcopy = dup(STDOUT_FILENO);
-	fd2copy = dup(STDIN_FILENO);*/
-	comandi = malloc(4 * sizeof(char *));
-	comandi[0] = "in";
-	comandi[3] = "ciao";
-	comandi[1] = "echo";
-	comandi[2] = "cat";
 	(void)argc;
 	(void)argv;
-	ft_pwd();
-	exe(comandi, envp);
-	/*dup2(fdcopy, 1);
-	dup2(fd2copy, 0);
-	close(fdcopy);
-	close(fd2copy);*/
+	path(envp, &pipex);
+	command = malloc(sizeof(t_commands));
+	command->redout = 1;
+	command->filein = "in";
+	command->fileout = "out";
+	command->args = "ls -la";
+	command->next = 0;
+	ft_create_envp(&pipex, envp);
+	pipex.commands = command;
+	exe(&pipex);
+	
 	/*while (1)
 	{
 		input = readline("MiniShell> ");
@@ -43,5 +39,6 @@ int	main(int argc, char **argv, char *envp[])
 		using_history();
 		add_history(input);
 	}*/
+
 	return (0);
 }

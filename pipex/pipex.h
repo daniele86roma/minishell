@@ -19,14 +19,14 @@
 
 typedef struct s_commands
 {
-	int			redout;
-	int			fdin;
-	int			fdout;
-	char			*args;
-	char			**cmd_args;
-	char			*command;
-	char			*filein;
-	char			*fileout;
+	int					redout;
+	int					fdin;
+	int					fdout;
+	char				*args;
+	char				**cmd_args;
+	char				*command;
+	char				*filein;
+	char				*fileout;
 	struct s_commands	*next;
 }	t_commands;
 
@@ -35,12 +35,11 @@ typedef struct s_init
 	char		**path;
 	char		**envp;
 	t_commands	*commands;
-	
 }	t_pipex;
 
-int	msg(char *err);
+int		msg(char *err);
 void	msg_error(char *err);
-int	error(char *str, char *err);
+int		error(char *str, char *err);
 void	path(char *envp[], t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
 void	exe(t_pipex *pipex);
