@@ -43,3 +43,9 @@ char	*get_cmd(char **paths, char *cmd)
 	}
 	return (0);
 }
+
+void	save_io(t_pipex *pipex)
+{
+	pipex->stdin = dup(0);
+	pipex->stdout = dup(1);
+}

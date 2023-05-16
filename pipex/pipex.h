@@ -33,6 +33,8 @@ typedef struct s_commands
 
 typedef struct s_init
 {
+	int			stdin;
+	int			stdout;
 	char		**path;
 	char		**envp;
 	t_commands	*commands;
@@ -44,5 +46,6 @@ int		error(char *str, char *err);
 void	path(char *envp[], t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
 void	exe(t_pipex *pipex);
+void	save_io(t_pipex *pipex);
 
 #endif

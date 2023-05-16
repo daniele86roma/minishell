@@ -64,7 +64,6 @@ int	exec(t_pipex *pipex, int fd, int *pip)
 void	close_parent(int *tmp, int *fd)
 {
 	close(*tmp);
-	close(fd[1]);
 	*tmp = fd[0];
 }
 
