@@ -30,7 +30,7 @@ void	check_fileout(char *fileout, t_pipex *pipex)
 		pipex->commands->fdout = 1;
 }
 
-void	check_file(char *filein, t_pipex *pipex)
+void	check_filein(char *filein, t_pipex *pipex)
 {
 	if (access(filein, F_OK) == 0)
 	{
@@ -43,47 +43,62 @@ void	check_file(char *filein, t_pipex *pipex)
 	exit (0);
 }
 
-int	exec(t_pipex *pipex, int fd)
+int	exec(t_pipex *pipex, int fd, int *pip)
 {
+	//dup2(fd[1], 1);
+	close(pip[1]);
+	close(pip[0]);
+	pipex->commands->cmd_args = ft_split(pipex->commands->args, ' ');
+	pipex->commands->command = get_cmd(pipex->path, pipex->commands->cmd_args[0]);
+		if (!pipex->commands->command)
+		{
+			msg(ERR_CMD);
+			exit(1);
+		}
 	dup2(fd, 0);
 	close(fd);
 	execve(pipex->commands->command, pipex->commands->cmd_args, pipex->envp);
 	return (error("error: cannot execute ", pipex->commands->command));
 }
 
+void	close_parent(int *tmp, int *fd)
+{
+	close(*tmp);
+	close(fd[1]);
+	*tmp = fd[0];
+}
+
+void	wait_process(int *tmp, t_commands *wp)
+{
+	close(*tmp);
+	while (wp != 0)
+	{
+		if (wp->pid != -1)
+		{
+			waitpid(wp->pid, 0, 0);
+		}
+		wp = wp->next;
+	}
+}
+
 void	exe(t_pipex *pipex)
 {
-	int	pid;
-	int	tmp;
-	int	fd[2];
+	int			tmp;
+	int			fd[2];
+	t_commands  *wp;
 
-	pid = 0;
 	tmp = dup(0);
+
+	wp = pipex->commands;
 	while (pipex->commands != 0)
 	{
-			pipe(fd);
-			pid = fork();
-			if (!pid)
-			{
-				dup2(fd[1], 1);
-				close(fd[1]);
-				close(fd[0]);
-				pipex->commands->cmd_args = ft_split(pipex->commands->args, ' ');
-				pipex->commands->command = get_cmd(pipex->path, pipex->commands->cmd_args[0]);
-				if (!pipex->commands->command)
-				{
-					msg(ERR_CMD);
-					exit(1);
-				}
-				exec(pipex, tmp);
-			}
-			else
-			{
-				close(tmp);
-				close(fd[1]);
-				tmp = fd[0];
-			}
+		pipe(fd);
+		pipex->commands->pid = fork();
+		if (!pipex->commands->pid)
+			exec(pipex, tmp, fd);
+		else
+			close_parent(&tmp, fd);
 		pipex->commands = pipex->commands->next;
 	}
-	close(tmp);
+	wait_process(&tmp, wp);
 }

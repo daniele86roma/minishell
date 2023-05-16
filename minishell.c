@@ -14,31 +14,29 @@
 
 int	main(int argc, char **argv, char *envp[])
 {
-	//char	*input;
+	char	*input;
 	t_pipex	pipex;
-	t_commands *command;
+	t_commands command;
 
 	(void)argc;
 	(void)argv;
 	path(envp, &pipex);
-	command = malloc(sizeof(t_commands));
-	command->redout = 1;
-	command->filein = "in";
-	command->fileout = "out";
-	command->args = "ls -la";
-	command->next = 0;
+	command.redout = 1;
+	command.filein = "in";
+	command.fileout = "out";
+	command.args = "ls -la";
+	command.next = 0;
 	ft_create_envp(&pipex, envp);
-	pipex.commands = command;
+	pipex.commands = &command;
 	exe(&pipex);
-	
-	/*while (1)
+	while (1)
 	{
 		input = readline("MiniShell> ");
 		if (*input == 48)
-		exit (0);
+			exit (0);
 		using_history();
 		add_history(input);
-	}*/
+	}
 
 	return (0);
 }
