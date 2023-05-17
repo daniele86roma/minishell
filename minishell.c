@@ -32,12 +32,12 @@ int	main(int argc, char **argv, char *envp[])
 	command = malloc(sizeof(t_commands));
 	command2 = malloc(sizeof(t_commands));
 	command->redout = 0;
-	command->redin = 1;
-	command->filein = "in";
+	command->redin = 0;
+	command->filein = "";
 	command->fileout = "";
 	command->args = "ls -la";
 	command->next = command2;
-	command2->redout = 0;
+	command2->redout = 2;
 	command2->redin = 0;
 	command2->filein = "";
 	command2->fileout = "out";

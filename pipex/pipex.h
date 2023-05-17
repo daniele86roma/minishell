@@ -20,15 +20,15 @@
 typedef struct s_commands
 {
 	int					pid;
-	int					redout;
+	int					redout; //>> > 0
 	int					redin;
 	int					fdin;
 	int					fdout;
-	char				*args;
+	char				*args;   // comando + arg + opzioni
 	char				**cmd_args;
 	char				*command;
-	char				*filein;
-	char				*fileout;
+	char				*filein;   //<FILE
+	char				*fileout;  //>FILEOUT
 	struct s_commands	*next;
 }	t_commands;
 

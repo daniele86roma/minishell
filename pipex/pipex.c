@@ -16,6 +16,8 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
 	if (commands->redout == 0 && commands->next == 0)
 		dup2(pipex->stdout, 1);
+	else if (commands->redout != 0)
+		dup2(commands->fdout, 1);	
 	else
 		dup2(pip[1], 1);
 	close(pip[1]);
