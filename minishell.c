@@ -24,17 +24,26 @@ int	main(int argc, char **argv, char *envp[])
 {
 	char		*input;
 	t_pipex		pipex;
-	t_commands command;
+	t_commands *command;
+	t_commands *command2;
 
 	(void)argc;
 	(void)argv;
-	command.redout = 0;
-	command.redin = 1;
-	command.filein = "in";
-	command.fileout = "out";
-	command.args = "ls -la";
-	command.next = 0;
-	pipex.commands = &command;
+	command = malloc(sizeof(t_commands));
+	command2 = malloc(sizeof(t_commands));
+	command->redout = 0;
+	command->redin = 1;
+	command->filein = "in";
+	command->fileout = "";
+	command->args = "ls -la";
+	command->next = command2;
+	command2->redout = 0;
+	command2->redin = 0;
+	command2->filein = "";
+	command2->fileout = "out";
+	command2->args = "wc -l";
+	command2->next = 0;
+	pipex.commands = command;
 	init(envp, &pipex);
 	exe(&pipex);
 	close_red(&pipex);
@@ -46,6 +55,5 @@ int	main(int argc, char **argv, char *envp[])
 		using_history();
 		add_history(input);
 	}
-
 	return (0);
 }

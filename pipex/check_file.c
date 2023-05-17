@@ -12,41 +12,41 @@
 
 #include "../minishell.h"
 
-void	check_fileout(char *fileout, t_pipex *pipex)
+void	check_fileout(char *fileout, t_commands *commands)
 {
-	if (pipex->commands->redout == 1)
+	if (commands->redout == 1)
 	{
-		pipex->commands->fdout = open(fileout, O_TRUNC | O_RDWR | O_CREAT, 0666);
-		if (pipex->commands->fdout < 0)
+		commands->fdout = open(fileout, O_TRUNC | O_RDWR | O_CREAT, 0666);
+		if (commands->fdout < 0)
 			msg_error(ERR_OUTFILE);
 	}
-	else if (pipex->commands->redout == 2)
+	else if (commands->redout == 2)
 	{
-		pipex->commands->fdout = open(fileout, O_APPEND | O_RDWR | O_CREAT, 0666);
-		if (pipex->commands->fdout < 0)
+		commands->fdout = open(fileout, O_APPEND | O_RDWR | O_CREAT, 0666);
+		if (commands->fdout < 0)
 			msg_error(ERR_OUTFILE);
 	}
-	else if (pipex->commands->redout == 0)
-		pipex->commands->fdout = dup(pipex->stdout);
+	else if (commands->redout == 0)
+		commands->fdout = dup(1);
 }
 
-void	check_filein(char *filein, t_pipex *pipex)
+void	check_filein(char *filein, t_commands *commands)
 {
-	if (pipex->commands->redin == 1)
+	if (commands->redin == 1)
 	{
 		if (access(filein, F_OK) == 0)
 		{
-			pipex->commands->fdin = open(filein, O_RDONLY);
-			if (pipex->commands->fdin < 0)
+			commands->fdin = open(filein, O_RDONLY);
+			if (commands->fdin < 0)
 				msg_error(ERR_INFILE);
 			return ;
 		}
 		printf("zs: %s: %s\n", strerror(errno), filein);
 		exit (0);
 	}
-	else if (pipex->commands->redin == 0)
-		pipex->commands->fdin = dup(pipex->stdin);
-	else if (pipex->commands->redin == 2)
+	else if (commands->redin == 0)
+		commands->fdin = dup(0);
+	else if (commands->redin == 2)
 		write(1, "<<\n", 3);
 }
 
@@ -57,8 +57,8 @@ void	create_red(t_pipex *pipex)
 	com = pipex->commands;
 	while (com != 0)
 	{
-		check_fileout(com->fileout, pipex);
-		check_filein(com->filein, pipex);
+		check_fileout(com->fileout, com);
+		check_filein(com->filein, com);
 		com = com->next;
 	}
 }
