@@ -21,6 +21,7 @@ typedef struct s_commands
 {
 	int					pid;
 	int					redout;
+	int					redin;
 	int					fdin;
 	int					fdout;
 	char				*args;

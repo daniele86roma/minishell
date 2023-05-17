@@ -12,37 +12,6 @@
 
 #include "../minishell.h"
 
-void	check_fileout(char *fileout, t_pipex *pipex)
-{
-	if (pipex->commands->redout == 1)
-	{
-		pipex->commands->fdout = open(fileout, O_TRUNC | O_RDWR | O_CREAT, 0666);
-		if (pipex->commands->fdout < 0)
-			msg_error(ERR_OUTFILE);
-	}
-	else if (pipex->commands->redout == 2)
-	{
-		pipex->commands->fdout = open(fileout, O_APPEND | O_RDWR | O_CREAT, 0666);
-		if (pipex->commands->fdout < 0)
-			msg_error(ERR_OUTFILE);
-	}
-	else
-		pipex->commands->fdout = 1;
-}
-
-void	check_filein(char *filein, t_pipex *pipex)
-{
-	if (access(filein, F_OK) == 0)
-	{
-		pipex->commands->fdin = open(filein, O_RDONLY);
-		if (pipex->commands->fdin < 0)
-			msg_error(ERR_INFILE);
-		return ;
-	}
-	printf("zs: %s: %s\n", strerror(errno), filein);
-	exit (0);
-}
-
 int	exec(t_pipex *pipex, int fd, int *pip)
 {
 	//dup2(fd[1], 1);
