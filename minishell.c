@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char *envp[])
 
 	(void)argc;
 	(void)argv;
-	command.redout = 1;
+	command.redout = 0;
 	command.redin = 1;
 	command.filein = "in";
 	command.fileout = "out";

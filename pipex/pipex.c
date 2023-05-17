@@ -15,7 +15,8 @@
 int	exec(t_pipex *pipex, int fd, int *pip)
 {
 	dup2(pipex->commands->fdout, 1);
-	//dup2(pip[1], pipex->commands->fdout);
+	if (pipex->commands->redout == 0 && pipex->commands->next != 0)
+		dup2(pip[1], 1);
 	close(pip[1]);
 	close(pip[0]);
 	pipex->commands->cmd_args = ft_split(pipex->commands->args, ' ');
