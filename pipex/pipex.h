@@ -41,12 +41,21 @@ typedef struct s_init
 	t_commands	*commands;
 }	t_pipex;
 
+//error.c
 int		msg(char *err);
 void	msg_error(char *err);
 int		error(char *str, char *err);
+
+//pipex_utils.c
 void	path(char *envp[], t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
-void	exe(t_pipex *pipex);
 void	save_io(t_pipex *pipex);
+
+//pipex.c
+void	exe(t_pipex *pipex);
+
+//check_file.c
+void	create_red(t_pipex *pipex);
+void	close_red(t_pipex *pipex);
 
 #endif

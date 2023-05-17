@@ -27,7 +27,7 @@ void	check_fileout(char *fileout, t_pipex *pipex)
 			msg_error(ERR_OUTFILE);
 	}
 	else if (pipex->commands->redout == 0)
-		pipex->commands->fdout = pipex->stdout;
+		pipex->commands->fdout = dup(pipex->stdout);
 }
 
 void	check_filein(char *filein, t_pipex *pipex)
@@ -45,7 +45,33 @@ void	check_filein(char *filein, t_pipex *pipex)
 		exit (0);
 	}
 	else if (pipex->commands->redin == 0)
-		pipex->commands->fdin = pipex->stdin;
+		pipex->commands->fdin = dup(pipex->stdin);
 	else if (pipex->commands->redin == 2)
 		write(1, "<<\n", 3);
+}
+
+void	create_red(t_pipex *pipex)
+{
+	t_commands	*com;
+
+	com = pipex->commands;
+	while (com != 0)
+	{
+		check_fileout(com->fileout, pipex);
+		check_filein(com->filein, pipex);
+		com = com->next;
+	}
+}
+
+void	close_red(t_pipex *pipex)
+{
+	t_commands	*com;
+
+	com = pipex->commands;
+	while (com != 0)
+	{
+		close(com->fdin);
+		close(com->fdout);
+		com = com->next;
+	}
 }

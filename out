@@ -1,0 +1,14 @@
+total 72
+drwxr-xr-x 6 dfiliagg 2022_rome  4096 May 17 10:35 .
+drwxr-xr-x 3 dfiliagg 2022_rome  4096 May 17 10:33 ..
+drwxr-xr-x 2 dfiliagg 2022_rome  4096 May 17 10:35 builtin
+-rw-r--r-- 1 dfiliagg 2022_rome   966 May 15 10:50 free.c
+drwxr-xr-x 8 dfiliagg 2022_rome  4096 May 17 09:15 .git
+-rw-r--r-- 1 dfiliagg 2022_rome     7 May 16 10:46 in
+drwxr-xr-x 2 dfiliagg 2022_rome  4096 May 17 10:17 libft
+-rw-r--r-- 1 dfiliagg 2022_rome  1497 May 17 09:16 Makefile
+-rwxr-xr-x 1 dfiliagg 2022_rome 27400 May 17 10:35 minishell
+-rw-r--r-- 1 dfiliagg 2022_rome  1537 May 17 10:35 minishell.c
+-rw-r--r-- 1 dfiliagg 2022_rome  1363 May 15 10:50 minishell.h
+-rw-r--r-- 1 dfiliagg 2022_rome     0 May 17 10:22 out
+drwxr-xr-x 2 dfiliagg 2022_rome  4096 May 17 10:35 pipex

@@ -12,24 +12,32 @@
 
 #include "minishell.h"
 
+void	init(char *envp[], t_pipex *pipex)
+{
+	path(envp, pipex);
+	save_io(pipex);
+	ft_create_envp(pipex, envp);
+	create_red(pipex);
+}
+
 int	main(int argc, char **argv, char *envp[])
 {
-	char	*input;
-	t_pipex	pipex;
+	char		*input;
+	t_pipex		pipex;
 	t_commands command;
 
 	(void)argc;
 	(void)argv;
 	command.redout = 1;
+	command.redin = 1;
 	command.filein = "in";
 	command.fileout = "out";
 	command.args = "ls -la";
 	command.next = 0;
-	path(envp, &pipex);
-	save_io(&pipex);
-	ft_create_envp(&pipex, envp);
 	pipex.commands = &command;
+	init(envp, &pipex);
 	exe(&pipex);
+	close_red(&pipex);
 	while (1)
 	{
 		input = readline("MiniShell> ");
