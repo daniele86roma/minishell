@@ -25,30 +25,22 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex		pipex;
-	t_commands *command;
-	t_commands *command2;
+	t_commands command;
 
-	command2 = malloc(sizeof(t_commands));
-	command = malloc(sizeof(t_commands));
 	
-	command->redout = 0;
-	command->redin = 1;
-	command->filein = "in";
-	command->fileout = "";
-	command->args = "cat";
+	command.redout = 0;
+	command.redin = 1;
+	command.filein = "in";
+	command.fileout = "";
+	command.args = "cat";
 
-	command2->redout = 1;
-	command2->redin = 1;
-	command2->filein = "in";
-	command2->fileout = "out4";
-	command2->args = "cat";
 	
 	init(envp, &pipex, argc, argv);
-	add_command(command, &pipex);
-	add_command(command2, &pipex);
+	new_commands(&command, &pipex);
 	create_red(&pipex);
 	exe(&pipex);
 	close_red(&pipex);
+	free_commands(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");

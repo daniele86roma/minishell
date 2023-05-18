@@ -20,15 +20,15 @@
 typedef struct s_commands
 {
 	int					pid;
-	int					redout;  // " $d "
-	int					redin;    //  
+	int					redout;
+	int					redin;
 	int					fdin;
 	int					fdout;
-	char				*args;    //comando opzione argomenti grep
+	char				*args;
 	char				**cmd_args; 
 	char				*command;  
-	char				*filein; //in
-	char				*fileout;//nomeout
+	char				*filein;
+	char				*fileout;
 	struct s_commands	*next; 
 }	t_commands;
 
@@ -62,8 +62,9 @@ void	close_red(t_pipex *pipex);
 //free.c
 void	child_free(t_commands *com);
 void	free_total(t_pipex *pipex);
+void	free_commands(t_pipex *pipex);
 
 //command_list
-void	add_command(t_commands *new, t_pipex *list);
+void	new_commands(t_commands *com, t_pipex *list);
 
 #endif

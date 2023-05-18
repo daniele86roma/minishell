@@ -14,10 +14,9 @@
 
 void	add_command(t_commands *new, t_pipex *list)
 {
-	t_commands *tmp;
+	t_commands	*tmp;
 
 	tmp = list->commands;
-	new->next = 0;
 	if (!list->commands)
 	{
 		list->commands = new;
@@ -27,4 +26,33 @@ void	add_command(t_commands *new, t_pipex *list)
 		tmp = tmp->next;
 	tmp->next = new;
 	return;
+}
+
+void	new_commands(t_commands *com, t_pipex *list)
+{
+	t_commands	*new;
+
+	new = malloc(sizeof(t_commands));
+	new->next = 0;
+	new->redin = com->redin;
+	new->redout = com->redout;
+	new->args = com->args;
+	new->filein = com->filein;
+	new->fileout = com->fileout;
+	add_command(new, list);
+}
+
+void	free_commands(t_pipex *pipex)
+{
+	t_commands	*com;
+	t_commands	*tmp;
+
+	com = pipex->commands;
+	tmp = pipex->commands;
+	while (com != 0)
+	{
+		com = tmp->next;
+		free(tmp);
+		tmp = com;
+	}
 }
