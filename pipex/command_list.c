@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                        :+:      :+:    :+:   */
+/*   command_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,39 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	free_path(t_pipex *pipex)
+void	add_command(t_commands *new, t_pipex *list)
 {
-	int	i;
+	t_commands *tmp;
 
-	i = 0;
-	while (pipex->path[i])
+	tmp = list->commands;
+	new->next = 0;
+	if (!list->commands)
 	{
-		free(pipex->path[i]);
-		i++;
+		list->commands = new;
+		return;
 	}
-	free(pipex->path);
+	while (tmp->next != 0)
+		tmp = tmp->next;
+	tmp->next = new;
+	return;
 }
-
-void	child_free(t_commands *com)
-{
-	int	i;
-
-	i = 0;
-	while (com->cmd_args[i])
-	{
-		free(com->cmd_args[i]);
-		i++;
-	}
-	free(com->cmd_args);
-	free(com->command);
-}
-
-void	free_total(t_pipex *pipex)
-{
-	free_envp(pipex);
-	free_path(pipex);
-}
-
-

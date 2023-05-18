@@ -26,6 +26,7 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
 		if (!commands->command)
 		{
+			child_free(commands);
 			msg(ERR_CMD);
 			exit(1);
 		}
@@ -41,6 +42,7 @@ void	close_parent(int *tmp, int *fd)
 	close(fd[1]);
 	*tmp = fd[0];
 }
+
 void	wait_process(int *tmp, t_commands *wp)
 {
 	close(*tmp);
