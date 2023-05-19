@@ -12,19 +12,6 @@
 
 #include "../minishell.h"
 
-int	create_child(t_commands *commands, t_pipex *pipex)
-{
-	commands->cmd_args = ft_split(commands->args, ' ');
-	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
-	if (!commands->command)
-	{
-		child_free(commands);
-		msg(ERR_CMD);
-		return (1);
-	}
-	return (0);
-}
-
 int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
 	if (commands->redout == 0 && commands->next == 0)
@@ -35,18 +22,15 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		dup2(pip[1], 1);
 	close(pip[1]);
 	close(pip[0]);
-	if (commands->redin != 0)
-		dup2(commands->fdin, 0);
-	else
-		dup2(*fd, 0);
+	commands->cmd_args = ft_split(commands->args, ' ');
+	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
+		if (!commands->command)
+		{
+			msg(ERR_CMD);
+			exit(1);
+		}
+	dup2(*fd, 0);
 	close(*fd);
-	if (commands->builtin == 1)
-	{
-		exe_builtin(commands);
-		exit (0);
-	}
-	if (create_child(commands, pipex) == 1)
-		exit (1);
 	execve(commands->command, commands->cmd_args, pipex->envp);
 	return (error("error: cannot execute ", commands->command));
 }
@@ -57,7 +41,6 @@ void	close_parent(int *tmp, int *fd)
 	close(fd[1]);
 	*tmp = fd[0];
 }
-
 void	wait_process(int *tmp, t_commands *wp)
 {
 	close(*tmp);
@@ -78,8 +61,8 @@ void	exe(t_pipex *pipex)
 	t_commands  *wp;
 	t_commands	*commands;
 
-	create_red(pipex);
 	tmp = dup(pipex->commands->fdin);
+
 	wp = pipex->commands;
 	commands = pipex->commands;
 	while (commands != 0)
@@ -94,6 +77,4 @@ void	exe(t_pipex *pipex)
 		commands = commands->next;
 	}
 	wait_process(&tmp, wp);
-	close_red(pipex);
-	free_commands(pipex);
 }

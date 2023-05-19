@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                        :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Created: 2023/05/18 12:44:45 by adi-fort          #+#    #+#             */
+/*   Updated: 2023/05/18 12:48:55 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
-void	free_total(t_pipex *pipex)
-{
-	free_envp(pipex);
-}
+void	ft_signal(void);
+
+#endif

@@ -6,7 +6,7 @@
 #    By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 10:46:16 by dfiliagg          #+#    #+#              #
-#    Updated: 2023/02/20 10:46:19 by dfiliagg         ###   ########.fr        #
+#    Updated: 2023/05/18 12:30:11 by adi-fort         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME	= minishell
 FLAGS	=  -Wall -Wextra -Werror
 CC		= gcc ${FLAGS}
 RM		= rm -f
-SRC		= minishell.c  free.c ${BLT} ${PIP}
+SRC		= minishell.c  free.c ${BLT} ${PIP} ${SIG}
 BLT     = builtin/envp_utils.c builtin/pwd_utils.c builtin/exit_utils.c
-PIP		= pipex/pipex_utils.c pipex/pipex.c pipex/error.c pipex/check_file.c pipex/command_list.c pipex/exe_builtin.c
+PIP		= pipex/pipex_utils.c pipex/pipex.c pipex/error.c pipex/check_file.c
+SIG		= signal/signal.c
 OBJ		= ${SRC:.c=.o}
 LFT		= libft/libft.a
 
