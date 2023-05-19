@@ -39,6 +39,7 @@ void	new_commands(t_commands *com, t_pipex *list)
 	new->args = com->args;
 	new->filein = com->filein;
 	new->fileout = com->fileout;
+	new->builtin = com->builtin;
 	add_command(new, list);
 }
 

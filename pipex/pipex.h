@@ -29,7 +29,8 @@ typedef struct s_commands
 	char				*command;  
 	char				*filein;
 	char				*fileout;
-	struct s_commands	*next; 
+	struct s_commands	*next;
+	int					builtin;
 }	t_commands;
 
 typedef struct s_init

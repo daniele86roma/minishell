@@ -12,6 +12,19 @@
 
 #include "../minishell.h"
 
+int	create_child(t_commands *commands, t_pipex *pipex)
+{
+	commands->cmd_args = ft_split(commands->args, ' ');
+	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
+	if (!commands->command)
+	{
+		child_free(commands);
+		msg(ERR_CMD);
+		return (1);
+	}
+	return (0);
+}
+
 int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
 	if (commands->redout == 0 && commands->next == 0)
@@ -22,19 +35,18 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		dup2(pip[1], 1);
 	close(pip[1]);
 	close(pip[0]);
-	commands->cmd_args = ft_split(commands->args, ' ');
-	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
-		if (!commands->command)
-		{
-			child_free(commands);
-			msg(ERR_CMD);
-			exit(1);
-		}
 	if (commands->redin != 0)
 		dup2(commands->fdin, 0);
 	else
 		dup2(*fd, 0);
 	close(*fd);
+	if (commands->builtin == 1)
+	{
+		ft_pwd();
+		exit (0);
+	}
+	if (create_child(commands, pipex) == 1)
+		exit (1);
 	execve(commands->command, commands->cmd_args, pipex->envp);
 	return (error("error: cannot execute ", commands->command));
 }

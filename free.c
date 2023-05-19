@@ -43,6 +43,8 @@ void	free_total(t_pipex *pipex)
 {
 	free_envp(pipex);
 	free_path(pipex);
+	close(pipex->stdin);
+	close(pipex->stdout);
 }
 
 

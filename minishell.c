@@ -27,23 +27,20 @@ int	main(int argc, char **argv, char *envp[])
 	t_pipex		pipex;
 	t_commands command;
 
-	
-	command.redout = 1;
-	command.redin = 1;
-	command.filein = "in";
-	command.fileout = "out";
-	command.args = "cat";
-
-	
 	init(envp, &pipex, argc, argv);
-	new_commands(&command, &pipex);
-	command.fileout = "out2";
-	command.args = "wc";
+	
+	command.args = "";
 	command.redin = 0;
+	command.redout = 1;
+	command.fileout = "tfddf";
+	command.builtin = 1;
+	new_commands(&command, &pipex);
+	command.args = "wc";
+	command.redout = 1;
+	command.fileout = "out2";
+	command.builtin = 0;
 	new_commands(&command, &pipex);
 	exe(&pipex);
-	
-	
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
