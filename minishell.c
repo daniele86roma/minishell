@@ -37,10 +37,12 @@ int	main(int argc, char **argv, char *envp[])
 	
 	init(envp, &pipex, argc, argv);
 	new_commands(&command, &pipex);
-	create_red(&pipex);
+	command.fileout = "";
+	command.args = "cat";
+	
 	exe(&pipex);
-	close_red(&pipex);
-	free_commands(&pipex);
+	
+	
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");

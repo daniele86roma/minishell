@@ -63,8 +63,8 @@ void	exe(t_pipex *pipex)
 	t_commands  *wp;
 	t_commands	*commands;
 
+	create_red(pipex);
 	tmp = dup(pipex->commands->fdin);
-
 	wp = pipex->commands;
 	commands = pipex->commands;
 	while (commands != 0)
@@ -79,4 +79,6 @@ void	exe(t_pipex *pipex)
 		commands = commands->next;
 	}
 	wait_process(&tmp, wp);
+	close_red(pipex);
+	free_commands(pipex);
 }
