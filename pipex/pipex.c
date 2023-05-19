@@ -42,7 +42,7 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	close(*fd);
 	if (commands->builtin == 1)
 	{
-		ft_pwd();
+		exe_builtin(commands);
 		exit (0);
 	}
 	if (create_child(commands, pipex) == 1)

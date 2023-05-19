@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char *envp[])
 	command.args = "wc";
 	command.redout = 1;
 	command.fileout = "out2";
-	command.builtin = 0;
+	command.builtin = 1;
 	new_commands(&command, &pipex);
 	exe(&pipex);
 	/*while (1)

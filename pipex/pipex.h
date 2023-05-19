@@ -65,7 +65,10 @@ void	child_free(t_commands *com);
 void	free_total(t_pipex *pipex);
 void	free_commands(t_pipex *pipex);
 
-//command_list
+//command_list.c
 void	new_commands(t_commands *com, t_pipex *list);
+
+//exe_builtin.c
+void    exe_builtin(t_commands *commands);
 
 #endif
