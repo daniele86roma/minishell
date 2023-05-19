@@ -30,7 +30,10 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 			msg(ERR_CMD);
 			exit(1);
 		}
-	dup2(*fd, 0);
+	if (commands->redin != 0)
+		dup2(commands->fdin, 0);
+	else
+		dup2(*fd, 0);
 	close(*fd);
 	execve(commands->command, commands->cmd_args, pipex->envp);
 	return (error("error: cannot execute ", commands->command));

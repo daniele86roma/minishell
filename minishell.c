@@ -28,18 +28,19 @@ int	main(int argc, char **argv, char *envp[])
 	t_commands command;
 
 	
-	command.redout = 0;
+	command.redout = 1;
 	command.redin = 1;
 	command.filein = "in";
-	command.fileout = "";
+	command.fileout = "out";
 	command.args = "cat";
 
 	
 	init(envp, &pipex, argc, argv);
 	new_commands(&command, &pipex);
-	command.fileout = "";
-	command.args = "cat";
-	
+	command.fileout = "out2";
+	command.args = "wc";
+	command.redin = 0;
+	new_commands(&command, &pipex);
 	exe(&pipex);
 	
 	
