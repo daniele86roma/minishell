@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,35 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
+#include "../pipex/pipex.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	parse(char **mat, t_pipex *pipex)
+{
+	int			i;
+	int			j;
+	int			err;
+	t_command	com;
 
-//libreria libft
-# include "libft/libft.h"
-
-//libreria per pipex
-# include "pipex/pipex.h"
-
-//libreria per builtin
-# include "builtin/builtin.h"
-
-//libreria per args
-# include "args/args.h"
-
-//libreria per parsing
-# include "parse/parse.h"
-
-#endif
+	i = -1;
+	j = 0;
+	err = 0;
+	while (err == 0 && mat[++i])
+	{
+		while (mat[i] && mat[i][j] != '|')
+		{
+			if (ft_strcmp_args(mat[i], "<") == 0)
+				{
+					if (mat[++i] = 0 || mat[i][j] == '|')
+					{
+						write(2, "bash: errore di sintassi vicino al token non atteso", 52);
+						//freematrice
+						err = 1;
+						break ;
+					}
+					com.redin = 1;
+				}
+		}
+	}
+}
