@@ -35,12 +35,13 @@ typedef struct s_commands
 
 typedef struct s_init
 {
-	char		*input;
-	int			stdin;
-	int			stdout;
-	char		**path;
-	char		**envp;
-	t_commands	*commands;
+	char			*input;
+	int				stdin;
+	int				stdout;
+	char			**path;
+	char			**envp;
+	t_commands		*commands;
+	struct s_args	*args;
 }	t_pipex;
 
 //error.c
