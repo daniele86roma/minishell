@@ -52,6 +52,7 @@ void	free_commands(t_pipex *pipex)
 	tmp = pipex->commands;
 	while (com != 0)
 	{
+		free(com->args);
 		com = tmp->next;
 		free(tmp);
 		tmp = com;

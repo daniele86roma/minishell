@@ -25,15 +25,21 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex		pipex;
-	t_args		args;
+	char		**mat;
 
 	init(envp, &pipex, argc, argv);
-	args.key = "a";
-	args.value = "5";
-	add_arg(&args, &pipex);
-	print_args(&pipex);
-	printf("\n%s\n", get_var("b", &pipex));
-	//exe(&pipex);
+	mat = malloc(sizeof(char **) *10);
+	mat[0] = "cat";
+	mat[1] = "<";
+	mat[2] = "minishell.c";
+	mat[3] = "|";
+	mat[4] = "wc";
+	mat[5] = ">";
+	mat[6] = "out";
+	mat[7] = 0;
+	parse(mat, &pipex);
+	//free_total(&pipex);
+	exe(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
