@@ -25,22 +25,15 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex		pipex;
-	t_commands command;
+	t_args		args;
 
 	init(envp, &pipex, argc, argv);
-	
-	command.args = "";
-	command.redin = 0;
-	command.redout = 1;
-	command.fileout = "tfddf";
-	command.builtin = 1;
-	new_commands(&command, &pipex);
-	command.args = "wc";
-	command.redout = 1;
-	command.fileout = "out2";
-	command.builtin = 1;
-	new_commands(&command, &pipex);
-	exe(&pipex);
+	args.key = "a";
+	args.value = "5";
+	add_arg(&args, &pipex);
+	print_args(&pipex);
+	printf("\n%s\n", get_var("b", &pipex));
+	//exe(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
