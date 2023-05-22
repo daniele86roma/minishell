@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/05/19 18:00:01 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:32:53 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	main(int argc, char **argv, char *envp[])
 	{
 		input = readline("MiniShell> ");
 		if (input == 0)
-			continue ;
-		if (*input == 48)
 			exit (0);
+		if (*input == 48)
+			continue ;
 		using_history();
 		add_history(input);
 	}
