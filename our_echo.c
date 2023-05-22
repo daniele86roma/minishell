@@ -6,13 +6,42 @@
 /*   By: dcastagn <dcastagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:15:11 by dcastagn          #+#    #+#             */
-/*   Updated: 2023/05/22 11:17:58 by dcastagn         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:36:44 by dcastagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
+
+char	**preparsed_filter(char **strs)
+{
+	char	**ret;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	while (strs[++i])
+		if (strncmp(strs[i], "|", 1) || (strncmp(strs[i], " ", 1)))
+			j++;
+	ret = malloc(sizeof(char *) * (j + 1));
+	if (!ret)
+		return (0);
+	i = -1;
+	j = -1;
+	while (strs[++i])
+	{
+		if (!strncmp(strs[i], "|", 1) || (!strncmp(strs[i], " ", 1)))
+			continue ;
+		ret[++j] = strdup(strs[i]);
+		if (!ret[j])
+			return (0);
+	}
+	ret[++j] = 0;
+	return (ret);
+}
 
 void	printwoquotes(char *cmd)
 {
@@ -32,9 +61,25 @@ void	printwoquotes(char *cmd)
 	}
 }
 
-int echoNcheck(char *str)
+void	echo_print(char **str, int i, int flag)
 {
-    int	i;
+	while (str[i])
+	{
+		printwoquotes(str[i]);
+		if (str[i + 1])
+			printf(" ");
+		free(str[i]);
+		i++;
+	}
+	if (flag == 0)
+		return ;
+	else
+		printf("\n");
+}
+
+int	echoflagcheck(char *str)
+{
+	int	i;
 
 	i = 1;
 	while (str[i])
@@ -46,39 +91,34 @@ int echoNcheck(char *str)
 	return (1);
 }
 
-void our_echo(char **str)
+void	our_echo(char **argv)
 {
-    int i;
-    int j;
+	int		i;
+	int		flag;
+	char	**str;
 
-    i = 1;
-    j = -1;
-    if (strncmp(str[1], "echo", 4) == 0)
-    {
-        if (str[2] && strncmp(str[2], "-n", 2) == 0 && echoNcheck(str[2]))
-        {
-            while (str[2][++j + 1] == 'n')
-                ;
-            i++;
-        }
-        while (str[++i])
-        {
-            while (isspace(str[i][++j]))
-                ;
-            printwoquotes(str[i]);
-            if (str[i + 1])
-                printf(" ");
-        }
-        if (str[2] && !echoNcheck(str[2]))
-            printf("\n");
-    }
+	str = preparsed_filter(argv);
+	i = 1;
+	if (!str[i])
+	{
+		printf("\n");
+		free(str[i]);
+		return ;
+	}
+	if (!strncmp(str[i], "-n", 2) && echoflagcheck(str[i]))
+	{
+		flag = 0;
+		i++;
+		while (str[i] && !strncmp(str[i], "-n", 2) && echoflagcheck(str[i]))
+			i++;
+	}
+	else
+		flag = 1;
+	echo_print(str, i, flag);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    if (argc == 1)
-        return 1;
-    our_echo(argv);
-
-    return 0;
+	our_echo(argv);
+	return (0);
 }
