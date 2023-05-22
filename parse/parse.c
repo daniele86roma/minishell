@@ -25,26 +25,30 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 {
 	if (ft_strcmp_args(mat[*i], ">") == 0)
 	{
-		if (mat[++(*i)] == 0 || mat[*i][0] == '|')
+		*i = *i + 1;
+		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 			write(2, "bash: errore di sintassi vicino al token non atteso", 52);
 			//freematrice
 			return (1);
 		}
-		com->fileout = mat[*i++];
+		com->fileout = mat[*i];
 		com->redout = 2;
+		*i = *i +1;
 		return (0);
 	}
 	if (ft_strcmp_args(mat[*i], ">>") == 0)
 	{
-		if (mat[++(*i)] == 0 || mat[*i][0] == '|')
+		*i = *i + 1;
+		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
 			//freematrice
 			return (1);
 		}
-		com->fileout = mat[*i++];
+		com->fileout = mat[*i];
 		com->redout = 2;
+		*i = *i + 1;
 		return (0);
 	}
 	return  (0);
@@ -54,26 +58,30 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 {
 	if (ft_strcmp_args(mat[*i], "<") == 0)
 	{
-		if (mat[++(*i)] == 0 || mat[*i][0] == '|')
+		*i = *i +1;
+		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 			write(2, "bash: errore di sintassi vicino al token non atteso", 52);
 			//freematrice
 			return (1);
 		}
-		com->filein = mat[*i++];
+		com->filein = mat[*i];
 		com->redin = 1;
+		*i = *i + 1;
 		return (0);
 	}
 	if (ft_strcmp_args(mat[*i], "<<") == 0)
 	{
-		if (mat[++(*i)] == 0 || mat[*i][0] == '|')
+		*i = *i + 1;
+		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice
+			//freematrice.
 			return (1);
 		}
-		com->filein = mat[*i++];
+		com->filein = mat[*i];
 		com->redin = 2;
+		*i = *i + 1;
 		return (0);
 	}
 	return (0);
@@ -87,11 +95,11 @@ void	parse(char **mat, t_pipex *pipex)
 	char		*arg;
 	char		*tmp;
 
-	i = -1;
+	i = 0;
 	err = 0;
 	com.redin = 0;
 	com.redout = 0;
-	while (err == 0 && mat[++i])
+	while (err == 0 && mat[i])
 	{
 		arg = ft_strdup("");
 		com.builtin = return_builtin(mat, &i);
@@ -99,20 +107,16 @@ void	parse(char **mat, t_pipex *pipex)
 		{
 			err = set_red_in(mat, &i, &com);
 			err = set_red_out(mat, &i, &com);
-			if (mat[i] && mat[i][0] != '|')
-			{
+			if (!mat[i])
+				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
 			arg = ft_strjoin(tmp, mat[i]);
-			free(tmp);
-			}
 			i++;
 		}
-		com.args = ft_strtrim(arg, " ");
-		new_commands(&com, pipex);
-		free(arg);
-		if (mat[i])
-			i++;
 	}
 	//freematrice;
+	com.args = ft_strtrim(arg, " ");
+	new_commands(&com, pipex);
+	free(arg);
 }

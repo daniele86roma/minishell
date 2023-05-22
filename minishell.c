@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char *envp[])
 	mat[7] = 0;
 	parse(mat, &pipex);
 	//free_total(&pipex);
-	exe(&pipex);
+	//exe(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");

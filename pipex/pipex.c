@@ -78,6 +78,8 @@ void	exe(t_pipex *pipex)
 	t_commands  *wp;
 	t_commands	*commands;
 
+	if (!pipex->commands)
+		return ;
 	create_red(pipex);
 	tmp = dup(pipex->commands->fdin);
 	wp = pipex->commands;
