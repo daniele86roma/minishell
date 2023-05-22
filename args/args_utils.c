@@ -45,3 +45,17 @@ void	free_args(t_pipex *pipex)
 		pipex->args = tmp;
 	}
 }
+
+char	*get_var(char *key, t_pipex *pipex)
+{
+	t_args *tmp;
+
+	tmp = pipex->args;
+	while (tmp)
+	{
+		if (ft_strcmp_args(key, tmp->key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (0);
+}
