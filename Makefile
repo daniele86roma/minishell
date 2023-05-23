@@ -6,7 +6,7 @@
 #    By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 10:46:16 by dfiliagg          #+#    #+#              #
-#    Updated: 2023/05/22 11:33:07 by adi-fort         ###   ########.fr        #
+#    Updated: 2023/05/22 12:15:30 by adi-fort         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,12 @@ all: ${NAME}
 
 ${LFT}:
 		make -C libft
-.o:.c
-	${CC} ${OBJ} -c $< -o ${<:.c=.o}
+
+%.o : %.c
+	@$(CC) $(FLAGS) -c $< -o $@
+	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
+	@printf "$(GREEN)\r%100s\r[%d/%d (%d%%)] $(GREEN)$<" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
+
 
 SRC_COUNT_TOT = $(shell expr $(shell echo -n $(SRC) $(BLT) $(PIP) $(SIG) $(LFT) | wc -w))
 SRC_COUNT = 0
@@ -50,7 +54,6 @@ ${NAME}: ${OBJ} ${LFT}
 	@printf "\n$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
 	@printf "$(YELLOW)                       AS PAINFULL AS HELL!\n$(RESET)"
 	@printf "$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
-
 
 clean:
 	${RM} ${OBJ}

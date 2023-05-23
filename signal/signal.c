@@ -6,7 +6,7 @@
 /*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:54:36 by adi-fort          #+#    #+#             */
-/*   Updated: 2023/05/19 18:20:10 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:21:30 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_signal(void)
 
 	signal.sa_handler = &ft_handler;
 	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);
 }
