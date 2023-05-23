@@ -6,7 +6,7 @@
 /*   By: dcastagn <dcastagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:15:11 by dcastagn          #+#    #+#             */
-/*   Updated: 2023/05/22 16:36:44 by dcastagn         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:49:37 by dcastagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ char	**preparsed_filter(char **strs)
 	return (ret);
 }
 
+void    free_mat(char **mat)
+{
+    int i;
+    
+    i = -1;
+    while (mat[++i])
+        free(mat[i]);
+    free(mat);
+}
+
 void	printwoquotes(char *cmd)
 {
 	int	i;
@@ -68,7 +78,6 @@ void	echo_print(char **str, int i, int flag)
 		printwoquotes(str[i]);
 		if (str[i + 1])
 			printf(" ");
-		free(str[i]);
 		i++;
 	}
 	if (flag == 0)
@@ -102,7 +111,8 @@ void	our_echo(char **argv)
 	if (!str[i])
 	{
 		printf("\n");
-		free(str[i]);
+		free(str[0]);
+		free(str);
 		return ;
 	}
 	if (!strncmp(str[i], "-n", 2) && echoflagcheck(str[i]))
@@ -115,6 +125,7 @@ void	our_echo(char **argv)
 	else
 		flag = 1;
 	echo_print(str, i, flag);
+	free_mat(str);
 }
 
 int	main(int argc, char **argv)
