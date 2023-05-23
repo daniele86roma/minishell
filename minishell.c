@@ -20,6 +20,7 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	save_io(pipex);
 	ft_create_envp(pipex, envp);
 	pipex->commands = 0;
+	pipex->args = 0;
 }
 
 int	main(int argc, char **argv, char *envp[])
@@ -38,8 +39,9 @@ int	main(int argc, char **argv, char *envp[])
 	mat[6] = "out";
 	mat[7] = 0;
 	parse(mat, &pipex);
-	//free_total(&pipex);
 	exe(&pipex);
+	free(mat);
+	free_total(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
