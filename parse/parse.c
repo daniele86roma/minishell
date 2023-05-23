@@ -107,13 +107,16 @@ void	parse(char **mat, t_pipex *pipex)
 		{
 			err = set_red_in(mat, &i, &com);
 			err = set_red_out(mat, &i, &com);
-			if (!mat[i])
+			if (!mat[i] || mat[i][0] == '|')
 				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
 			arg = ft_strjoin(tmp, mat[i]);
 			i++;
 		}
+		if (!mat[i])
+			break;
+		i++;
 	}
 	//freematrice;
 	com.args = ft_strtrim(arg, " ");
