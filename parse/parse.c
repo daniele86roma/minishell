@@ -34,7 +34,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 			return (1);
 		}
 		com->fileout = mat[*i];
-		com->redout = 2;
+		com->redout = 1;
 		*i = *i +1;
 		return (0);
 	}
@@ -117,13 +117,12 @@ void	parse(char **mat, t_pipex *pipex)
 			free(tmp);
 			i++;
 		}
-		if (!mat[i])
-			break;
-		i++;
 		com.args = ft_strtrim(arg, " ");
 		new_commands(&com, pipex);
 		free(arg);
+		if (!mat[i])
+			break;
+		i++;
 	}
 	//freematrice;
-	free(arg);
 }
