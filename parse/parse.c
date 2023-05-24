@@ -23,6 +23,8 @@ int	return_builtin(char **mat, int *i)
 
 int	set_red_out(char **mat, int *i, t_commands *com)
 {
+	if (!mat[*i])
+		return (0);
 	if (ft_strcmp_args(mat[*i], ">") == 0)
 	{
 		*i = *i + 1;
@@ -58,6 +60,8 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 
 int	set_red_in(char **mat, int *i, t_commands *com)
 {
+	if (!mat[*i])
+		return (0);
 	if (ft_strcmp_args(mat[*i], "<") == 0)
 	{
 		*i = *i +1;
@@ -78,7 +82,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice.
+			//freematrice
 			return (1);
 		}
 		com->filein = mat[*i];
