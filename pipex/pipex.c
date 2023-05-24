@@ -82,6 +82,15 @@ void	exe(t_pipex *pipex)
 	while (commands != 0)
 	{
 		pipe(fd);
+		if (commands->builtin != 0)
+		{
+			exe_builtin(pipex, &tmp, fd, commands);
+			tmp = fd[0];
+			dup2(pipex->stdin, 0);
+			dup2(pipex->stdout, 1);
+			commands = commands->next;
+			continue;
+		}
 		commands->pid = fork();
 		if (!commands->pid)
 			exec(pipex, &tmp, fd, commands);

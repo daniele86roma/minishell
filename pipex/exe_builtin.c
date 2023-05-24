@@ -12,9 +12,18 @@
 
 #include "../minishell.h"
 
-void    exe_builtin(t_commands *commands)
+void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
-    
-    if (ft_strncmp(commands->args, "pwd", 3))
+    if (commands->builtin == 2 && commands->next != 0 && commands != pipex->commands)
+        return;
+    if (commands->redout == 0 && commands->next == 0)
+		dup2(pipex->stdout, 1);
+	else if (commands->redout != 0)
+	    dup2(commands->fdout, 1);	
+	else
+		dup2(pip[1], 1);
+	close(pip[1]);
+	close(*fd);
+	if (ft_strncmp(commands->args, "pwd", 3) == 0)
         ft_pwd();
 }

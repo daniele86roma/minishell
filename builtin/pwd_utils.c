@@ -18,5 +18,6 @@ void	ft_pwd(void)
 
 	pwd = getcwd(0, 0);
 	write(1, pwd, ft_strlen(pwd));
+	write(1, "\n", 1);
 	free(pwd);
 }

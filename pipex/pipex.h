@@ -70,6 +70,6 @@ void	free_commands(t_pipex *pipex);
 void	new_commands(t_commands *com, t_pipex *list);
 
 //exe_builtin.c
-void    exe_builtin(t_commands *commands);
+void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands);
 
 #endif
