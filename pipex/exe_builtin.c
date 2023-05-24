@@ -14,6 +14,6 @@
 
 void    exe_builtin(t_commands *commands)
 {
-    (void)commands;
-    ft_pwd();
+    if (ft_strcmp_args(commands->args, "pwd"))
+        ft_pwd();
 }

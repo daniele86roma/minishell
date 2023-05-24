@@ -40,11 +40,6 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	else
 		dup2(*fd, 0);
 	close(*fd);
-	if (commands->builtin == 1)
-	{
-		exe_builtin(commands);
-		exit (0);
-	}
 	if (create_child(commands, pipex) == 1)
 		exit (1);
 	execve(commands->command, commands->cmd_args, pipex->envp);
@@ -87,7 +82,6 @@ void	exe(t_pipex *pipex)
 	while (commands != 0)
 	{
 		pipe(fd);
-
 		commands->pid = fork();
 		if (!commands->pid)
 			exec(pipex, &tmp, fd, commands);
