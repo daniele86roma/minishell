@@ -39,7 +39,7 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		dup2(commands->fdin, 0);
 	else if (commands->redin == 2)
 	{
-		in_redirect(commands);
+		in_redirect(commands, pipex);
 		dup2(commands->fdin, 0);
 	}
 	else

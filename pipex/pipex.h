@@ -16,6 +16,7 @@
 # define ERR_CMD "Command not found\n"
 # define ERR_INFILE "Infile"
 # define ERR_OUTFILE "Outfile"
+# define REDIN "redin"
 
 typedef struct s_commands
 {
@@ -72,6 +73,6 @@ void	new_commands(t_commands *com, t_pipex *list);
 //exe_builtin.c
 void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands);
 
-void	in_redirect(t_commands *command);
+void	in_redirect(t_commands *command, t_pipex *pipex);
 
 #endif

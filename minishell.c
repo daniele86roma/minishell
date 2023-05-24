@@ -33,9 +33,9 @@ int	main(int argc, char **argv, char *envp[])
 	mat[0] = "cat";
 	mat[1] = "<<";
 	mat[2] = "test";
-	mat[3] = 0;//">";
-	mat[4] = "out";
-	mat[5] = 0;//">";
+	mat[3] = 0;//"|";
+	mat[4] = "cat";
+	mat[5] = ">";
 	mat[6] = "out";
 	mat[7] = 0;
 	parse(mat, &pipex);

@@ -48,7 +48,7 @@ void	check_filein(char *filein, t_commands *commands)
 		commands->fdin = dup(0);
 	else if (commands->redin == 2)
 	{
-		commands->fdin = open("redin", O_TRUNC | O_RDWR | O_CREAT, 0666);
+		commands->fdin = open(REDIN, O_TRUNC | O_RDWR | O_CREAT, 0666);
 		if (commands->fdin < 0)
 			msg_error(ERR_OUTFILE);
 		return ;
