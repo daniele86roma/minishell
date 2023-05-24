@@ -14,8 +14,10 @@
 
 void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
-    if (commands->builtin == 2 && commands->next != 0 && commands != pipex->commands)
+    if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
         return;
+    if (ft_strncmp(commands->args, "exit", 4) == 0)
+        ft_exit();  
     if (commands->redout == 0 && commands->next == 0)
 		dup2(pipex->stdout, 1);
 	else if (commands->redout != 0)

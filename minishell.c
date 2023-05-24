@@ -30,8 +30,8 @@ int	main(int argc, char **argv, char *envp[])
 
 	init(envp, &pipex, argc, argv);
 	mat = malloc(sizeof(char **) *10);
-	mat[0] = "pwd";
-	mat[1] = "|";
+	mat[0] = "exit";
+	mat[1] = 0;//"|";
 	mat[2] = "exit";
 	mat[3] = ">";
 	mat[4] = "out";
@@ -42,13 +42,13 @@ int	main(int argc, char **argv, char *envp[])
 	exe(&pipex);
 	free(mat);
 	free_total(&pipex);
-	/*while (1)
+	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
 		if (pipex.input[0] == 48)
 			exit (0);
 		using_history();
 		add_history(pipex.input);
-	}*/
+	}
 	return (0);
 }
