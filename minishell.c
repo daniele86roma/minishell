@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char *envp[])
 	mat[1] = "<";
 	mat[2] = "minishell.c";
 	mat[3] = "|";
-	mat[4] = "pwd";
+	mat[4] = "cat";
 	mat[5] = ">";
 	mat[6] = "out";
 	mat[7] = 0;

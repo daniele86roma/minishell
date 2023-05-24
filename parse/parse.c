@@ -23,7 +23,7 @@ int	return_builtin(char **mat, int *i)
 
 int	set_red_out(char **mat, int *i, t_commands *com)
 {
-	if (mat[*i] || ft_strcmp_args(mat[*i], ">") == 0)
+	if (ft_strcmp_args(mat[*i], ">") == 0)
 	{
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
@@ -38,7 +38,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i +1;
 		return (0);
 	}
-	if (mat[*i] || ft_strcmp_args(mat[*i], ">>") == 0)
+	if (ft_strcmp_args(mat[*i], ">>") == 0)
 	{
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
@@ -58,7 +58,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 
 int	set_red_in(char **mat, int *i, t_commands *com)
 {
-	if (mat[*i] || ft_strcmp_args(mat[*i], "<") == 0)
+	if (ft_strcmp_args(mat[*i], "<") == 0)
 	{
 		*i = *i +1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
@@ -72,7 +72,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		return (0);
 	}
-	if (mat[*i] || ft_strcmp_args(mat[*i], "<<") == 0)
+	if (ft_strcmp_args(mat[*i], "<<") == 0)
 	{
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
