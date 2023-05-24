@@ -72,4 +72,6 @@ void	new_commands(t_commands *com, t_pipex *list);
 //exe_builtin.c
 void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands);
 
+void	in_redirect(t_commands *command);
+
 #endif

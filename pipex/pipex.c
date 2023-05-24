@@ -35,8 +35,13 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		dup2(pip[1], 1);
 	close(pip[1]);
 	close(pip[0]);
-	if (commands->redin != 0)
+	if (commands->redin == 1)
 		dup2(commands->fdin, 0);
+	else if (commands->redin == 2)
+	{
+		in_redirect(commands);
+		dup2(commands->fdin, 0);
+	}
 	else
 		dup2(*fd, 0);
 	close(*fd);
@@ -58,7 +63,7 @@ void	wait_process(int *tmp, t_commands *wp)
 	close(*tmp);
 	while (wp != 0)
 	{
-		if (wp->pid != -1)
+		if (wp->builtin == 0 && wp->pid != -1)
 		{
 			waitpid(wp->pid, 0, 0);
 		}

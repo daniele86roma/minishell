@@ -47,7 +47,12 @@ void	check_filein(char *filein, t_commands *commands)
 	else if (commands->redin == 0)
 		commands->fdin = dup(0);
 	else if (commands->redin == 2)
-		write(1, "<<\n", 3);
+	{
+		commands->fdin = open("redin", O_TRUNC | O_RDWR | O_CREAT, 0666);
+		if (commands->fdin < 0)
+			msg_error(ERR_OUTFILE);
+		return ;
+	}
 }
 
 void	create_red(t_pipex *pipex)
