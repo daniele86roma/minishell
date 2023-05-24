@@ -32,11 +32,11 @@ int	main(int argc, char **argv, char *envp[])
 	mat = malloc(sizeof(char **) *10);
 	mat[0] = "cat";
 	mat[1] = "<";
-	mat[2] = "minishell.c";
+	mat[2] = 0;//"minishell.c";
 	mat[3] = 0;//"|";
 	mat[4] = "cat";
 	mat[5] = ">";
-	mat[6] = "out";
+	mat[6] = 0;//"out";
 	mat[7] = 0;
 	parse(mat, &pipex);
 	exe(&pipex);

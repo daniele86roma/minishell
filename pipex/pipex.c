@@ -91,5 +91,6 @@ void	exe(t_pipex *pipex)
 	}
 	wait_process(&tmp, wp);
 	close_red(pipex);
-	free_commands(pipex);
+	if (pipex->commands)
+		free_commands(pipex);
 }

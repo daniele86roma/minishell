@@ -57,4 +57,5 @@ void	free_commands(t_pipex *pipex)
 		free(tmp);
 		tmp = com;
 	}
+	pipex->commands = 0;
 }

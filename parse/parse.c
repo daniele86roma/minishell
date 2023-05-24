@@ -67,8 +67,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i +1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
-			write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice
+			write(2, "bash: errore di sintassi vicino al token non atteso\n", 53);
 			return (1);
 		}
 		com->filein = mat[*i];
@@ -81,8 +80,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
-		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice
+		write(2, "bash: errore di sintassi vicino al token non atteso\n", 53);
 			return (1);
 		}
 		com->filein = mat[*i];
@@ -112,7 +110,8 @@ void	parse(char **mat, t_pipex *pipex)
 		while (mat[i] && mat[i][0] != '|')
 		{
 			err = set_red_in(mat, &i, &com);
-			err = set_red_out(mat, &i, &com);
+			if (err != 1)
+				err = set_red_out(mat, &i, &com);
 			if (!mat[i] || mat[i][0] == '|')
 				break;
 			tmp = ft_strjoin(arg, " ");
@@ -125,6 +124,7 @@ void	parse(char **mat, t_pipex *pipex)
 		{
 			free(arg);
 			free_commands(pipex);
+			pipex->commands = 0;
 			break;
 		}
 		com.args = ft_strtrim(arg, " ");
