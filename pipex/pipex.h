@@ -16,7 +16,7 @@
 # define ERR_CMD "Command not found\n"
 # define ERR_INFILE "Infile"
 # define ERR_OUTFILE "Outfile"
-# define REDIN "redin"
+# define REDIN ".redin"
 
 typedef struct s_commands
 {
