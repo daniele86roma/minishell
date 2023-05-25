@@ -15,6 +15,11 @@
 int	create_child(t_commands *commands, t_pipex *pipex)
 {
 	commands->cmd_args = ft_split(commands->args, ' ');
+	if (is_path(commands->cmd_args[0]))
+	{
+		commands->command = commands->cmd_args[0];
+		return (0);
+	}
 	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
 	if (!commands->command)
 	{

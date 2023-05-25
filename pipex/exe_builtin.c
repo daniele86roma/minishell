@@ -29,3 +29,16 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	if (ft_strncmp(commands->args, "pwd", 3) == 0)
         ft_pwd();
 }
+
+int	is_path(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i] != 0)
+	{
+		if (s[i] == '/')
+			return(1);
+	}
+	return (0);
+}
