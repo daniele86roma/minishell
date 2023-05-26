@@ -25,23 +25,24 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 
 int	main(int argc, char **argv, char *envp[])
 {
-	t_pipex		pipex;
-	char		**mat;
+	t_pipex	pipex;
+	char	**mat;
+	t_args	arg;
+	char	*str;
+	char	*res;
 
 	init(envp, &pipex, argc, argv);
 	mat = malloc(sizeof(char **) *10);
-	mat[0] = "cat";
-	mat[1] = "<<";
-	mat[2] = "test";
-	mat[3] = "|";
-	mat[4] = "cat";
-	mat[5] = ">";
-	mat[6] = "out";
-	mat[7] = 0;
+	mat[0] = 0;
+	arg.key = "var";
+	arg.value = "10";
+	add_arg(&arg, &pipex);
+	str = ft_strdup("variabile: $var cambiata, ora $dd non esiste, ora solo $ , 'ora virgolette tra $var' '$prova'");
+	res = sost_arg(str, &pipex);
+	printf("%s\n", str);
+	printf("%s\n", res);
 	parse(mat, &pipex);
 	exe(&pipex);
-	free(mat);
-	free_total(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
@@ -50,5 +51,9 @@ int	main(int argc, char **argv, char *envp[])
 		using_history();
 		add_history(pipex.input);
 	}*/
+	free(str);
+	free(mat);
+	free(res);
+	free_total(&pipex);
 	return (0);
 }

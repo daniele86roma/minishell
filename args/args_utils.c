@@ -50,6 +50,8 @@ char	*get_var(char *key, t_pipex *pipex)
 {
 	t_args *tmp;
 
+	if (!key)
+		return (0);
 	tmp = pipex->args;
 	while (tmp)
 	{
