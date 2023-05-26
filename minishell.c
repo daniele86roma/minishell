@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char *envp[])
 	arg.key = "var";
 	arg.value = "10";
 	add_arg(&arg, &pipex);
-	str = ft_strdup("variabile: $var cambiata, ora $dd non esiste, ora solo $ , 'ora virgolette tra $var' '$prova'");
+	str = ft_strdup("$var, $4, $f, $ff, $.");
 	res = sost_arg(str, &pipex);
 	printf("%s\n", str);
 	printf("%s\n", res);

@@ -19,11 +19,11 @@ char	*get_name_var(char *s, int *i)
 
 	*i = *i + 1;
 	j = *i;
-	while (s[j] && s[j] != ' ')
+	while (s[j] && ft_isalnum(s[j]))
 		j++;
 	var = malloc(j + 1);
 	j = 0;
-	while (s[*i] && s[*i] != ' ')
+	while (s[*i] && ft_isalnum(s[*i]))
 	{
 		var[j] = s[*i];
 		*i = *i + 1;
