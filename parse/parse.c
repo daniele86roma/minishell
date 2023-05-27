@@ -31,7 +31,6 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 			write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice
 			return (1);
 		}
 		com->fileout = mat[*i];
@@ -45,7 +44,6 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		if (mat[*i] == 0 || mat[*i][0] == '|')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
-			//freematrice
 			return (1);
 		}
 		com->fileout = mat[*i];

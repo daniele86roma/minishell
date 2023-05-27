@@ -66,16 +66,18 @@ void	add_arg(t_args *arg, t_pipex *pipex)
 	add_ordered(new, pipex);
 }
 
-void	unset_args(t_args *arg, t_pipex *pipex)
+void	unset_args(char *key, t_pipex *pipex)
 {
 	t_args	*tmp;
 	t_args	*prev;
 
 	tmp = pipex->args;
 	prev = tmp;
-	if (tmp && ft_strcmp_args(tmp->key, arg->key) == 0)
+	if (tmp && ft_strcmp_args(tmp->key, key) == 0)
 		{
 			pipex->args = pipex->args->next;
+			free(tmp->key);
+			free(tmp->value);
 			free(tmp);
 			return ;
 		}
@@ -83,9 +85,11 @@ void	unset_args(t_args *arg, t_pipex *pipex)
 	{
 		prev = tmp;
 		tmp = tmp->next;
-		if (tmp && ft_strcmp_args(tmp->key, arg->key) == 0)
+		if (tmp && ft_strcmp_args(tmp->key, key) == 0)
 		{
 			prev->next = tmp->next;
+			free(tmp->value);
+			free(tmp->key);
 			free(tmp);
 			return ;
 		}

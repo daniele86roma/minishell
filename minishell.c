@@ -30,11 +30,19 @@ int	main(int argc, char **argv, char *envp[])
 
 	init(envp, &pipex, argc, argv);
 	mat = malloc(sizeof(char **) *10);
-	mat[0] = "pwd";
-	mat[1] = "c";
+	mat[0] = "export";
+	mat[1] = "c=10 f=3";
 	mat[2] = 0;
 	parse(mat, &pipex);
 	exe(&pipex);
+	print_args(&pipex);
+	mat[0] = "unset";
+	mat[1] = "c";
+	mat[2] = "a";
+	mat[3] = 0;
+	parse(mat, &pipex);
+	exe(&pipex);
+	print_args(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");

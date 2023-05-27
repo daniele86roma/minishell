@@ -82,6 +82,7 @@ char	*sost_arg(char *s, t_pipex *pipex)
 	i = -1;
 	apic = 0;
 	newstr = ft_strdup("");
+	pipex->sost = 0;
 	while (s[++i])
 	{
 		if (s[i] == '\'')
@@ -91,9 +92,15 @@ char	*sost_arg(char *s, t_pipex *pipex)
 			if (s[i] == '$')
 			{
 				if (ft_isalpha(s[i + 1]))
+				{
 					newstr = add_var2string(&i, pipex, s, newstr);
+					pipex->sost = 1;
+				}
 				else if (s[i + 1] >=48 && s[i + 1] <= 57)
+				{
+					pipex->sost = 1;
 					i += 2;
+				}
 			}
 		}
 		cpy_str(newstr, &i, s);

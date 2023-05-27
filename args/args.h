@@ -24,7 +24,7 @@ void    add_arg(t_args *arg, t_pipex *pipex);
 void    print_args(t_pipex *pipex);
 void	free_args(t_pipex *pipex);
 int     ft_strcmp_args(char *s1, char *s2);
-void	unset_args(t_args *arg, t_pipex *pipex);
+void	unset_args(char *key, t_pipex *pipex);
 char	*get_var(char *key, t_pipex *pipex);
 char	*sost_arg(char *s, t_pipex *pipex);
 

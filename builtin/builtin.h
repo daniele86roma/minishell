@@ -21,6 +21,13 @@ void	ft_env(t_pipex *pipex);
 //PWD
 void	ft_pwd(void);
 
+//EXPORT
+void	ft_export(char *s, t_pipex *pipex);
+
 //EXIT
 void	ft_exit(void);
+
+//UNSET
+void	ft_unset(char *s, t_pipex *pipex);
+
 #endif

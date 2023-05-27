@@ -21,3 +21,65 @@ void	ft_pwd(void)
 	write(1, "\n", 1);
 	free(pwd);
 }
+
+void	ft_export(char *s, t_pipex *pipex)
+{
+	int		i;
+	int		j;
+	char	*key;
+	char	*value;
+	t_args	arg;
+
+	i = 6;
+	while (s[i])
+	{
+		while (s[i] && s[i] == ' ')
+			i++;
+		key = malloc(ft_strlen(s));
+		j = 0;
+		while (s[i] && s[i] != '=')
+		{
+			key[j] = s[i];
+			j++;
+			i++;
+		}
+		key[j] = 0;
+		if (s[i])
+			i++;
+		arg.key = ft_strdup(key);
+		value = malloc(ft_strlen(s));
+		j = 0;
+		while (s[i] && s[i] != ' ')
+		{
+			value[j] = s[i];
+			j++;
+			i++;
+		}
+		value[j] = 0;
+		if (s[i])
+			i++;
+		arg.value = ft_strdup(value);
+		add_arg(&arg, pipex);
+		free(value);
+		free(key);
+	}
+}
+
+void	ft_unset(char *s, t_pipex *pipex)
+{
+	char	**mat;
+	int		i;
+
+	mat = ft_split(s, ' ');
+	i = 0;
+	while(mat[++i])
+	{
+		unset_args(mat[i], pipex);
+	}
+	i = -1;
+	while (mat[++i])
+	{
+		free(mat[i]);
+	}
+	free(mat);
+}

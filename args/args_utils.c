@@ -41,6 +41,8 @@ void	free_args(t_pipex *pipex)
 	while (pipex->args != 0)
 	{
 		tmp = pipex->args->next;
+		free(pipex->args->key);
+		free(pipex->args->value);
 		free(pipex->args);
 		pipex->args = tmp;
 	}
