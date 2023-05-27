@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char *envp[])
 	arg.key = "var";
 	arg.value = "10";
 	add_arg(&arg, &pipex);
-	str = ft_strdup("$var, $4, $f, $ff, $.");
+	str = ft_strdup("$var, $4, $44, $ff, $.");
 	res = sost_arg(str, &pipex);
 	printf("%s\n", str);
 	printf("%s\n", res);

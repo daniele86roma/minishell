@@ -57,14 +57,27 @@ char	*add_var2string(int *i, t_pipex *pipex, char	*s, char *new)
 	return (new);
 }
 
+void	cpy_str(char *newstr, int *i, char *s)
+{
+	char	*tmp;
+	int		j;
+
+	tmp = ft_strdup(newstr);
+	free(newstr);
+	newstr = malloc(ft_strlen(tmp) + 2);
+	j = -1;
+	while (tmp[++j])
+		newstr[j] = tmp[j];
+	free(tmp);
+	newstr[j] = s[*i];
+	newstr[++j] = 0;
+}
+
 char	*sost_arg(char *s, t_pipex *pipex)
 {
 	int		i;
 	char	*newstr;
 	int		apic;
-	char	*tmp;
-	int		j;
-
 
 	i = -1;
 	apic = 0;
@@ -76,17 +89,14 @@ char	*sost_arg(char *s, t_pipex *pipex)
 		if (apic % 2 == 0)
 		{
 			if (s[i] == '$')
-				newstr = add_var2string(&i, pipex, s, newstr);
+			{
+				if (ft_isalpha(s[i + 1]))
+					newstr = add_var2string(&i, pipex, s, newstr);
+				else if (s[i + 1] >=48 && s[i + 1] <= 57)
+					i += 2;
+			}
 		}
-		tmp = ft_strdup(newstr);
-		free(newstr);
-		newstr = malloc(ft_strlen(tmp) + 2);
-		j = -1;
-		while (tmp[++j])
-			newstr[j] = tmp[j];
-		free(tmp);
-		newstr[j] = s[i];
-		newstr[++j] = 0;
+		cpy_str(newstr, &i, s);
 	}
 	return (newstr);
 }
