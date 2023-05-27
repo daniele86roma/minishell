@@ -27,20 +27,12 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
 	char	**mat;
-	t_args	arg;
-	char	*str;
-	char	*res;
 
 	init(envp, &pipex, argc, argv);
 	mat = malloc(sizeof(char **) *10);
-	mat[0] = 0;
-	arg.key = "var";
-	arg.value = "10";
-	add_arg(&arg, &pipex);
-	str = ft_strdup("$var, $4, $44, $ff, $.");
-	res = sost_arg(str, &pipex);
-	printf("%s\n", str);
-	printf("%s\n", res);
+	mat[0] = "pwd";
+	mat[1] = "c";
+	mat[2] = 0;
 	parse(mat, &pipex);
 	exe(&pipex);
 	/*while (1)
@@ -51,9 +43,7 @@ int	main(int argc, char **argv, char *envp[])
 		using_history();
 		add_history(pipex.input);
 	}*/
-	free(str);
 	free(mat);
-	free(res);
 	free_total(&pipex);
 	return (0);
 }

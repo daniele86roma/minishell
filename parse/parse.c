@@ -14,9 +14,9 @@
 
 int	return_builtin(char **mat, int *i)
 {
-	if (ft_strncmp(mat[*i], "pwd", 3) == 0 || ft_strncmp(mat[*i], "env", 3) == 0 || ft_strncmp(mat[*i], "echo", 4) == 0)
+	if (ft_strcmp_args(mat[*i], "pwd") == 0 || ft_strcmp_args(mat[*i], "env") == 0 || ft_strcmp_args(mat[*i], "echo") == 0)
 		return (1);
-	if (ft_strncmp(mat[*i], "cd", 2) == 0 || ft_strncmp(mat[*i], "unset", 5) == 0 || ft_strncmp(mat[*i], "exit", 4) == 0 || ft_strncmp(mat[*i], "export", 6) == 0)
+	if (ft_strcmp_args(mat[*i], "cd") == 0 || ft_strcmp_args(mat[*i], "unset") == 0 || ft_strcmp_args(mat[*i], "exit") == 0 || ft_strcmp_args(mat[*i], "export") == 0)
 		return (2);
 	return (0);
 }
