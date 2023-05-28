@@ -22,6 +22,11 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
         ft_export(commands->args, pipex);
 	else if (ft_strncmp(commands->args, "unset", 5) == 0)
         ft_unset(commands->args, pipex);
+	else if (ft_strncmp(commands->args, "env", 5) == 0)
+	{
+        ft_env(pipex);
+		print_args(pipex);
+	}
     if (commands->redout == 0 && commands->next == 0)
 		dup2(pipex->stdout, 1);
 	else if (commands->redout != 0)
