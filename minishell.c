@@ -23,35 +23,36 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	pipex->args = 0;
 }
 
+void	free_mat(char **mat)
+{
+	int	i;
+
+	i = 0;
+	while (mat[i])
+	{
+		free(mat[i]);
+		i++;
+	}
+	free(mat);
+}
+
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
 	char	**mat;
 
 	init(envp, &pipex, argc, argv);
-	mat = malloc(sizeof(char **) *10);
-	mat[0] = "export";
-	mat[1] = "c=10 f=3";
-	mat[2] = 0;
-	parse(mat, &pipex);
-	exe(&pipex);
-	print_args(&pipex);
-	mat[0] = "unset";
-	mat[1] = "c";
-	mat[2] = "a";
-	mat[3] = 0;
-	parse(mat, &pipex);
-	exe(&pipex);
-	print_args(&pipex);
-	/*while (1)
+	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
-		if (pipex.input[0] == 48)
-			exit (0);
+		mat = ft_split(pipex.input, ' ');
+		parse(mat, &pipex);
+		free_mat(mat);
+		exe(&pipex);
 		using_history();
 		add_history(pipex.input);
-	}*/
-	free(mat);
+	}
+	
 	free_total(&pipex);
 	return (0);
 }
