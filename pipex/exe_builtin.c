@@ -17,7 +17,7 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
     if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
         return;
     if (ft_strncmp(commands->args, "exit", 4) == 0)
-        ft_exit();
+        ft_exit(commands->args);
 	else if (ft_strncmp(commands->args, "export", 6) == 0)
         ft_export(commands->args, pipex);
 	else if (ft_strncmp(commands->args, "unset", 5) == 0)

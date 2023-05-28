@@ -25,9 +25,13 @@ void	ft_pwd(void);
 void	ft_export(char *s, t_pipex *pipex);
 
 //EXIT
-void	ft_exit(void);
+void	ft_exit(char *s);
 
 //UNSET
 void	ft_unset(char *s, t_pipex *pipex);
+
+//CD
+
+//ECHO
 
 #endif
