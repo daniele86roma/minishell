@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char *envp[])
 	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
+		pipex.input = sost_arg(pipex.input, &pipex);
 		mat = ft_split(pipex.input, ' ');
 		parse(mat, &pipex);
 		free_mat(mat);
