@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_utils.c                                       :+:      :+:    :+:   */
+/*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,42 +12,54 @@
 
 #include "../minishell.h"
 
-int	exit_num(char *s)
+void    print_args(t_pipex *pipex)
 {
-	int	i;
+	t_args	*tmp;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i])
+	tmp = pipex->args;
+	while (tmp)
 	{
-		if (s[i] < 48 || s[i] > 57)
-		return (1);
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
-	return (0);
 }
 
-void	ft_exit(char *s)
+int	ft_strcmp_args(char *s1, char *s2)
 {
-	char	**mat;
-	int		i;
+	int i;
 
-	mat = ft_split(s, ' ');
 	i = 0;
-	while(mat[i])
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	if (i > 2)
-		write (2, "Minishell: exit: too many arguments\n", 37);
-	else if (i == 1)
+	return (s1[i] - s2[i]);
+}
+
+void	free_args(t_pipex *pipex)
+{
+	t_args	*tmp;
+
+	while (pipex->args != 0)
 	{
-		write(1, "exit\n", 5);
-		exit (0);
+		tmp = pipex->args->next;
+		free(pipex->args->key);
+		free(pipex->args->value);
+		free(pipex->args);
+		pipex->args = tmp;
 	}
-	else if (exit_num(mat[1]) == 1)
-		write (2, "Minishell: exit: a numeric argument is required\n", 49);
-	else
+}
+
+char	*get_var(char *key, t_pipex *pipex)
+{
+	t_args *tmp;
+
+	if (!key)
+		return (0);
+	tmp = pipex->args;
+	while (tmp)
 	{
-	write(1, "exit\n", 5);
-	exit (ft_atoi(mat[1]));
+		if (ft_strcmp_args(key, tmp->key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
+	return (0);
 }

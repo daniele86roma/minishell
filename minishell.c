@@ -20,34 +20,42 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	save_io(pipex);
 	ft_create_envp(pipex, envp);
 	pipex->commands = 0;
+	pipex->args = 0;
+}
+
+void	free_mat(char **mat)
+{
+	int	i;
+
+	i = 0;
+	while (mat[i])
+	{
+		free(mat[i]);
+		i++;
+	}
+	free(mat);
 }
 
 int	main(int argc, char **argv, char *envp[])
 {
-	t_pipex		pipex;
-	t_commands command;
+	t_pipex	pipex;
+	char	**mat;
 
-	
-	command.redout = 0;
-	command.redin = 1;
-	command.filein = "in";
-	command.fileout = "";
-	command.args = "cat";
-
-	
 	init(envp, &pipex, argc, argv);
-	new_commands(&command, &pipex);
-	create_red(&pipex);
-	exe(&pipex);
-	close_red(&pipex);
-	free_commands(&pipex);
-	/*while (1)
+	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
-		if (pipex.input[0] == 48)
-			exit (0);
+		pipex.sost = 1;
+		while (pipex.sost == 1)
+			pipex.input = sost_arg(pipex.input, &pipex);
+		mat = ft_split(pipex.input, ' ');
+		parse(mat, &pipex);
+		free_mat(mat);
+		exe(&pipex);
 		using_history();
 		add_history(pipex.input);
-	}*/
+	}
+	
+	free_total(&pipex);
 	return (0);
 }

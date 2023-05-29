@@ -21,8 +21,8 @@ void	ft_env(t_pipex *pipex);
 //PWD
 void	ft_pwd(void);
 
-//EXIT
-void	ft_exit(void);
+//EXPORT
+void	ft_export(char *s, t_pipex *pipex);
 
 //ECHO
 char	**preparsed_filter(char **strs);
@@ -38,5 +38,11 @@ char	*find_oldpwd(t_pipex *pipex);
 char	*find_pwd(t_pipex *pipex);
 void	overwrite_envp(t_pipex *pipex, char *path);
 int 	mycd(char **str, t_pipex *pipex);
+
+//EXIT
+void	ft_exit(char *s);
+
+//UNSET
+void	ft_unset(char *s, t_pipex *pipex);
 
 #endif

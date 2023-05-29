@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_utils.c                                       :+:      :+:    :+:   */
+/*   in_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,42 +12,31 @@
 
 #include "../minishell.h"
 
-int	exit_num(char *s)
+void	in_redirect(t_commands *command, t_pipex *pipex)
 {
-	int	i;
+	char	*input;
+	int		fd;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i])
+	dup2(pipex->stdin, 0);
+	fd =dup(1);
+	dup2(pipex->stdout, 1);
+	input = "start";
+	while (ft_strcmp_args(input, command->filein) != 0)
 	{
-		if (s[i] < 48 || s[i] > 57)
-		return (1);
+		input = readline(">");
+		if (ft_strcmp_args(input, command->filein) != 0)
+		{
+			write(command->fdin, input, ft_strlen(input));
+			write(command->fdin, "\n", 1);
+		}
 	}
-	return (0);
-}
-
-void	ft_exit(char *s)
-{
-	char	**mat;
-	int		i;
-
-	mat = ft_split(s, ' ');
-	i = 0;
-	while(mat[i])
-		i++;
-	if (i > 2)
-		write (2, "Minishell: exit: too many arguments\n", 37);
-	else if (i == 1)
+	close(command->fdin);
+	if (access(REDIN, F_OK) == 0)
 	{
-		write(1, "exit\n", 5);
-		exit (0);
+		command->fdin = open(REDIN, O_RDONLY);
+		if (command->fdin < 0)
+			msg_error(ERR_INFILE);
 	}
-	else if (exit_num(mat[1]) == 1)
-		write (2, "Minishell: exit: a numeric argument is required\n", 49);
-	else
-	{
-	write(1, "exit\n", 5);
-	exit (ft_atoi(mat[1]));
-	}
+	dup2(fd, 1);
+	close(fd);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_utils.c                                       :+:      :+:    :+:   */
+/*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,44 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef ARGS_H
+# define ARGS_H
 
-int	exit_num(char *s)
+typedef struct s_args
 {
-	int	i;
+	char		    *key;
+	char            *value;
+	struct s_args   *next;
+}	t_args;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i])
-	{
-		if (s[i] < 48 || s[i] > 57)
-		return (1);
-	}
-	return (0);
-}
+void    add_arg(t_args *arg, t_pipex *pipex);
+void    print_args(t_pipex *pipex);
+void	free_args(t_pipex *pipex);
+int     ft_strcmp_args(char *s1, char *s2);
+void	unset_args(char *key, t_pipex *pipex);
+char	*get_var(char *key, t_pipex *pipex);
+char	*sost_arg(char *s, t_pipex *pipex);
 
-void	ft_exit(char *s)
-{
-	char	**mat;
-	int		i;
-
-	mat = ft_split(s, ' ');
-	i = 0;
-	while(mat[i])
-		i++;
-	if (i > 2)
-		write (2, "Minishell: exit: too many arguments\n", 37);
-	else if (i == 1)
-	{
-		write(1, "exit\n", 5);
-		exit (0);
-	}
-	else if (exit_num(mat[1]) == 1)
-		write (2, "Minishell: exit: a numeric argument is required\n", 49);
-	else
-	{
-	write(1, "exit\n", 5);
-	exit (ft_atoi(mat[1]));
-	}
-}
+#endif

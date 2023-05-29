@@ -39,6 +39,7 @@ void	new_commands(t_commands *com, t_pipex *list)
 	new->args = com->args;
 	new->filein = com->filein;
 	new->fileout = com->fileout;
+	new->builtin = com->builtin;
 	add_command(new, list);
 }
 
@@ -51,8 +52,10 @@ void	free_commands(t_pipex *pipex)
 	tmp = pipex->commands;
 	while (com != 0)
 	{
+		free(com->args);
 		com = tmp->next;
 		free(tmp);
 		tmp = com;
 	}
+	pipex->commands = 0;
 }
