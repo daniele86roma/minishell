@@ -12,12 +12,6 @@
 
 #include "../minishell.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 int	find_homepath(t_pipex *pipex)
 {
 	int		i;
@@ -104,11 +98,3 @@ int	mycd(char **str, t_pipex *pipex)
 	else
 		return (printf("too many arguments\n") - 18);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	t_pipex pipex;
-
-// 	mycd(argv, &pipex);
-// 	return (0);
-// }
