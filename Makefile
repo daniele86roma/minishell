@@ -6,7 +6,7 @@
 #    By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 10:46:16 by dfiliagg          #+#    #+#              #
-#    Updated: 2023/05/22 12:15:30 by adi-fort         ###   ########.fr        #
+#    Updated: 2023/02/20 10:46:19 by dfiliagg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,54 +14,24 @@ NAME	= minishell
 FLAGS	=  -Wall -Wextra -Werror
 CC		= gcc ${FLAGS}
 RM		= rm -f
-<<<<<<< HEAD
 SRC		= minishell.c  free.c ${BLT} ${PIP} ${ARG} ${PRS}
-BLT     = builtin/envp_utils.c builtin/pwd_utils.c builtin/exit_utils.c builtin/our_echo.c
-PRS		= parse/parse.c 
+BLT     = builtin/envp_utils.c builtin/pwd_utils.c builtin/exit_utils.c builtin/our_echo.c builtin/our_cd.c
+PRS		= parse/parse.c parser/mshell.c parser/parser.c parser/ft_print.c parser/ft_print_error.c parser/ft_check.c parser/ft_strcmp.c
 ARG     = args/args_utils.c args/args.c args/sost_arg.c
 PIP		= pipex/pipex_utils.c pipex/pipex.c pipex/error.c pipex/check_file.c pipex/command_list.c pipex/exe_builtin.c pipex/in_redirect.c
-=======
-SRC		= minishell.c  free.c ${BLT} ${PIP} ${SIG}
-BLT     = builtin/envp_utils.c builtin/pwd_utils.c builtin/exit_utils.c
-PIP		= pipex/pipex_utils.c pipex/pipex.c pipex/error.c pipex/check_file.c
-SIG		= signal/signal.c
->>>>>>> origin/adi-fort
 OBJ		= ${SRC:.c=.o}
 LFT		= libft/libft.a
-
-RED		= \033[0;31m
-GREEN	= \033[0;32m
-YELLOW	= \033[1;33m
-BLUE	= \033[1;34m
-RESET	= \033[0;0m
 
 all: ${NAME}
 
 ${LFT}:
 		make -C libft
-
-%.o : %.c
-	@$(CC) $(FLAGS) -c $< -o $@
-	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
-	@printf "$(GREEN)\r%100s\r[%d/%d (%d%%)] $(GREEN)$<" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
-
-
-SRC_COUNT_TOT = $(shell expr $(shell echo -n $(SRC) $(BLT) $(PIP) $(SIG) $(LFT) | wc -w))
-SRC_COUNT = 0
-SRC_PCT = $(shell expr 100 \* $(SRC_COUNT) / $(SRC_COUNT_TOT))
+.o:.c
+	${CC} ${OBJ} -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJ} ${LFT}
 	${CC} ${OBJ} ${LFT} -o ${NAME} -lreadline
 	make clean
-	@printf "$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
-	@printf "$(RED)███    ███ ██ ███    ██ ██$(RESET) $(YELLOW)██████$(RESET) $(RED)██   ██ ███████ ██      ██      \n"
-	@printf "$(RED)████  ████ ██ ████   ██ ██$(RESET) $(YELLOW)██    $(RESET) $(RED)██   ██ ██      ██      ██      \n"
-	@printf "$(RED)██ ████ ██ ██ ██ ██  ██ ██$(RESET) $(YELLOW)██████$(RESET) $(RED)███████ █████   ██      ██      \n"
-	@printf "$(RED)██  ██  ██ ██ ██  ██ ██ ██$(RESET) $(YELLOW)    ██$(RESET) $(RED)██   ██ ██      ██      ██      \n"
-	@printf "$(RED)██      ██ ██ ██   ████ ██$(RESET) $(YELLOW)██████$(RESET) $(RED)██   ██ ███████ ███████ ███████ \n"
-	@printf "\n$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
-	@printf "$(YELLOW)                       AS PAINFULL AS HELL!\n$(RESET)"
-	@printf "$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
 
 clean:
 	${RM} ${OBJ}

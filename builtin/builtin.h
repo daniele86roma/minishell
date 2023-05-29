@@ -6,7 +6,7 @@
 /*   By: dcastagn <dcastagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:42:53 by dcastagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ char	*find_oldpwd(t_pipex *pipex);
 char	*find_pwd(t_pipex *pipex);
 void	overwrite_envp(t_pipex *pipex, char *path);
 int 	mycd(char **str, t_pipex *pipex);
+int     ft_cd(char **str, t_pipex *pipex);
 
 //EXIT
-void	ft_exit(void);
+void	ft_exit(char *s);
+
+//UNSET
+void	ft_unset(char *s, t_pipex *pipex);
+
 #endif

@@ -68,6 +68,7 @@ void	overwrite_envp(t_pipex *pipex, char *path)
 	b = find_oldpwd(pipex);
 	a = b;
 	b = path;
+	(void)a;
 }
 //aggiungere printf("%s\n", getcwd(s, 100)) per prova
 // 	char	s[100];
@@ -91,6 +92,33 @@ int	mycd(char **str, t_pipex *pipex)
 		chdir(path);
 		path = getcwd(0, 0);
 		if (strcmp(path, oldpath))
+			return (0);
+		else
+			return (printf("No such file or directory\n") - 25);
+	}
+	else
+		return (printf("too many arguments\n") - 18);
+}
+
+int	ft_cd(char **mat, t_pipex *pipex)
+{
+	int		args;
+	char	*path;
+	char	*oldpath;
+
+	args = -1;
+	while (mat[++args])
+		;
+	if (args == 0)
+		return (find_homepath(pipex));
+	else if (args == 1)
+	{
+		path = ft_strdup(mat[1]);
+		oldpath = getcwd(0, 0);
+		overwrite_envp(pipex, path);
+		chdir(path);
+		path = getcwd(0, 0);
+		if (ft_strcmp(path, oldpath))
 			return (0);
 		else
 			return (printf("No such file or directory\n") - 25);

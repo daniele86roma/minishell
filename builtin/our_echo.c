@@ -94,7 +94,7 @@ void	our_echo(char *s)
 	char	**str;
 	char	**argv;
 
-	argv = ft_split(s, ' ');
+	argv = mshell(s);
 	str = preparsed_filter(argv);
 	i = 1;
 	if (!str[i])
@@ -115,4 +115,5 @@ void	our_echo(char *s)
 		flag = 1;
 	echo_print(str, i, flag);
 	free_mat(str);
+	free_mat(argv);
 }

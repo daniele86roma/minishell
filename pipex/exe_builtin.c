@@ -14,6 +14,7 @@
 
 void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
+	char	**mat;
     if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
         return;
     if (ft_strncmp(commands->args, "exit", 4) == 0)
@@ -24,8 +25,11 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
         ft_unset(commands->args, pipex);
 	else if (ft_strncmp(commands->args, "echo", 4) == 0)
         our_echo(commands->args);
-	/*else if (ft_strncmp(commands->args, "cd", 2) == 0)
-        mycd(commands->args, pipex);*/
+	else if (ft_strncmp(commands->args, "cd", 2) == 0)
+	{	
+		mat = mshell(commands->args);
+        ft_cd(mat, pipex);
+	}
 	else if (ft_strncmp(commands->args, "env", 5) == 0)
 	{
         ft_env(pipex);

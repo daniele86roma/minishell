@@ -25,10 +25,10 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 {
 	if (!mat[*i])
 		return (0);
-	if (ft_strcmp_args(mat[*i], ">") == 0)
+	if (ft_strcmp_args(mat[*i], ">") == 0 && mat[*i + 1][0] != '>')
 	{
 		*i = *i + 1;
-		if (mat[*i] == 0 || mat[*i][0] == '|')
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<')
 		{
 			write(2, "bash: errore di sintassi vicino al token non atteso", 52);
 			return (1);
@@ -38,10 +38,10 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i +1;
 		return (0);
 	}
-	if (ft_strcmp_args(mat[*i], ">>") == 0)
+	if (ft_strcmp_args(mat[*i], ">") == 0 && mat[*i + 1][0] == '>')
 	{
-		*i = *i + 1;
-		if (mat[*i] == 0 || mat[*i][0] == '|')
+		*i = *i + 2;
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso", 52);
 			return (1);
@@ -58,10 +58,10 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 {
 	if (!mat[*i])
 		return (0);
-	if (ft_strcmp_args(mat[*i], "<") == 0)
+	if (ft_strcmp_args(mat[*i], "<") == 0 && mat[*i + 1][0] != '<')
 	{
 		*i = *i +1;
-		if (mat[*i] == 0 || mat[*i][0] == '|')
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>')
 		{
 			write(2, "bash: errore di sintassi vicino al token non atteso\n", 53);
 			return (1);
@@ -71,10 +71,10 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		return (0);
 	}
-	if (ft_strcmp_args(mat[*i], "<<") == 0)
+	if (ft_strcmp_args(mat[*i], "<") == 0 && mat[*i + 1][0] == '<')
 	{
-		*i = *i + 1;
-		if (mat[*i] == 0 || mat[*i][0] == '|')
+		*i = *i + 2;
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>')
 		{
 		write(2, "bash: errore di sintassi vicino al token non atteso\n", 53);
 			return (1);
@@ -94,9 +94,11 @@ void	parse(char **mat, t_pipex *pipex)
 	t_commands	com;
 	char		*arg;
 	char		*tmp;
+	char		*trim;
 
 	i = 0;
 	err = 0;
+	trim = 0;
 	while (err == 0 && mat[i])
 	{
 		com.redin = 0;
@@ -112,8 +114,10 @@ void	parse(char **mat, t_pipex *pipex)
 				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
-			arg = ft_strjoin(tmp, mat[i]);
+			trim = ft_strtrim(mat[i], "\"'");
+			arg = ft_strjoin(tmp, trim);
 			free(tmp);
+			free(trim);
 			i++;
 		}
 		if (err == 1)
@@ -130,5 +134,4 @@ void	parse(char **mat, t_pipex *pipex)
 			break;
 		i++;
 	}
-	//freematrice;
 }

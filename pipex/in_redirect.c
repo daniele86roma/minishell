@@ -38,5 +38,5 @@ void	in_redirect(t_commands *command, t_pipex *pipex)
 			msg_error(ERR_INFILE);
 	}
 	dup2(fd, 1);
-	//close(fd);
+	close(fd);
 }
