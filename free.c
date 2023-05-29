@@ -48,4 +48,12 @@ void	free_total(t_pipex *pipex)
 	free_args(pipex);
 }
 
+void	free_mat(char **mat)
+{
+	int	i;
 
+	i = -1;
+	while (mat[++i])
+		free(mat[i]);
+	free(mat);
+}
