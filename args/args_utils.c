@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,38 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void    print_args(t_pipex *pipex)
+{
+	t_args	*tmp;
 
-//libreria libft
-# include "libft/libft.h"
+	tmp = pipex->args;
+	while (tmp)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+}
 
-//libreria per pipex
-# include "pipex/pipex.h"
+int	ft_strcmp_args(char *s1, char *s2)
+{
+	int i;
 
-//libreria per builtin
-# include "builtin/builtin.h"
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 
-//libreria per args
-# include "args/args.h"
+void	free_args(t_pipex *pipex)
+{
+	t_args	*tmp;
 
-//libreria per parsing
-# include "parse/parse.h"
+	while (pipex->args != 0)
+	{
+		tmp = pipex->args->next;
+		free(pipex->args);
+		pipex->args = tmp;
+	}
+}
 
-//libreria per parsing
-# include "parser/parser.h"
+char	*get_var(char *key, t_pipex *pipex)
+{
+	t_args *tmp;
 
-#endif
+	tmp = pipex->args;
+	while (tmp)
+	{
+		if (ft_strcmp_args(key, tmp->key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (0);
+}

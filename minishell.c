@@ -20,27 +20,28 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	save_io(pipex);
 	ft_create_envp(pipex, envp);
 	pipex->commands = 0;
+	pipex->args = 0;
 }
 
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex		pipex;
-	t_commands command;
+	char		**mat;
 
-	
-	command.redout = 0;
-	command.redin = 1;
-	command.filein = "in";
-	command.fileout = "";
-	command.args = "cat";
-
-	
 	init(envp, &pipex, argc, argv);
-	new_commands(&command, &pipex);
-	create_red(&pipex);
+	mat = malloc(sizeof(char **) *10);
+	mat[0] = "cat";
+	mat[1] = "<<";
+	mat[2] = "test";
+	mat[3] = "|";
+	mat[4] = "cat";
+	mat[5] = ">";
+	mat[6] = "out";
+	mat[7] = 0;
+	parse(mat, &pipex);
 	exe(&pipex);
-	close_red(&pipex);
-	free_commands(&pipex);
+	free(mat);
+	free_total(&pipex);
 	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_utils.c                                        :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lde-mich <lde-mich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Created: 2023/05/18 15:11:16 by lde-mich          #+#    #+#             */
+/*   Updated: 2023/05/18 15:12:18 by lde-mich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_print_parser(t_parser *parser)
 {
-	char	*pwd;
+	int	i;
 
-	pwd = getcwd(0, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
-	free(pwd);
+	i = 0;
+	while (parser->chest[i])
+	{
+		printf("%s\n", parser->chest[i]);
+		i++;
+	}
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exe_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,38 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
+{
+    if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
+        return;
+    if (ft_strncmp(commands->args, "exit", 4) == 0)
+        ft_exit();  
+    if (commands->redout == 0 && commands->next == 0)
+		dup2(pipex->stdout, 1);
+	else if (commands->redout != 0)
+	    dup2(commands->fdout, 1);	
+	else
+		dup2(pip[1], 1);
+	close(pip[1]);
+	close(*fd);
+	if (ft_strncmp(commands->args, "pwd", 3) == 0)
+        ft_pwd();
+}
 
-//libreria libft
-# include "libft/libft.h"
+int	is_path(char *s)
+{
+	int	i;
 
-//libreria per pipex
-# include "pipex/pipex.h"
-
-//libreria per builtin
-# include "builtin/builtin.h"
-
-//libreria per args
-# include "args/args.h"
-
-//libreria per parsing
-# include "parse/parse.h"
-
-//libreria per parsing
-# include "parser/parser.h"
-
-#endif
+	i = -1;
+	while (s[++i] != 0)
+	{
+		if (s[i] == '/')
+			return(1);
+	}
+	return (0);
+}

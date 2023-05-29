@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   in_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,38 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../minishell.h"
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	in_redirect(t_commands *command, t_pipex *pipex)
+{
+	char	*input;
+	int		fd;
 
-//libreria libft
-# include "libft/libft.h"
-
-//libreria per pipex
-# include "pipex/pipex.h"
-
-//libreria per builtin
-# include "builtin/builtin.h"
-
-//libreria per args
-# include "args/args.h"
-
-//libreria per parsing
-# include "parse/parse.h"
-
-//libreria per parsing
-# include "parser/parser.h"
-
-#endif
+	dup2(pipex->stdin, 0);
+	fd =dup(1);
+	dup2(pipex->stdout, 1);
+	input = "start";
+	while (ft_strcmp_args(input, command->filein) != 0)
+	{
+		input = readline(">");
+		if (ft_strcmp_args(input, command->filein) != 0)
+		{
+			write(command->fdin, input, ft_strlen(input));
+			write(command->fdin, "\n", 1);
+		}
+	}
+	close(command->fdin);
+	if (access(REDIN, F_OK) == 0)
+	{
+		command->fdin = open(REDIN, O_RDONLY);
+		if (command->fdin < 0)
+			msg_error(ERR_INFILE);
+	}
+	dup2(fd, 1);
+	close(fd);
+}

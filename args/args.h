@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,38 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ARGS_H
+# define ARGS_H
 
-// librerie standard
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+typedef struct s_args
+{
+	char		    *key;
+	char            *value;
+	struct s_args   *next;
+}	t_args;
 
-//libreria libft
-# include "libft/libft.h"
-
-//libreria per pipex
-# include "pipex/pipex.h"
-
-//libreria per builtin
-# include "builtin/builtin.h"
-
-//libreria per args
-# include "args/args.h"
-
-//libreria per parsing
-# include "parse/parse.h"
-
-//libreria per parsing
-# include "parser/parser.h"
+void    add_arg(t_args *arg, t_pipex *pipex);
+void    print_args(t_pipex *pipex);
+void	free_args(t_pipex *pipex);
+int     ft_strcmp_args(char *s1, char *s2);
+void    print_args(t_pipex *pipex);
+void	unset_args(t_args *arg, t_pipex *pipex);
+char	*get_var(char *key, t_pipex *pipex);
 
 #endif
