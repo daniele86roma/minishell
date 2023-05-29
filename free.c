@@ -56,4 +56,5 @@ void	free_mat(char **mat)
 	while (mat[++i])
 		free(mat[i]);
 	free(mat);
+	mat = 0;
 }

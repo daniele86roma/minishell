@@ -87,12 +87,14 @@ int	echoflagcheck(char *str)
 	return (1);
 }
 
-void	our_echo(char **argv)
+void	our_echo(char *s)
 {
 	int		i;
 	int		flag;
 	char	**str;
+	char	**argv;
 
+	argv = ft_split(s, ' ');
 	str = preparsed_filter(argv);
 	i = 1;
 	if (!str[i])
@@ -102,7 +104,7 @@ void	our_echo(char **argv)
 		free(str);
 		return ;
 	}
-	if (!strncmp(str[i], "-n", 2) && echoflagcheck(str[i]))
+	if (!ft_strncmp(str[i], "-n", 2) && echoflagcheck(str[i]))
 	{
 		flag = 0;
 		i++;

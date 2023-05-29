@@ -30,7 +30,7 @@ void	free_mat(char **mat);
 void	printwoquotes(char *cmd);
 void	echo_print(char **str, int i, int flag);
 int		echoflagcheck(char *str);
-void	our_echo(char **argv);
+void	our_echo(char *argv);
 
 //CD
 int		find_homepath(t_pipex *pipex);

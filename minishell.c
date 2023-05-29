@@ -70,27 +70,26 @@ int	main(int argc, char **argv, char *envp[])
 	mat[4]="cat";
 	mat[5]="<<";
 	mat[6]="out";
-	mat[7]=0;*/
+	mat[7]=0;
 	pipex.input = readline("MiniShell> ");
 		pipex.sost = 1;
 		while (pipex.sost == 1)
 			pipex.input = sost_arg(pipex.input, &pipex);
-		mat = ft_split(pipex.input, ' ');
-		print_mat(mat);
-	/*while (1)
+		mat = ft_split(pipex.input, ' ');*/
+	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
-		pipex.sost = 1;
+		/*pipex.sost = 1;
 		while (pipex.sost == 1)
-			pipex.input = sost_arg(pipex.input, &pipex);
+			pipex.input = sost_arg(pipex.input, &pipex);*/
 		mat = ft_split(pipex.input, ' ');
 		parse(mat, &pipex);
 		free_mat(mat);
 		exe(&pipex);
 		using_history();
 		add_history(pipex.input);
-	}*/
-	free(mat);
+	}
+	free_mat(mat);
 	free_total(&pipex);
 	return (0);
 }
