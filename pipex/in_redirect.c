@@ -18,7 +18,7 @@ void	in_redirect(t_commands *command, t_pipex *pipex)
 	int		fd;
 
 	dup2(pipex->stdin, 0);
-	fd =dup(1);
+	fd = dup(1);
 	dup2(pipex->stdout, 1);
 	input = "start";
 	while (ft_strcmp_args(input, command->filein) != 0)
@@ -38,5 +38,5 @@ void	in_redirect(t_commands *command, t_pipex *pipex)
 			msg_error(ERR_INFILE);
 	}
 	dup2(fd, 1);
-	close(fd);
+	//close(fd);
 }

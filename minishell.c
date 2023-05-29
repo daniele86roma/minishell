@@ -23,17 +23,37 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	pipex->args = 0;
 }
 
-void	free_mat(char **mat)
+void	var_mat(t_pipex *pipex, char **mat)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	i = 0;
-	while (mat[i])
+	if (!mat)
+		return ;
+	pipex->sost = 1;
+	while (pipex->sost == 1)
 	{
-		free(mat[i]);
-		i++;
+		i = -1;
+		while (mat[++i])
+		{
+			if (mat[i][0] == '\'')
+				continue;
+			tmp = sost_arg(mat[i], pipex);
+			free(mat[i]);
+			mat[i] = tmp;
+			free(tmp);
+		}
 	}
-	free(mat);
+}
+
+void	print_mat(char **mat)
+{
+	int i = -1;
+
+	while(mat[++i])
+	{
+		printf("%s", mat[i]);
+	}
 }
 
 int	main(int argc, char **argv, char *envp[])
@@ -42,7 +62,22 @@ int	main(int argc, char **argv, char *envp[])
 	char	**mat;
 
 	init(envp, &pipex, argc, argv);
-	while (1)
+	/*mat = malloc(sizeof(char **)*10);
+	mat[0]="<<";
+	mat[1]="test";
+	mat[2]="cat";
+	mat[3]="|";
+	mat[4]="cat";
+	mat[5]="<<";
+	mat[6]="out";
+	mat[7]=0;*/
+	pipex.input = readline("MiniShell> ");
+		pipex.sost = 1;
+		while (pipex.sost == 1)
+			pipex.input = sost_arg(pipex.input, &pipex);
+		mat = ft_split(pipex.input, ' ');
+		print_mat(mat);
+	/*while (1)
 	{
 		pipex.input = readline("MiniShell> ");
 		pipex.sost = 1;
@@ -54,8 +89,8 @@ int	main(int argc, char **argv, char *envp[])
 		exe(&pipex);
 		using_history();
 		add_history(pipex.input);
-	}
-	
+	}*/
+	free(mat);
 	free_total(&pipex);
 	return (0);
 }

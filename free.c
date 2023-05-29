@@ -47,5 +47,3 @@ void	free_total(t_pipex *pipex)
 	close(pipex->stdout);
 	free_args(pipex);
 }
-
-
