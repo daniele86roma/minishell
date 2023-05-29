@@ -12,36 +12,10 @@
 
 #include "minishell.h"
 
-void	free_path(t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (pipex->path[i])
-	{
-		free(pipex->path[i]);
-		i++;
-	}
-	free(pipex->path);
-}
-
-void	child_free(t_commands *com)
-{
-	int	i;
-
-	i = 0;
-	while (com->cmd_args[i])
-	{
-		free(com->cmd_args[i]);
-		i++;
-	}
-	free(com->cmd_args);
-	free(com->command);
-}
-
 void	free_total(t_pipex *pipex)
 {
 	free_envp(pipex);
+<<<<<<< HEAD
 	free_path(pipex);
 	close(pipex->stdin);
 	close(pipex->stdout);
@@ -58,3 +32,6 @@ void	free_mat(char **mat)
 	free(mat);
 	mat = 0;
 }
+=======
+}
+>>>>>>> origin/adi-fort

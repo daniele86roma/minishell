@@ -12,6 +12,7 @@
 
 #include "../minishell.h"
 
+<<<<<<< HEAD
 int	create_child(t_commands *commands, t_pipex *pipex)
 {
 	commands->cmd_args = ft_split(commands->args, ' ');
@@ -30,6 +31,8 @@ int	create_child(t_commands *commands, t_pipex *pipex)
 	return (0);
 }
 
+=======
+>>>>>>> origin/adi-fort
 int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
 	if (commands->redout == 0 && commands->next == 0)
@@ -40,6 +43,7 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		dup2(pip[1], 1);
 	close(pip[1]);
 	close(pip[0]);
+<<<<<<< HEAD
 	if (commands->redin == 1)
 		dup2(commands->fdin, 0);
 	else if (commands->redin == 2)
@@ -52,6 +56,17 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	close(*fd);
 	if (create_child(commands, pipex) == 1)
 		exit (1);
+=======
+	commands->cmd_args = ft_split(commands->args, ' ');
+	commands->command = get_cmd(pipex->path, commands->cmd_args[0]);
+		if (!commands->command)
+		{
+			msg(ERR_CMD);
+			exit(1);
+		}
+	dup2(*fd, 0);
+	close(*fd);
+>>>>>>> origin/adi-fort
 	execve(commands->command, commands->cmd_args, pipex->envp);
 	return (error("error: cannot execute ", commands->command));
 }
@@ -62,7 +77,6 @@ void	close_parent(int *tmp, int *fd)
 	close(fd[1]);
 	*tmp = fd[0];
 }
-
 void	wait_process(int *tmp, t_commands *wp)
 {
 	close(*tmp);
@@ -83,10 +97,14 @@ void	exe(t_pipex *pipex)
 	t_commands  *wp;
 	t_commands	*commands;
 
+<<<<<<< HEAD
 	if (!pipex->commands)
 		return ;
 	create_red(pipex);
+=======
+>>>>>>> origin/adi-fort
 	tmp = dup(pipex->commands->fdin);
+
 	wp = pipex->commands;
 	commands = pipex->commands;
 	while (commands != 0)
@@ -109,7 +127,10 @@ void	exe(t_pipex *pipex)
 		commands = commands->next;
 	}
 	wait_process(&tmp, wp);
+<<<<<<< HEAD
 	close_red(pipex);
 	if (pipex->commands)
 		free_commands(pipex);
+=======
+>>>>>>> origin/adi-fort
 }

@@ -21,21 +21,21 @@
 typedef struct s_commands
 {
 	int					pid;
-	int					redout;
+	int					redout; //>> > 0
 	int					redin;
 	int					fdin;
 	int					fdout;
-	char				*args;
-	char				**cmd_args; 
-	char				*command;  
-	char				*filein;
-	char				*fileout;
+	char				*args;   // comando + arg + opzioni
+	char				**cmd_args;
+	char				*command;
+	char				*filein;   //<FILE
+	char				*fileout;  //>FILEOUT
 	struct s_commands	*next;
-	int					builtin;
 }	t_commands;
 
 typedef struct s_init
 {
+<<<<<<< HEAD
 	char			*input;
 	int				stdin;
 	int				stdout;
@@ -44,6 +44,13 @@ typedef struct s_init
 	t_commands		*commands;
 	struct s_args	*args;
 	int				sost;
+=======
+	int			stdin;
+	int			stdout;
+	char		**path;
+	char		**envp;
+	t_commands	*commands;
+>>>>>>> origin/adi-fort
 }	t_pipex;
 
 //error.c
@@ -63,6 +70,7 @@ void	exe(t_pipex *pipex);
 void	create_red(t_pipex *pipex);
 void	close_red(t_pipex *pipex);
 
+<<<<<<< HEAD
 //free.c
 void	child_free(t_commands *com);
 void	free_total(t_pipex *pipex);
@@ -79,3 +87,6 @@ int	is_path(char *s);
 void	in_redirect(t_commands *command, t_pipex *pipex);
 
 #endif
+=======
+#endif
+>>>>>>> origin/adi-fort

@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:21:17 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 //libreria libft
 # include "libft/libft.h"
@@ -40,5 +41,9 @@
 
 //libreria per parsing
 # include "parse/parse.h"
+//libreria per signal
+# include "signal/signal.h"
+
+int	g_exitcode;
 
 #endif
