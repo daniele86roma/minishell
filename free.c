@@ -43,6 +43,17 @@ void	free_total(t_pipex *pipex)
 {
 	free_envp(pipex);
 	free_path(pipex);
+	close(pipex->stdin);
+	close(pipex->stdout);
+	free_args(pipex);
 }
 
+void	free_mat(char **mat)
+{
+	int	i;
 
+	i = -1;
+	while (mat[++i])
+		free(mat[i]);
+	free(mat);
+}
