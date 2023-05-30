@@ -6,7 +6,7 @@
 #    By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 10:46:16 by dfiliagg          #+#    #+#              #
-#    Updated: 2023/05/22 12:15:30 by adi-fort         ###   ########.fr        #
+#    Updated: 2023/05/30 12:42:19 by adi-fort         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,21 +30,21 @@ RESET	= \033[0;0m
 all: ${NAME}
 
 ${LFT}:
-		make -C libft
+		@make -C libft > /dev/null
 
 %.o : %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
-	@printf "$(GREEN)\r%100s\r[%d/%d (%d%%)] $(GREEN)$<" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
+	@printf "\r\033[K$(GREEN)%100s\r[%d/%d (%d%%)] $(GREEN)$<" "" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
 
 
-SRC_COUNT_TOT = $(shell expr $(shell echo -n $(SRC) $(BLT) $(PIP) $(SIG) $(LFT) | wc -w))
+SRC_COUNT_TOT = $(shell expr $(shell echo -n $(SRC) | wc -w))
 SRC_COUNT = 0
 SRC_PCT = $(shell expr 100 \* $(SRC_COUNT) / $(SRC_COUNT_TOT))
 
 ${NAME}: ${OBJ} ${LFT}
-	${CC} ${OBJ} ${LFT} -o ${NAME} -lreadline
-	make clean
+	@${CC} ${OBJ} ${LFT} -o ${NAME} -lreadline
+	@printf "\r\033[K$(GREEN)Go ahead, have fun!\n$(RESET)"
 	@printf "$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
 	@printf "$(RED)███    ███ ██ ███    ██ ██$(RESET) $(YELLOW)██████$(RESET) $(RED)██   ██ ███████ ██      ██      \n"
 	@printf "$(RED)████  ████ ██ ████   ██ ██$(RESET) $(YELLOW)██    $(RESET) $(RED)██   ██ ██      ██      ██      \n"
@@ -56,12 +56,13 @@ ${NAME}: ${OBJ} ${LFT}
 	@printf "$(BLUE)-------------------------------------------------------------------------\n$(RESET)"
 
 clean:
-	${RM} ${OBJ}
-	make clean -C libft
+	@${RM} ${OBJ}
+	@make clean -C libft > /dev/null
 
 fclean: clean
-	${RM} ${NAME}
-	make fclean -C libft
+	@${RM} ${NAME}
+	@make fclean -C libft > /dev/null
+	@printf "$(GREEN)Ready to start\n$(RESET)"
 
 re: fclean all
 
