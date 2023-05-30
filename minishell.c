@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:46:33 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,17 @@ void	print_mat(char **mat)
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
-	
+		
 	init(envp, &pipex, argc, argv);
+	ft_signal();
 	while (1)
 	{
 		pipex.input = readline("MiniShell> ");
-		using_history();
+		if (!pipex.input)
+			//free!!!!!!
+			exit(0);
+		else if (pipex.input[0] == 0)
+			continue ;
 		add_history(pipex.input);
 		pipex.mat = mshell(pipex.input);
 		var_mat(&pipex, pipex.mat);
