@@ -15,5 +15,4 @@
 
 void	ft_signal(void);
 
-
 #endif

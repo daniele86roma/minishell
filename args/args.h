@@ -27,5 +27,6 @@ int     ft_strcmp_args(char *s1, char *s2);
 void	unset_args(char *key, t_pipex *pipex);
 char	*get_var(char *key, t_pipex *pipex);
 char	*sost_arg(char *s, t_pipex *pipex);
+void	var_mat(t_pipex *pipex, char **mat);
 
 #endif

@@ -24,31 +24,6 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	pipex->args = 0;
 }
 
-void	var_mat(t_pipex *pipex, char **mat)
-{
-	int		i;
-	char	*tmp;
-
-	if (!mat)
-		return ;
-	pipex->sost = 1;
-	while (pipex->sost == 1)
-	{
-		i = -1;
-		while (mat[++i])
-		{
-			if (mat[i][0] == '\'')
-			{
-				pipex->sost = 0;
-				continue;
-			}
-			tmp = sost_arg(mat[i], pipex);
-			free(mat[i]);
-			mat[i] = tmp;
-		}
-	}
-}
-
 void	print_mat(char **mat)
 {
 	int i = -1;
@@ -59,9 +34,31 @@ void	print_mat(char **mat)
 	}
 }
 
+char	*mat_to_string(char **mat)
+{
+	int		i;
+	char	*arg;
+	char	*tmp;
+
+	i = 0;
+	arg = ft_strdup("");
+	while (mat[i])
+	{
+		tmp = ft_strjoin(arg, " ");
+		free(arg);
+		arg = ft_strjoin(tmp, mat[i]);
+		free(tmp);
+		i++;
+	}
+	tmp = ft_strtrim(arg, " ");
+	free(arg);
+	return(tmp);
+}
+
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
+	char	*s;
 		
 	init(envp, &pipex, argc, argv);
 	ft_signal();
@@ -73,11 +70,14 @@ int	main(int argc, char **argv, char *envp[])
 			exit(0);
 		else if (pipex.input[0] == 0)
 			continue ;
-		add_history(pipex.input);
-		pipex.mat = mshell(pipex.input);
+				pipex.mat = mshell(pipex.input);
+		s = mat_to_string(pipex.mat);
+		//FREE PIPEX.MAT;
+		pipex.mat = mshell(s);
+		free(s);
 		var_mat(&pipex, pipex.mat);
 		parse(pipex.mat, &pipex);
-		exe(&pipex);
+		exe(&pipex);;
 		//freepipex.mat
 	}
 	free_total(&pipex);

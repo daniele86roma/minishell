@@ -12,6 +12,22 @@
 
 #include "../minishell.h"
 
+void	var_mat(t_pipex *pipex, char **mat)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (mat[++i])
+	{
+		if (mat[i][0] == '\'')
+			continue;
+		tmp = sost_arg(mat[i], pipex);
+		free(mat[i]);
+		mat[i] = tmp;
+	}
+}
+
 char	*get_name_var(char *s, int *i)
 {
 	char	*var;
@@ -57,20 +73,21 @@ char	*add_var2string(int *i, t_pipex *pipex, char	*s, char *new)
 	return (new);
 }
 
-void	cpy_str(char *newstr, int *i, char *s)
+char	*cpy_str(char *newstr, char s)
 {
 	char	*tmp;
 	int		j;
 
 	tmp = ft_strdup(newstr);
 	free(newstr);
-	newstr = malloc(ft_strlen(tmp) + 2);
+	newstr = malloc(sizeof(char)*(ft_strlen(tmp) + 2));
 	j = -1;
 	while (tmp[++j])
 		newstr[j] = tmp[j];
 	free(tmp);
-	newstr[j] = s[*i];
+	newstr[j] = s;
 	newstr[++j] = 0;
+	return(newstr);
 }
 
 char	*sost_arg(char *s, t_pipex *pipex)
@@ -80,23 +97,24 @@ char	*sost_arg(char *s, t_pipex *pipex)
 
 	i = -1;
 	newstr = ft_strdup("");
-	pipex->sost = 0;
 	while (s[++i])
 	{
-	if (s[i] == '$')
+		if (s[i] == '$')
 		{
-			if (ft_isalpha(s[i + 1]))
+			if (s[i + 1] && ft_isalpha(s[i + 1]))
 			{
 				newstr = add_var2string(&i, pipex, s, newstr);
 				pipex->sost = 1;
 			}
-			else if (s[i + 1] >=48 && s[i + 1] <= 57)
+			else if (s[i + 1] && s[i + 1] >=48 && s[i + 1] <= 57)
 			{
 				pipex->sost = 1;
-				i += 2;
+				if(s[i + 2])
+					i += 1;
 			}
 		}
-		cpy_str(newstr, &i, s);
+		if (s[i])
+			newstr = cpy_str(newstr, s[i]);
 	}
 	return (newstr);
 }

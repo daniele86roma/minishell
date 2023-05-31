@@ -46,6 +46,6 @@
 //libreria per signal
 # include "signal/signal.h"
 
-int	g_exitcode;
+int g_exitcode;
 
 #endif
