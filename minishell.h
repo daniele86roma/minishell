@@ -44,8 +44,8 @@
 # include "parser/parser.h"
 
 //libreria per signal
-# include "signal/signal.h"
+#include "signal/signal.h"
 
-int g_exitcode;
+extern int g_exitcode;
 
 #endif

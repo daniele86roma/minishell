@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int	g_exitcode;
+
 void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 {
 	(void)argv;
@@ -66,19 +68,21 @@ int	main(int argc, char **argv, char *envp[])
 	{
 		pipex.input = readline("MiniShell> ");
 		if (!pipex.input)
-			//free!!!!!!
+		{
+			free_total(&pipex);
 			exit(0);
+		}
 		else if (pipex.input[0] == 0)
 			continue ;
-				pipex.mat = mshell(pipex.input);
+		pipex.mat = mshell(pipex.input);
 		s = mat_to_string(pipex.mat);
 		//FREE PIPEX.MAT;
 		pipex.mat = mshell(s);
 		free(s);
 		var_mat(&pipex, pipex.mat);
 		parse(pipex.mat, &pipex);
-		exe(&pipex);;
-		//freepipex.mat
+		exe(&pipex);
+		//FREE PIPEX.MAT*/
 	}
 	free_total(&pipex);
 	return (0);

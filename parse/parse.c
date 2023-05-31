@@ -114,10 +114,17 @@ void	parse(char **mat, t_pipex *pipex)
 				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
+			if (i == 0)
+			{
+				arg = ft_strjoin(tmp, mat[i]);
+			}
+			else
+			{
 			trim = ft_strtrim(mat[i], "\"'");
 			arg = ft_strjoin(tmp, trim);
-			free(tmp);
 			free(trim);
+			}
+			free(tmp);
 			i++;
 		}
 		if (err == 1)
