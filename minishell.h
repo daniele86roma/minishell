@@ -46,6 +46,9 @@
 //libreria per signal
 #include "signal/signal.h"
 
+char	*mat_to_string(char **mat);
+void	print_mat(char **mat);
+
 extern int g_exitcode;
 
 #endif

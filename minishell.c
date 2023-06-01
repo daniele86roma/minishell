@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char *envp[])
 		}
 		else if (pipex.input[0] == 0)
 			continue ;
+		add_history(pipex.input);
 		pipex.mat = mshell(pipex.input);
 		s = mat_to_string(pipex.mat);
 		//FREE PIPEX.MAT;
@@ -82,7 +83,7 @@ int	main(int argc, char **argv, char *envp[])
 		var_mat(&pipex, pipex.mat);
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
-		//FREE PIPEX.MAT*/
+		//FREE PIPEX.MAT
 	}
 	free_total(&pipex);
 	return (0);

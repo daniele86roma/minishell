@@ -31,8 +31,10 @@ void	ft_exit(char *s)
 {
 	char	**mat;
 	int		i;
+	int		n;
 
 	mat = ft_split(s, ' ');
+	cmd_trim(mat);
 	i = 0;
 	while(mat[i])
 		i++;
@@ -40,6 +42,7 @@ void	ft_exit(char *s)
 		write (2, "Minishell: exit: too many arguments\n", 37);
 	else if (i == 1)
 	{
+		free_mat(mat);
 		write(1, "exit\n", 5);
 		exit (0);
 	}
@@ -47,7 +50,9 @@ void	ft_exit(char *s)
 		write (2, "Minishell: exit: a numeric argument is required\n", 49);
 	else
 	{
+	n = ft_atoi(mat[1]);
 	write(1, "exit\n", 5);
-	exit (ft_atoi(mat[1]));
+	free_mat(mat);
+	exit ((n));
 	}
 }

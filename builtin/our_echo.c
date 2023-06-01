@@ -94,7 +94,7 @@ void	our_echo(char *s)
 	char	**str;
 	char	**argv;
 
-	argv = ft_split(s, ' ');
+	argv = ft_split(s, ' ');    
 	str = preparsed_filter(argv);
 	i = 1;
 	if (!str[i])

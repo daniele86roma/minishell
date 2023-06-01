@@ -17,7 +17,17 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	char	**mat;
     if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
         return;
-    if (ft_strncmp(commands->args, "exit", 4) == 0)
+    if (commands->redout == 0 && commands->next == 0)
+		dup2(pipex->stdout, 1);
+	else if (commands->redout != 0)
+	    dup2(commands->fdout, 1);	
+	else
+		dup2(pip[1], 1);
+	close(pip[1]);
+	close(*fd);
+	if (ft_strncmp(commands->args, "pwd", 3) == 0)
+        ft_pwd();
+	else if (ft_strncmp(commands->args, "exit", 4) == 0)
         ft_exit(commands->args);
 	else if (ft_strncmp(commands->args, "export", 6) == 0)
         ft_export(commands->args, pipex);
@@ -35,16 +45,6 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
         ft_env(pipex);
 		print_args(pipex);
 	}
-    if (commands->redout == 0 && commands->next == 0)
-		dup2(pipex->stdout, 1);
-	else if (commands->redout != 0)
-	    dup2(commands->fdout, 1);	
-	else
-		dup2(pip[1], 1);
-	close(pip[1]);
-	close(*fd);
-	if (ft_strncmp(commands->args, "pwd", 3) == 0)
-        ft_pwd();
 }
 
 int	is_path(char *s)
