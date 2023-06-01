@@ -114,7 +114,7 @@ void	parse(char **mat, t_pipex *pipex)
 				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
-			if (i == 0)
+			if (i == 0 || mat[i - 1][0] == '|')
 			{
 				arg = ft_strjoin(tmp, mat[i]);
 			}
