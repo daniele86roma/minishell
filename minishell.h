@@ -41,7 +41,6 @@
 
 //libreria per parsing
 # include "parse/parse.h"
-# include "parser/parser.h"
 
 //libreria per signal
 #include "signal/signal.h"

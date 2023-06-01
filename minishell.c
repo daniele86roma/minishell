@@ -24,6 +24,7 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	ft_create_envp(pipex, envp);
 	pipex->commands = 0;
 	pipex->args = 0;
+		
 }
 
 void	print_mat(char **mat)
@@ -61,7 +62,7 @@ int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
 	char	*s;
-		
+
 	init(envp, &pipex, argc, argv);
 	ft_signal();
 	while (1)
@@ -75,15 +76,14 @@ int	main(int argc, char **argv, char *envp[])
 		else if (pipex.input[0] == 0)
 			continue ;
 		add_history(pipex.input);
-		pipex.mat = mshell(pipex.input);
-		s = mat_to_string(pipex.mat);
-		//FREE PIPEX.MAT;
-		pipex.mat = mshell(s);
-		free(s);
+		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
+		s = mat_to_string(pipex.mat);
+		pipex.mat = create_matrix(s);
+		free(s);
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
-		//FREE PIPEX.MAT
+		free_mat(pipex.mat);
 	}
 	free_total(&pipex);
 	return (0);

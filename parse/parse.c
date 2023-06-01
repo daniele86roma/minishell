@@ -131,3 +131,19 @@ void	parse(char **mat, t_pipex *pipex)
 		i++;
 	}
 }
+
+void	trim_mat(char **mat)
+{
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	if(!mat)
+		return;
+	while(mat[++i])
+	{
+		tmp = ft_strtrim(mat[i], " ");
+		free(mat[i]);
+		mat[i] = tmp;
+	}
+}

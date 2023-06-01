@@ -33,7 +33,7 @@ void	ft_exit(char *s)
 	int		i;
 	int		n;
 
-	mat = ft_split(s, ' ');
+	mat = create_matrix(s);
 	cmd_trim(mat);
 	i = 0;
 	while(mat[i])

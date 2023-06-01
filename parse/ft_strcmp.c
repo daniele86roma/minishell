@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lde-mich <lde-mich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Created: 2023/05/08 12:43:09 by lde-mich          #+#    #+#             */
+/*   Updated: 2023/05/08 12:43:26 by lde-mich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#include "../minishell.h"
 
-void    parse(char **mat, t_pipex *pipex);
-char	**create_matrix(char	*s);
-void	trim_mat(char **mat);
-char	ft_strcmp(char *s1, char *s2);
-#endif
+char	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}

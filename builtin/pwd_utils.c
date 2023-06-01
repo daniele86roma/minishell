@@ -22,7 +22,7 @@ void	ft_pwd(void)
 	free(pwd);
 }
 
-void	ft_export(char *st, t_pipex *pipex)
+void	ft_export(char *s, t_pipex *pipex)
 {
 	int		i;
 	int		j;
@@ -30,14 +30,10 @@ void	ft_export(char *st, t_pipex *pipex)
 	char	*value;
 	t_args	arg;
 	char	**mat;
-	char	*s;
 
-	mat = ft_split(st, ' ');
+	mat = ft_split(s, ' ');
 	cmd_trim(mat);
-	s = mat_to_string(mat);
-	free(mat);
-	i = 6;
-	while (s[i])
+	while (mat[i])
 	{
 		while (s[i] && s[i] == ' ')
 			i++;
@@ -69,7 +65,7 @@ void	ft_export(char *st, t_pipex *pipex)
 		free(value);
 		free(key);
 	}
-	free(s);
+	free_mat(mat);
 }
 
 void	ft_unset(char *s, t_pipex *pipex)

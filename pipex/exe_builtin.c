@@ -37,8 +37,9 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
         our_echo(commands->args);
 	else if (ft_strncmp(commands->args, "cd", 2) == 0)
 	{	
-		mat = mshell(commands->args);
+		mat = create_matrix(commands->args);
         ft_cd(mat, pipex);
+		free(mat);
 	}
 	else if (ft_strncmp(commands->args, "env", 5) == 0)
 	{
