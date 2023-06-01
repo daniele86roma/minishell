@@ -29,11 +29,9 @@ void	ft_export(char *s, t_pipex *pipex)
 	char	*key;
 	char	*value;
 	t_args	arg;
-	char	**mat;
 
-	mat = ft_split(s, ' ');
-	cmd_trim(mat);
-	while (mat[i])
+	i = 6;
+	while (s[i])
 	{
 		while (s[i] && s[i] == ' ')
 			i++;
@@ -65,7 +63,6 @@ void	ft_export(char *s, t_pipex *pipex)
 		free(value);
 		free(key);
 	}
-	free_mat(mat);
 }
 
 void	ft_unset(char *s, t_pipex *pipex)
@@ -73,7 +70,7 @@ void	ft_unset(char *s, t_pipex *pipex)
 	char	**mat;
 	int		i;
 
-	mat = ft_split(s, ' ');
+	mat = create_matrix(s);
 	cmd_trim(mat);
 	i = 0;
 	while(mat[++i])

@@ -113,8 +113,7 @@ char	*sost_arg(char *s, t_pipex *pipex)
 					i += 1;
 			}
 		}
-		if (s[i])
-			newstr = cpy_str(newstr, s[i]);
+		newstr = cpy_str(newstr, s[i]);
 	}
 	return (newstr);
 }

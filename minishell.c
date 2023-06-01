@@ -61,7 +61,6 @@ char	*mat_to_string(char **mat)
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
-	char	*s;
 
 	init(envp, &pipex, argc, argv);
 	ft_signal();
@@ -78,9 +77,7 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
-		s = mat_to_string(pipex.mat);
-		pipex.mat = create_matrix(s);
-		free(s);
+		print_mat(pipex.mat);
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		free_mat(pipex.mat);
