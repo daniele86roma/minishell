@@ -56,6 +56,7 @@ int		error(char *str, char *err);
 void	path(char *envp[], t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
 void	save_io(t_pipex *pipex);
+void	cmd_trim(char **mat);
 
 //pipex.c
 void	exe(t_pipex *pipex);

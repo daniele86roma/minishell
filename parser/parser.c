@@ -53,7 +53,7 @@ void	ft_boh(t_parser *parser)
 			parser->finaline[j++] = parser->line[i];
 		i++;
 	}
-	free(parser->line);
+	//free(parser->line);
 	parser->line = parser->finaline;
 	parser->finaline = NULL;
 }

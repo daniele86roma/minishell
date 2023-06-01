@@ -94,11 +94,9 @@ void	parse(char **mat, t_pipex *pipex)
 	t_commands	com;
 	char		*arg;
 	char		*tmp;
-	char		*trim;
 
 	i = 0;
 	err = 0;
-	trim = 0;
 	while (err == 0 && mat[i])
 	{
 		com.redin = 0;
@@ -114,16 +112,7 @@ void	parse(char **mat, t_pipex *pipex)
 				break;
 			tmp = ft_strjoin(arg, " ");
 			free(arg);
-			if (i == 0 || mat[i - 1][0] == '|')
-			{
-				arg = ft_strjoin(tmp, mat[i]);
-			}
-			else
-			{
-			trim = ft_strtrim(mat[i], "\"'");
-			arg = ft_strjoin(tmp, trim);
-			free(trim);
-			}
+			arg = ft_strjoin(tmp, mat[i]);
 			free(tmp);
 			i++;
 		}

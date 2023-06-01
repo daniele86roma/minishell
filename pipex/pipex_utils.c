@@ -49,3 +49,28 @@ void	save_io(t_pipex *pipex)
 	pipex->stdin = dup(0);
 	pipex->stdout = dup(1);
 }
+
+void	cmd_trim(char **mat)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (mat[++i])
+	{
+		if (mat[i] == 0)
+			continue;
+		if (mat[i][0] == '"')
+		{
+		tmp = ft_strtrim(mat[i], "\"");
+		free(mat[i]);
+		mat[i] = tmp;
+		}
+		if (mat[i][0] == '\'')
+		{
+		tmp = ft_strtrim(mat[i], "'");
+		free(mat[i]);
+		mat[i] = tmp;
+		}
+	}
+}
