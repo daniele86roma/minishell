@@ -80,7 +80,7 @@ char	*cpy_str(char *newstr, char s)
 
 	tmp = ft_strdup(newstr);
 	free(newstr);
-	newstr = malloc(sizeof(char)*(ft_strlen(tmp) + 2));
+	newstr = malloc(ft_strlen(tmp) + 2);
 	j = -1;
 	while (tmp[++j])
 		newstr[j] = tmp[j];
@@ -113,7 +113,9 @@ char	*sost_arg(char *s, t_pipex *pipex)
 					i += 1;
 			}
 		}
-		newstr = cpy_str(newstr, s[i]);
+		if (!s[i])
+			return (newstr);
+		newstr = cpy_str(newstr, s[i]); 
 	}
 	return (newstr);
 }
