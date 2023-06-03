@@ -79,11 +79,10 @@ int	main(int argc, char **argv, char *envp[])
 		var_mat(&pipex, pipex.mat);
         if (check_symb_in(pipex.mat) == 0 || check_symb_out(pipex.mat) == 0)
         {
-            write(2, "MiniShell: Syntax error near token unexpected", 46);
+            write(2, "MiniShell: Syntax error near token unexpected\n", 47);
             free_mat(pipex.mat);
             continue;
         }
-
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		free_mat(pipex.mat);
