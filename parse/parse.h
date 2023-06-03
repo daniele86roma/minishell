@@ -19,4 +19,9 @@ void	trim_mat(char **mat);
 char	ft_strcmp(char *s1, char *s2);
 int     check_symb_in(char **mat);
 int     check_symb_out(char **mat);
+int     check_token(t_pipex *pipex);
+int     check_quote(char **mat);
+char	*mat_to_string(char **mat);
+void	print_mat(char **mat);
+int	    check_quote_generic(char *s, char c);
 #endif

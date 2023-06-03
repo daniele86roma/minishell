@@ -27,47 +27,7 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 		
 }
 
-void	print_mat(char **mat)
-{
-	int i = -1;
 
-	while(mat[++i])
-	{
-		printf("%s\n", mat[i]);
-	}
-}
-
-char	*mat_to_string(char **mat)
-{
-	int		i;
-	char	*arg;
-	char	*tmp;
-
-	i = 0;
-	arg = ft_strdup("");
-	while (mat[i])
-	{
-		tmp = ft_strjoin(arg, " ");
-		free(arg);
-		arg = ft_strjoin(tmp, mat[i]);
-		free(tmp);
-		i++;
-	}
-	tmp = ft_strtrim(arg, " ");
-	free(arg);
-	return(tmp);
-}
-
-int	check_token(t_pipex *pipex)
-{	
-	if (check_symb_in(pipex->mat) == 0 || check_symb_out(pipex->mat) == 0)
-	{
-    	write(2, "MiniShell: Syntax error near token unexpected\n", 47);
-    	free_mat(pipex->mat);
-		return (1);
-    }
-	return (0);
-}
 
 int	main(int argc, char **argv, char *envp[])
 {
@@ -88,8 +48,11 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
-		if (check_token(&pipex))
+		if (check_token(&pipex) || check_quote(pipex.mat))
+		{
+			free_mat(pipex.mat);
 			continue;
+		}
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		free_mat(pipex.mat);

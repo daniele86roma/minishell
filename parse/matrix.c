@@ -69,7 +69,7 @@ char	*fnd_wrd(char *s, int *i)
 	}
 	s2 = malloc(j + 1);
 	j = 0;
-	while (s[*i] && s[*i] != ' ' && s[*i] != '|' && s[*i] != '<' && s[*i] != '>' && s[k] != '"' && s[k] != '\'')
+	while (s[*i] && s[*i] != ' ' && s[*i] != '|' && s[*i] != '<' && s[*i] != '>' && s[*i] != '"' && s[*i] != '\'')
 	{
 		s2[j] = s[*i];
 		j++;
@@ -106,8 +106,10 @@ char	*fnd_qts(char *s, int *i)
 		j++;
 		*i = *i + 1;
 	}
-	s2[j] = c;
+	s2[j] = s[*i];
 	s2[j + 1] = 0;
+	if (!s[*i])
+		*i = *i - 1;
 	return (s2);
 }
 
@@ -130,6 +132,7 @@ char	**create_matrix(char	*s)
 		{
 			wrd = fnd_qts(s, &i); //TROVATA LA STRINGA LA COPIO. l'INDICE I E' SPOSTATO FINO ALLA FINE DELLA STRINGA QUOTATA QUINDI CONTINUO DA LI
 			mat = add_wrd(mat, wrd); // FUNZIONE CHE CREA UNA MATRICE NUOVA CON UNO SPAZIO IN PIU RICOPIA LA STRINGA VECCHIA E AGGIUNGE LA PAROLA
+			continue;
 		}
 		else //NON E UN CARATTERE SPECIALE NE UN QUOTE VUOL DIRE CHE E UNA PAROLA
 		{

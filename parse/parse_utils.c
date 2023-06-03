@@ -22,40 +22,33 @@ char	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int	check_symb_out(char **mat)
+void	print_mat(char **mat)
 {
-	int	i;
+	int i = -1;
 
-	i = - 1;
-	while (mat[++i])
+	while(mat[++i])
 	{
-		if (!mat[i + 1] && mat[i][0] == '>')
-			return (0);
-		if (mat[i + 1] && mat[i][0] == '>' && mat[i + 1][0] == '>')
-		{
-			i++;
-			if (!mat[i + 1] || mat[i + 1][0] == '|' || mat[i + 1][0] == '<' || mat[i + 1][0] == '>')
-			return (0);
-		}
+		printf("%s\n", mat[i]);
 	}
-	return (1);
 }
 
-int	check_symb_in(char **mat)
+char	*mat_to_string(char **mat)
 {
-	int	i;
+	int		i;
+	char	*arg;
+	char	*tmp;
 
-	i = - 1;
-	while (mat[++i])
+	i = 0;
+	arg = ft_strdup("");
+	while (mat[i])
 	{
-		if (!mat[i + 1] && mat[i][0] == '<')
-			return (0);
-		if (mat[i + 1] && mat[i][0] == '<' && mat[i + 1][0] == '<')
-		{
-			i++;
-			if (!mat[i + 1] || mat[i + 1][0] == '|' || mat[i + 1][0] == '<' || mat[i + 1][0] == '>')
-			return (0);
-		}
+		tmp = ft_strjoin(arg, " ");
+		free(arg);
+		arg = ft_strjoin(tmp, mat[i]);
+		free(tmp);
+		i++;
 	}
-	return (1);
+	tmp = ft_strtrim(arg, " ");
+	free(arg);
+	return(tmp);
 }
