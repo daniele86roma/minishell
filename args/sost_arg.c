@@ -104,11 +104,9 @@ char	*sost_arg(char *s, t_pipex *pipex)
 			if (s[i + 1] && ft_isalpha(s[i + 1]))
 			{
 				newstr = add_var2string(&i, pipex, s, newstr);
-				pipex->sost = 1;
 			}
 			else if (s[i + 1] && s[i + 1] >=48 && s[i + 1] <= 57)
 			{
-				pipex->sost = 1;
 				if(s[i + 2])
 					i += 1;
 			}

@@ -43,7 +43,6 @@ typedef struct s_init
 	char			**envp;
 	t_commands		*commands;
 	struct s_args	*args;
-	int				sost;
 	char			**mat;
 }	t_pipex;
 

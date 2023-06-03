@@ -58,7 +58,7 @@ void	ft_export(char *s, t_pipex *pipex)
 		value[j] = 0;
 		if (s[i])
 			i++;
-		arg.value = ft_strdup(value);
+		arg.value = sost_arg(value, pipex);
 		add_arg(&arg, pipex);
 		free(value);
 		free(key);
