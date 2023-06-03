@@ -77,6 +77,13 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
+        if (check_symb_in(pipex.mat) == 0 || check_symb_out(pipex.mat) == 0)
+        {
+            write(2, "MiniShell: Syntax error near token unexpected", 46);
+            free_mat(pipex.mat);
+            continue;
+        }
+
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		free_mat(pipex.mat);

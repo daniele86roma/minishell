@@ -124,7 +124,7 @@ void	parse(char **mat, t_pipex *pipex)
 		}
 		if (err == 1)
 		{
-			write(2, "Minishell: Syntax Error\n", 24);
+			write(2, "Minishell: Syntax Error\n", 25);
 			free(arg);
 			free_commands(pipex);
 			pipex->commands = 0;
