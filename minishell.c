@@ -58,6 +58,17 @@ char	*mat_to_string(char **mat)
 	return(tmp);
 }
 
+int	check_token(t_pipex *pipex)
+{	
+	if (check_symb_in(pipex->mat) == 0 || check_symb_out(pipex->mat) == 0)
+	{
+    	write(2, "MiniShell: Syntax error near token unexpected\n", 47);
+    	free_mat(pipex->mat);
+		return (1);
+    }
+	return (0);
+}
+
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
@@ -77,12 +88,9 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
-        if (check_symb_in(pipex.mat) == 0 || check_symb_out(pipex.mat) == 0)
-        {
-            write(2, "MiniShell: Syntax error near token unexpected\n", 47);
-            free_mat(pipex.mat);
-            continue;
-        }
+		print_mat(pipex.mat);
+		if (check_token(&pipex))
+			continue;
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		free_mat(pipex.mat);
