@@ -12,6 +12,88 @@
 
 #include "../minishell.h"
 
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*new_ptr;
+
+	if (ptr)
+	{
+		if (size)
+		{
+			new_ptr = malloc(size);
+			if (!new_ptr)
+				return (NULL);
+			ft_bzero(new_ptr, size);
+			ft_memcpy(new_ptr, ptr, size);
+		}
+		else
+		{
+			new_ptr = (unsigned char *)malloc (sizeof(ptr));
+			if (!new_ptr)
+				return (NULL);
+		}
+		free(ptr);
+		return (new_ptr);
+	}
+	return ((unsigned char *)malloc(sizeof(ptr) * size));
+}
+
+int	updatingpwd(t_pipex *pipex)
+{
+	const char	*var_name;
+	char		*new_value;
+	char		*new_var;
+	int			i;
+
+	var_name = "PWD";
+	new_value = getcwd(0, 0);
+	i = -1;
+	while (pipex->envp[++i] != NULL)
+	{
+		if (ft_strncmp(pipex->envp[i], var_name, ft_strlen(var_name)) == 0)
+		{
+			new_var = malloc(ft_strlen(var_name) + ft_strlen(new_value) + 2);
+			new_var = ft_strjoin("PWD=", new_value);
+			pipex->envp[i] = new_var;
+			return (0);
+		}
+	}
+	pipex->envp = ft_realloc(pipex->envp, sizeof(char *) * (i + 2));
+	new_var = malloc(ft_strlen(var_name) + ft_strlen(new_value) + 2);
+	new_var = ft_strjoin("PWD=", new_value);
+	pipex->envp[i] = new_var;
+	pipex->envp[i + 1] = 0;
+	return (0);
+}
+
+int	updatingoldpwd(t_pipex *pipex)
+{
+	const char	*var_name;
+	char		*new_value;
+	char		*new_var;
+	int			i;
+
+	var_name = "OLDPWD";
+	new_value = getcwd(0, 0);
+	i = -1;
+	while (pipex->envp[++i] != NULL)
+	{
+		if (ft_strncmp(pipex->envp[i], var_name, ft_strlen(var_name)) == 0)
+		{
+			new_var = malloc(ft_strlen(var_name) + ft_strlen(new_value) + 2);
+			new_var = ft_strjoin("OLDPWD=", new_value);
+			pipex->envp[i] = new_var;
+			return (0);
+		}
+	}
+	pipex->envp = ft_realloc(pipex->envp, sizeof(char *) * (i + 2));
+	new_var = malloc(ft_strlen(var_name) + ft_strlen(new_value) + 2);
+	new_var = ft_strjoin("OLDPWD=", new_value);
+	pipex->envp[i] = new_var;
+	pipex->envp[i + 1] = 0;
+	return (0);
+}
+
 int	find_homepath(t_pipex *pipex)
 {
 	int		i;
@@ -31,92 +113,24 @@ int	find_homepath(t_pipex *pipex)
 	return (0);
 }
 
-char	*find_oldpwd(t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (pipex->envp[i])
-	{
-		if (!ft_strncmp("OLDPWD", pipex->envp[i], 6))
-			break ;
-		i++;
-	}
-	return (ft_strchr(pipex->envp[i], '/'));
-}
-
-char	*find_pwd(t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (pipex->envp[i])
-	{
-		if (strncmp("PWD", pipex->envp[i], 3) == 0)
-			break ;
-		i++;
-	}
-	return (ft_strchr(pipex->envp[i], '/'));
-}
-
-void	overwrite_envp(t_pipex *pipex, char *path)
-{
-	char	*a;
-	char	*b;
-
-	a = find_pwd(pipex);
-	b = find_oldpwd(pipex);
-	a = b;
-	b = path;
-	(void)a;
-}
-//aggiungere printf("%s\n", getcwd(s, 100)) per prova
-// 	char	s[100];
-
-int	mycd(char **str, t_pipex *pipex)
-{
-	int		args;
-	char	*path;
-	char	*oldpath;
-
-	args = 0;
-	while (str[++args])
-		;
-	if (args == 1)
-		return (find_homepath(pipex));
-	else if (args == 2)
-	{
-		path = strdup(str[1]);
-		oldpath = getcwd(0, 0);
-		overwrite_envp(pipex, path);
-		chdir(path);
-		path = getcwd(0, 0);
-		if (strcmp(path, oldpath))
-			return (0);
-		else
-			return (printf("No such file or directory\n") - 25);
-	}
-	else
-		return (printf("too many arguments\n") - 18);
-}
-
 int	ft_cd(char **mat, t_pipex *pipex)
 {
 	int		args;
 	char	*path;
 	char	*oldpath;
 
-	args = -1;
+	args = 0;
 	while (mat[++args])
 		;
-	if (args == 0)
+	if (args == 1)
 		return (find_homepath(pipex));
-	else if (args == 1)
+	else if (args == 2)
 	{
 		path = ft_strdup(mat[1]);
 		oldpath = getcwd(0, 0);
-		overwrite_envp(pipex, path);
+		updatingoldpwd(pipex);
 		chdir(path);
+		updatingpwd(pipex);
 		path = getcwd(0, 0);
 		if (ft_strcmp(path, oldpath))
 			return (0);

@@ -33,11 +33,6 @@ int		echoflagcheck(char *str);
 void	our_echo(char *argv);
 
 //CD
-int		find_homepath(t_pipex *pipex);
-char	*find_oldpwd(t_pipex *pipex);
-char	*find_pwd(t_pipex *pipex);
-void	overwrite_envp(t_pipex *pipex, char *path);
-int 	mycd(char **str, t_pipex *pipex);
 int     ft_cd(char **str, t_pipex *pipex);
 
 //EXIT

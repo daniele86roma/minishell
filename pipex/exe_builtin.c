@@ -38,6 +38,7 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	else if (ft_strncmp(commands->args, "cd", 2) == 0)
 	{	
 		mat = create_matrix(commands->args);
+		cmd_trim(mat);
         ft_cd(mat, pipex);
 		free(mat);
 	}
