@@ -50,7 +50,7 @@ int	check_symb_in(char **mat)
 	{
 		if (!mat[i + 1] && mat[i][0] == '<')
 			return (0);
-		if (mat[i + 1] && mat[i][0] == '<' && mat[i + 1][0] != '<')
+		if (mat[i + 1] && mat[i][0] == '<' && mat[i + 1][0] == '<')
 		{
 			i++;
 			if (!mat[i + 1] || mat[i + 1][0] == '|' || mat[i + 1][0] == '<' || mat[i + 1][0] == '>')

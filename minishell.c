@@ -88,7 +88,6 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
-		print_mat(pipex.mat);
 		if (check_token(&pipex))
 			continue;
 		parse(pipex.mat, &pipex);
