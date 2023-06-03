@@ -95,6 +95,7 @@ void	our_echo(char *s)
 	char	**argv;
 
 	argv = create_matrix(s);
+	cmd_trim(argv);
 	str = preparsed_filter(argv);
 	i = 1;
 	if (!str[i])
