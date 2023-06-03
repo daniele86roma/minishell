@@ -23,6 +23,8 @@ int	return_builtin(char **mat, int *i)
 
 int	set_red_out(char **mat, int *i, t_commands *com)
 {
+	int	fd;
+
 	if (!mat[*i])
 		return (0);
 	if (ft_strcmp_args(mat[*i], ">") == 0 && !mat[*i + 1])
@@ -32,6 +34,10 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<')
 			return (1);
+		if ((fd = open(mat[*i], O_CREAT | O_RDWR | O_CREAT, 0666)) < 0)
+			return (1);
+		else
+			close (fd);
 		com->fileout = mat[*i];
 		com->redout = 1;
 		*i = *i +1;
@@ -42,6 +48,10 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i + 2;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<' || mat[*i][0] == '>')
 			return (1);
+		if ((fd = open(mat[*i], O_TRUNC | O_RDWR | O_CREAT, 0666)) < 0)
+			return (1);
+		else
+			close (fd);
 		com->fileout = mat[*i];
 		com->redout = 2;
 		*i = *i + 1;
@@ -59,7 +69,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 	if (ft_strcmp_args(mat[*i], "<") == 0 && mat[*i + 1][0] != '<')
 	{
 		*i = *i + 1;
-		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>')
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>' || access(mat[*i], F_OK))
 			return (1);
 		com->filein = mat[*i];
 		com->redin = 1;
