@@ -71,7 +71,7 @@ void	wait_process(int *tmp, t_commands *wp)
 	{
 		if (wp->builtin == 0 && wp->pid != -1)
 		{
-			waitpid(wp->pid, 0, 0);
+			waitpid(wp->pid, &g_exitcode, 0);
 		}
 		wp = wp->next;
 	}

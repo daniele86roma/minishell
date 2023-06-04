@@ -53,6 +53,6 @@ void	ft_exit(char *s)
 	n = ft_atoi(mat[1]);
 	write(1, "exit\n", 5);
 	free_mat(mat);
-	exit ((n));
+	exit (n);
 	}
 }
