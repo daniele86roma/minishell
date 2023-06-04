@@ -19,7 +19,10 @@ void    print_args(t_pipex *pipex)
 	tmp = pipex->args;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
+		if (ft_strcmp_args(tmp->key, "?"))
+		{
+			printf("%s=%s\n", tmp->key, tmp->value);
+		}	
 		tmp = tmp->next;
 	}
 }
