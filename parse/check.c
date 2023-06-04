@@ -19,16 +19,20 @@ int	check_symb_out(char **mat)
 	i = - 1;
 	while (mat[++i])
 	{
-		if (!mat[i + 1] && mat[i][0] == '>')
-			return (0);
-		if (mat[i + 1] && mat[i][0] == '>' && mat[i + 1][0] == '>')
+		if (mat[i][0] == '>')
 		{
-			i++;
-			if (!mat[i + 1] || mat[i + 1][0] == '|' || mat[i + 1][0] == '<' || mat[i + 1][0] == '>')
-			return (0);
-		}
+			if (!mat[ i+ 1])
+				return (1);
+			if (mat[i + 1][0] == '>')
+			{
+				if (!mat[i + 2])
+					return (1);
+				if (mat[i + 2][0] != '|' || mat[i + 2][0] != '<' || mat[i + 2][0] != '>')
+				return (1);
+			}
+		}		
 	}
-	return (1);
+	return (0);
 }
 
 int	check_symb_in(char **mat)
@@ -39,23 +43,22 @@ int	check_symb_in(char **mat)
 	while (mat[++i])
 	{
 		if (!mat[i + 1] && mat[i][0] == '<')
-			return (0);
-		if (mat[i + 1] && mat[i][0] == '<' && mat[i + 1][0] == '<')
+			return (1);
+		if (mat[i + 2] && mat[i][0] == '<' && mat[i + 2][0] == '<')
 		{
 			i++;
-			if (!mat[i + 1] || mat[i + 1][0] == '|' || mat[i + 1][0] == '<' || mat[i + 1][0] == '>')
-			return (0);
+			if (mat[i + 2] && mat[i + 2][0] != '|' && mat[i + 2][0] != '<' && mat[i + 2][0] != '>')
+			return (1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 int	check_token(t_pipex *pipex)
 {	
-	if (check_symb_in(pipex->mat) == 0 || check_symb_out(pipex->mat) == 0)
+	if (check_symb_in(pipex->mat) || check_symb_out(pipex->mat))
 	{
     	write(2, "MiniShell: Syntax error near token unexpected\n", 47);
-    	free_mat(pipex->mat);
 		return (1);
     }
 	return (0);
@@ -63,17 +66,14 @@ int	check_token(t_pipex *pipex)
 
 int	check_quote_generic(char *s, char c)
 {
-	int	i;
-	int count;
-
-	i= -1;
-	count = 0;
-	while (s[++i])
+	if(s[0] == c)
 	{
-		if (s[i] == c)
-			count++;
+		if (ft_strlen(s) == 1)
+			return (1);
+		if (s[ft_strlen(s) - 1] != c)
+			return (1);
 	}
-	return (count % 2);
+	return (0);
 }
 
 int	check_quote(char **mat)

@@ -36,7 +36,7 @@ void	ft_export(char *s, t_pipex *pipex)
 		key[j] = 0;
 		if (s[i])
 			i++;
-		arg.key = ft_strdup(key);
+		arg.key= ft_strdup(key);
 		value = malloc(ft_strlen(s));
 		j = 0;
 		while (s[i] && s[i] != ' ')
