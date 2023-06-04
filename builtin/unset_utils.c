@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_utils.c                                        :+:      :+:    :+:   */
+/*   unset_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,22 @@
 
 #include "../minishell.h"
 
-void	ft_pwd(void)
+void	ft_unset(char *s, t_pipex *pipex)
 {
-	char	*pwd;
+	char	**mat;
+	int		i;
 
-	pwd = getcwd(0, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
-	free(pwd);
+	mat = create_matrix(s);
+	cmd_trim(mat);
+	i = 0;
+	while(mat[++i])
+	{
+		unset_args(mat[i], pipex);
+	}
+	i = -1;
+	while (mat[++i])
+	{
+		free(mat[i]);
+	}
+	free(mat);
 }

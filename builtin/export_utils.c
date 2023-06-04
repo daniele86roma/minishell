@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_utils.c                                        :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,45 @@
 
 #include "../minishell.h"
 
-void	ft_pwd(void)
+void	ft_export(char *s, t_pipex *pipex)
 {
-	char	*pwd;
+	int		i;
+	int		j;
+	char	*key;
+	char	*value;
+	t_args	arg;
 
-	pwd = getcwd(0, 0);
-	write(1, pwd, ft_strlen(pwd));
-	write(1, "\n", 1);
-	free(pwd);
+	i = 6;
+	while (s[i])
+	{
+		while (s[i] && s[i] == ' ')
+			i++;
+		key = malloc(ft_strlen(s));
+		j = 0;
+		while (s[i] && s[i] != '=')
+		{
+			key[j] = s[i];
+			j++;
+			i++;
+		}
+		key[j] = 0;
+		if (s[i])
+			i++;
+		arg.key = ft_strdup(key);
+		value = malloc(ft_strlen(s));
+		j = 0;
+		while (s[i] && s[i] != ' ')
+		{
+			value[j] = s[i];
+			j++;
+			i++;
+		}
+		value[j] = 0;
+		if (s[i])
+			i++;
+		arg.value = sost_arg(value, pipex);
+		add_arg(&arg, pipex);
+		free(value);
+		free(key);
+	}
 }
