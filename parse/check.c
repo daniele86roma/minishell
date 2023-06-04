@@ -21,14 +21,13 @@ int	check_symb_out(char **mat)
 	{
 		if (mat[i][0] == '>')
 		{
-			if (!mat[ i+ 1])
+			if (!mat[i + 1] && mat[i][0] == '>')
 				return (1);
-			if (mat[i + 1][0] == '>')
+			if (mat[i + 2] && mat[i][0] == '>' && mat[i + 2][0] == '>')
 			{
-				if (!mat[i + 2])
+				i++;
+				if (mat[i + 2] && mat[i + 2][0] != '|' && mat[i + 2][0] != '<' && mat[i + 2][0] != '>')
 					return (1);
-				if (mat[i + 2][0] != '|' || mat[i + 2][0] != '<' || mat[i + 2][0] != '>')
-				return (1);
 			}
 		}		
 	}
