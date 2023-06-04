@@ -27,27 +27,6 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 		
 }
 
-void	create_exit_status(t_pipex *pipex)
-{
-	t_args	arg;
-
-	if (get_var("?", pipex) == 0)
-	{
-		arg.key = ft_strdup("?");
-		arg.value = ft_strdup("0");
-		add_arg(&arg, pipex);
-	}
-}
-
-void add_exitstatus(t_pipex *pipex)
-{
-	t_args	arg;
-
-	arg.key = ft_strdup("?");
-	arg.value = ft_itoa(WEXITSTATUS(g_exitcode));
-	add_arg(&arg, pipex);
-}
-
 int	main(int argc, char **argv, char *envp[])
 {
 	t_pipex	pipex;
