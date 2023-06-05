@@ -15,7 +15,7 @@
 void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 {
 	char	**mat;
-    if ((commands->builtin == 2 && commands->next != 0) || commands != pipex->commands)
+    if ((commands->builtin == 2 && commands->next != 0) || (commands != pipex->commands && commands->builtin == 2))
         return;
     if (commands->redout == 0 && commands->next == 0)
 		dup2(pipex->stdout, 1);
