@@ -121,26 +121,25 @@ char	**create_matrix(char	*s)
 
 	i = -1;
 	mat = malloc(sizeof(char *) * 1);
-	mat[0] = 0; //CREO UNA MATRICE VUOTa
-	while (s[++i]) //CONTROLLO CARATTERE PER CARATTERE LA STRINGA
+	mat[0] = 0;
+	while (s[++i])
 	{
-		if (s[i] == ' ') // SE TROVO UNO SPAZIO VADO AVANTI
+		if (s[i] == ' ')
 			continue ;
-		else if (s[i] == '<' || s[i] == '>' || s[i] == '|') // SE TROVO UN SIMBOLO CHIAVE LO AGGIUNGO ALLA MATRICE
-			mat = add_chr(mat, s[i]);	//CREA UNA MATRICE NUOVA CON UNO SPAZIO IN PIU RICOPIA LA STRINGA VECCHIA E AGGIUNGE LA NUOVA STRINGA CON IL CARATTERE
-		else if (s[i] == '\'' || s[i] == '"')	//SE INVECE TROVO UN QUOTE MI CERCO TUTTA LA STRINGA
+		else if (s[i] == '<' || s[i] == '>' || s[i] == '|')
+			mat = add_chr(mat, s[i]);
+		else if (s[i] == '\'' || s[i] == '"')
 		{
-			wrd = fnd_qts(s, &i); //TROVATA LA STRINGA LA COPIO. l'INDICE I E' SPOSTATO FINO ALLA FINE DELLA STRINGA QUOTATA QUINDI CONTINUO DA LI
-			mat = add_wrd(mat, wrd); // FUNZIONE CHE CREA UNA MATRICE NUOVA CON UNO SPAZIO IN PIU RICOPIA LA STRINGA VECCHIA E AGGIUNGE LA PAROLA
+			wrd = fnd_qts(s, &i);
+			mat = add_wrd(mat, wrd);
 			continue;
 		}
-		else //NON E UN CARATTERE SPECIALE NE UN QUOTE VUOL DIRE CHE E UNA PAROLA
+		else
 		{
-			wrd = fnd_wrd(s, &i); //LA TROVO E LA COPIO OVVIAMENTE SPOSTO L INDICE I DI CONSEGUENZA
-			mat = add_wrd(mat, wrd); // STESSA FUNZIONE DI PRIMA PER AGGIUNGERE PAROLA aLLA MATRICE 
+			wrd = fnd_wrd(s, &i); 
+			
+			mat = add_wrd(mat, wrd);
 		}
 	}
 	return (mat);
 }
-
-// SE NOTI PASSO SEMPRE &I COSI POSSO CAMBIARE LA I NELLA FUNZIONE PRINCIPALE UNA VOLTA ELABORATA LA PORZIONE DI TESTO

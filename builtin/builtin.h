@@ -23,6 +23,7 @@ void	ft_pwd(void);
 
 //EXPORT
 void	ft_export(char *s, t_pipex *pipex);
+char	**parsing_export(char *s);
 
 //ECHO
 char	**preparsed_filter(char **strs);
