@@ -12,6 +12,49 @@
 
 #include "../minishell.h"
 
+char	*mat_to_string_export(char **mat)
+{
+	int		i;
+	char	*arg;
+	char	*tmp;
+
+	i = 0;
+	arg = ft_strdup("");
+	while (mat[i])
+	{
+		tmp = ft_strjoin(arg, "");
+		free(arg);
+		arg = ft_strjoin(tmp, mat[i]);
+		free(tmp);
+		i++;
+	}
+	free(arg);
+	return(tmp);
+}
+
+void	export_trim(char **mat)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (mat[++i])
+	{
+		if (mat[i][0] == '"')
+		{
+		tmp = ft_strtrim(mat[i], "\"");
+		free(mat[i]);
+		mat[i] = tmp;
+		}
+		if (mat[i][0] == '\'')
+		{
+		tmp = ft_strtrim(mat[i], "'");
+		free(mat[i]);
+		mat[i] = tmp;
+		}
+	}
+}
+
 void	ft_export(char *s, t_pipex *pipex)
 {
 	int		i;
@@ -23,7 +66,7 @@ void	ft_export(char *s, t_pipex *pipex)
 	i = 6;
 	while (s[i])
 	{
-		while (s[i] && s[i] == ' ')
+		while (s[i] && !ft_isalpha(s[i]))
 			i++;
 		key = malloc(ft_strlen(s));
 		j = 0;
@@ -34,7 +77,12 @@ void	ft_export(char *s, t_pipex *pipex)
 			i++;
 		}
 		key[j] = 0;
-		if (s[i])
+		if (!s[i])
+		{
+			free(key);
+			continue;
+		}
+		if (s[i] == '=')
 			i++;
 		arg.key= ft_strdup(key);
 		value = malloc(ft_strlen(s));
@@ -46,11 +94,11 @@ void	ft_export(char *s, t_pipex *pipex)
 			i++;
 		}
 		value[j] = 0;
-		if (s[i])
-			i++;
 		arg.value = sost_arg(value, pipex);
 		add_arg(&arg, pipex);
 		free(value);
 		free(key);
+		if (s[i])
+			i++;
 	}
 }

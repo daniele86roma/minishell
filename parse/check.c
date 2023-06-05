@@ -41,21 +41,24 @@ int	check_symb_in(char **mat)
 	i = - 1;
 	while (mat[++i])
 	{
-		if (!mat[i + 1] && mat[i][0] == '<')
-			return (1);
-		if (mat[i + 2] && mat[i][0] == '<' && mat[i + 2][0] == '<')
+		if (mat[i][0] == '<')
 		{
-			i++;
-			if (mat[i + 2] && mat[i + 2][0] != '|' && mat[i + 2][0] != '<' && mat[i + 2][0] != '>')
-			return (1);
-		}
+			if (!mat[i + 1] && mat[i][0] == '<')
+				return (1);
+			if (mat[i + 2] && mat[i][0] == '<' && mat[i + 2][0] == '<')
+			{
+				i++;
+				if (mat[i + 2] && mat[i + 2][0] != '|' && mat[i + 2][0] != '<' && mat[i + 2][0] != '>')
+					return (1);
+			}
+		}		
 	}
 	return (0);
 }
 
 int	check_token(t_pipex *pipex)
 {	
-	if (check_symb_in(pipex->mat) || check_symb_out(pipex->mat))
+	if (check_symb_out(pipex->mat) || check_symb_in(pipex->mat))
 	{
     	write(2, "MiniShell: Syntax error near token unexpected\n", 47);
 		return (1);
