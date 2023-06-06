@@ -32,7 +32,6 @@ ${LFT}:
 
 ${NAME}: ${OBJ} ${LFT}
 	${CC} ${OBJ} ${LFT} -o ${NAME} -lreadline
-	make clean
 
 clean:
 	${RM} ${OBJ}
