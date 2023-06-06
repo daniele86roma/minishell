@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char *envp[])
 		add_history(pipex.input);
 		pipex.mat = create_matrix(pipex.input);
 		var_mat(&pipex, pipex.mat);
-		if (check_token(&pipex) || check_quote(pipex.mat))
+		if (pipex.mat[0] && (check_token(&pipex) || check_quote(pipex.mat)))
 		{
 			free(pipex.input);
 			free_mat(pipex.mat);
