@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char *envp[])
 		g_exitcode = 0;		
 		free_mat(pipex.mat);
 		free(pipex.input);
-		printf("ciao");
 	}
 	free_total(&pipex);
 	return (0);
