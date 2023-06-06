@@ -34,6 +34,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<')
 			return (1);
+		mat[*i] = trim_red(mat[*i]);
 		if ((fd = open(mat[*i], O_CREAT | O_RDWR | O_CREAT, 0666)) < 0)
 			return (1);
 		else
@@ -48,6 +49,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i + 2;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<' || mat[*i][0] == '>')
 			return (1);
+		mat[*i] = trim_red(mat[*i]);
 		if ((fd = open(mat[*i], O_TRUNC | O_RDWR | O_CREAT, 0666)) < 0)
 			return (1);
 		else
@@ -71,6 +73,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>' || access(mat[*i], F_OK))
 			return (1);
+		mat[*i] = trim_red(mat[*i]);
 		com->filein = mat[*i];
 		com->redin = 1;
 		*i = *i + 1;
@@ -81,6 +84,7 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 		*i = *i + 2;
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>' || mat[*i][0] == '<')
 			return (1);
+		mat[*i] = trim_red(mat[*i]);
 		com->filein = mat[*i];
 		com->redin = 2;
 		*i = *i + 1;

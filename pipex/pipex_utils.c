@@ -74,3 +74,21 @@ void	cmd_trim(char **mat)
 		}
 	}
 }
+
+char	*trim_red(char *s)
+{
+	char	*tmp;
+	if (s[0] == '"')
+		{
+		tmp = ft_strtrim(s, "\"");
+		free(s);
+		return (tmp);
+		}
+		if (s[0] == '\'')
+		{
+		tmp = ft_strtrim(s, "'");
+		free(s);
+		return (tmp);
+		}
+		return (s);
+}
