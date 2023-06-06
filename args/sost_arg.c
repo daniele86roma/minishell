@@ -120,7 +120,7 @@ char	*sost_arg(char *s, t_pipex *pipex)
 		}
 		if (!s[i])
 			return (newstr);
-		newstr = cpy_str(newstr, s[i]); 
+		newstr = cpy_str(newstr, s[i]);
 	}
 	return (newstr);
 }

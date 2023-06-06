@@ -52,6 +52,7 @@ void	add_arg(t_args *arg, t_pipex *pipex)
 {
 	t_args	*new;
 
+	unset_args(arg->key, pipex);
 	if (check_args(arg, pipex))
 		return;
 	new = malloc(sizeof(t_args));

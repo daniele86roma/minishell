@@ -156,16 +156,9 @@ void export_mat(t_pipex *pipex, char *str)
 {
 	int		i;
 	char	**mat;
-	char 	*str2;
 
-	str2 = ft_strtrim(str, " ");
-	if (ft_strcmp_args(str2, "export") == 0)
-	{
-		free(str2);
+	if (!str[6])
 		ft_blankexport(pipex);
-		return ;
-	}
-	free(str2);
 	i = -1;
 	mat = parsing_export_final(pipex->input, pipex);
 	while (mat[++i])
@@ -191,7 +184,7 @@ char	**parsing_export_final(char *s, t_pipex *pipex)
 	compact_mat(mat);
 	var_mat(pipex, mat);
 	str = mat_to_string(mat);
-	free(mat);
+	free_mat(mat);
 	mat = parsing_export(str);
 	free(str);
 	cmd_trim(mat);
