@@ -28,7 +28,7 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	if (ft_strncmp(commands->args, "pwd", 3) == 0)
         ft_pwd();
 	else if (ft_strncmp(commands->args, "exit", 4) == 0)
-        ft_exit(commands->args);
+        ft_exit(commands->args, pipex);
 	else if (ft_strncmp(commands->args, "export", 6) == 0)
         export_mat(pipex, commands->args);
 	else if (ft_strncmp(commands->args, "unset", 5) == 0)

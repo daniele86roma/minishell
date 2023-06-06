@@ -40,7 +40,7 @@ void	our_echo(char *argv);
 int     ft_cd(char **str, t_pipex *pipex);
 
 //EXIT
-void	ft_exit(char *s);
+void	ft_exit(char *s, t_pipex *pipex);
 
 //UNSET
 void	ft_unset(char *s, t_pipex *pipex);

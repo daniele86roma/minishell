@@ -27,7 +27,7 @@ int	exit_num(char *s)
 	return (0);
 }
 
-void	ft_exit(char *s)
+void	ft_exit(char *s, t_pipex *pipex)
 {
 	char	**mat;
 	int		i;
@@ -44,15 +44,22 @@ void	ft_exit(char *s)
 	{
 		free_mat(mat);
 		write(1, "exit\n", 5);
+		free_total(pipex);
 		exit (0);
 	}
 	else if (exit_num(mat[1]) == 1)
+	{
 		write (2, "Minishell: exit: a numeric argument is required\n", 49);
+		free_mat(mat);
+		free_total(pipex);
+		exit (2);
+	}
 	else
 	{
 	n = ft_atoi(mat[1]);
 	write(1, "exit\n", 5);
 	free_mat(mat);
+	free_total(pipex);
 	exit (n);
 	}
 }
