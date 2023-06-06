@@ -22,8 +22,11 @@ void	ft_env(t_pipex *pipex);
 void	ft_pwd(void);
 
 //EXPORT
-void	ft_export(char *s, t_pipex *pipex);
 char	**parsing_export(char *s);
+void    export_mat(t_pipex *pipex, char *s);
+char	**parsing_export_final(char *s, t_pipex *pipex);
+void    ft_blankexport(t_pipex *pipex);
+
 
 //ECHO
 char	**preparsed_filter(char **strs);

@@ -93,13 +93,23 @@ char	**parsing_export(char *s)
 			mat = add_wrd(mat, wrd);
 		}
 	}
-	compact_mat(mat);
-	mat = remove_space_from(mat);
-	cmd_trim(mat);
 	return (mat);
 }
 
-void	ft_export2(char *s, t_pipex *pipex)
+int contain_equals(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == '=')
+			return (1);
+	}
+	return (0);
+}
+
+void	export_string(char *s, t_pipex *pipex)
 {
 	int		i;
 	int		j;
@@ -107,42 +117,85 @@ void	ft_export2(char *s, t_pipex *pipex)
 	char	*value;
 	t_args	arg;
 
-	i = 6;
+	i = 0;
+	while (s[i] && !ft_isalpha(s[i]))
+		i++;
+	key = malloc(ft_strlen(s));
+	j = 0;
+	while (s[i] && s[i] != '=')
+	{
+		key[j] = s[i];
+		j++;
+		i++;
+	}
+	key[j] = 0;
+	if (!s[i])
+	{
+		free(key);
+		return;
+	}
+	if (s[i] == '=')
+		i++;
+	arg.key= ft_strdup(key);
+	value = malloc(ft_strlen(s));
+	j = 0;
 	while (s[i])
 	{
-		while (s[i] && !ft_isalpha(s[i]))
-			i++;
-		key = malloc(ft_strlen(s));
-		j = 0;
-		while (s[i] && s[i] != '=')
+		value[j] = s[i];
+		j++;
+		i++;
+	}
+	value[j] = 0;
+	arg.value = sost_arg(value, pipex);
+	add_arg(&arg, pipex);
+	free(value);
+	free(key);
+}
+
+void export_mat(t_pipex *pipex, char *str)
+{
+	int		i;
+	char	**mat;
+	char 	*str2;
+
+	str2 = ft_strtrim(str, " ");
+	if (ft_strcmp_args(str2, "export") == 0)
+	{
+		free(str2);
+		ft_blankexport(pipex);
+		return ;
+	}
+	free(str2);
+	i = -1;
+	mat = parsing_export_final(pipex->input, pipex);
+	while (mat[++i])
+	{
+		if (!ft_isalpha(mat[i][0]))
 		{
-			key[j] = s[i];
-			j++;
-			i++;
-		}
-		key[j] = 0;
-		if (!s[i])
-		{
-			free(key);
+			write(2, "Minishell: bad identifier\n", 27);
 			continue;
 		}
-		if (s[i] == '=')
-			i++;
-		arg.key= ft_strdup(key);
-		value = malloc(ft_strlen(s));
-		j = 0;
-		while (s[i] && s[i] != ' ')
-		{
-			value[j] = s[i];
-			j++;
-			i++;
-		}
-		value[j] = 0;
-		arg.value = sost_arg(value, pipex);
-		add_arg(&arg, pipex);
-		free(value);
-		free(key);
-		if (s[i])
-			i++;
+		if (contain_equals(mat[i]))
+			export_string(mat[i], pipex);
 	}
+	free_mat(mat);
+}
+
+char	**parsing_export_final(char *s, t_pipex *pipex)
+{
+	char	*str;
+	char	**mat;
+
+	(void)pipex;
+	mat = parsing_export(s);
+	compact_mat(mat);
+	var_mat(pipex, mat);
+	str = mat_to_string(mat);
+	free(mat);
+	mat = parsing_export(str);
+	free(str);
+	cmd_trim(mat);
+	compact_mat(mat);
+	mat = remove_space_from(mat);
+	return (mat);
 }

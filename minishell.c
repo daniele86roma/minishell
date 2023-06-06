@@ -49,6 +49,7 @@ int	main(int argc, char **argv, char *envp[])
 		var_mat(&pipex, pipex.mat);
 		if (check_token(&pipex) || check_quote(pipex.mat))
 		{
+			free(pipex.input);
 			free_mat(pipex.mat);
 			continue;
 		}
@@ -57,6 +58,7 @@ int	main(int argc, char **argv, char *envp[])
 		add_exitstatus(&pipex);
 		g_exitcode = 0;		
 		free_mat(pipex.mat);
+		free(pipex.input);
 	}
 	free_total(&pipex);
 	return (0);

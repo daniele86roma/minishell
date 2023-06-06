@@ -12,40 +12,12 @@
 
 #include "../minishell.h"
 
-char	**preparsed_filter(char **strs)
-{
-	char	**ret;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	while (strs[++i])
-		if (ft_strncmp(strs[i], "|", 1) || (ft_strncmp(strs[i], " ", 1)))
-			j++;
-	ret = malloc(sizeof(char *) * (j + 1));
-	if (!ret)
-		return (0);
-	i = -1;
-	j = -1;
-	while (strs[++i])
-	{
-		if (!ft_strncmp(strs[i], "|", 1) || (!ft_strncmp(strs[i], " ", 1)))
-			continue ;
-		ret[++j] = ft_strdup(strs[i]);
-		if (!ret[j])
-			return (0);
-	}
-	ret[++j] = 0;
-	return (ret);
-}
-
 void	printwoquotes(char *cmd)
 {
 	int	i;
 
 	i = -1;
-	while (cmd[++i])
+	 while (cmd[++i])
 	{
 		if (cmd[i] == '\"')
 			while (cmd[++i] != '\"')
@@ -92,11 +64,8 @@ void	our_echo(char *s)
 	int		i;
 	int		flag;
 	char	**str;
-	char	**argv;
 
-	argv = create_matrix(s);
-	cmd_trim(argv);
-	str = preparsed_filter(argv);
+	str = create_matrix(s);
 	i = 1;
 	if (!str[i])
 	{
@@ -116,5 +85,4 @@ void	our_echo(char *s)
 		flag = 1;
 	echo_print(str, i, flag);
 	free_mat(str);
-	free_mat(argv);
 }

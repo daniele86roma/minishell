@@ -74,13 +74,13 @@ void	unset_args(char *key, t_pipex *pipex)
 	tmp = pipex->args;
 	prev = tmp;
 	if (tmp && ft_strcmp_args(tmp->key, key) == 0)
-		{
-			pipex->args = pipex->args->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return ;
-		}
+	{
+		pipex->args = pipex->args->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		return ;
+	}
 	while(tmp)
 	{
 		prev = tmp;

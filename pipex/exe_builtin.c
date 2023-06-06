@@ -30,7 +30,7 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	else if (ft_strncmp(commands->args, "exit", 4) == 0)
         ft_exit(commands->args);
 	else if (ft_strncmp(commands->args, "export", 6) == 0)
-        ft_export(commands->args, pipex);
+        export_mat(pipex, commands->args);
 	else if (ft_strncmp(commands->args, "unset", 5) == 0)
         ft_unset(commands->args, pipex);
 	else if (ft_strncmp(commands->args, "echo", 4) == 0)
@@ -40,7 +40,7 @@ void	exe_builtin(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 		mat = create_matrix(commands->args);
 		cmd_trim(mat);
         ft_cd(mat, pipex);
-		free(mat);
+		free_mat(mat);
 	}
 	else if (ft_strncmp(commands->args, "env", 5) == 0)
 	{

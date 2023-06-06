@@ -18,8 +18,8 @@ void	create_exit_status(t_pipex *pipex)
 
 	if (get_var("?", pipex) == 0)
 	{
-		arg.key = "?";
-		arg.value = "0";
+		arg.key = ft_strdup("?");
+		arg.value = ft_strdup("0");
 		add_arg(&arg, pipex);
 	}
 }
@@ -28,8 +28,8 @@ void	add_exitstatus(t_pipex *pipex)
 {
 	t_args	arg;
 
-	arg.key = "?";
+	unset_args("?", pipex);
+	arg.key = ft_strdup("?");
 	arg.value = ft_itoa(WEXITSTATUS(g_exitcode));
 	add_arg(&arg, pipex);
-	free(arg.value);
 }
