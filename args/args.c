@@ -72,6 +72,11 @@ void	unset_args(char *key, t_pipex *pipex)
 	t_args	*tmp;
 	t_args	*prev;
 
+	if (ft_strcmp_args(key, "PATH") == 0)
+	{
+		unset_pat(pipex);
+		return;
+	}
 	tmp = pipex->args;
 	prev = tmp;
 	if (tmp && ft_strcmp_args(tmp->key, key) == 0)

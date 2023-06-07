@@ -52,7 +52,7 @@ void	msg_error(char *err);
 int		error(char *str, char *err);
 
 //pipex_utils.c
-void	path(char *envp[], t_pipex *pipex);
+void	path(t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
 void	save_io(t_pipex *pipex);
 void	cmd_trim(char **mat);
@@ -79,5 +79,10 @@ int		is_path(char *s);
 
 //in_redirect.c
 void	in_redirect(t_commands *command, t_pipex *pipex);
+
+//path.c
+int		find_path(t_pipex *pipex);
+void	unset_pat(t_pipex *pipex);
+void	set_path(char *s, t_pipex *pipex);
 
 #endif

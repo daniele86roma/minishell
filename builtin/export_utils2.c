@@ -136,7 +136,6 @@ void	export_string(char *s, t_pipex *pipex)
 	}
 	if (s[i] == '=')
 		i++;
-	arg.key= ft_strdup(key);
 	value = malloc(ft_strlen(s));
 	j = 0;
 	while (s[i])
@@ -146,8 +145,16 @@ void	export_string(char *s, t_pipex *pipex)
 		i++;
 	}
 	value[j] = 0;
+	if (ft_strcmp_args(key, "PATH") == 0)
+	{
+		set_path(value, pipex);
+	}
+	else
+	{
 	arg.value = sost_arg(value, pipex);
+	arg.key= ft_strdup(key);
 	add_arg(&arg, pipex);
+	}
 	free(value);
 	free(key);
 }

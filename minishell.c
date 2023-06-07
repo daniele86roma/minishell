@@ -19,9 +19,9 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 		exit(write(2, "Error: Argument\n", 16));
-	path(envp, pipex);
 	save_io(pipex);
 	ft_create_envp(pipex, envp);
+	path(pipex);
 	pipex->commands = 0;
 	pipex->args = 0;
 		
@@ -59,6 +59,8 @@ int	main(int argc, char **argv, char *envp[])
 		g_exitcode = 0;		
 		free_mat(pipex.mat);
 		free(pipex.input);
+		free_path(&pipex);
+		path(&pipex);
 	}
 	free_total(&pipex);
 	return (0);

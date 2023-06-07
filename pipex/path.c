@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp_utils.c                                       :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,38 +12,36 @@
 
 #include "../minishell.h"
 
-void	ft_create_envp(t_pipex *pipex, char **envp)
+int	find_path(t_pipex *pipex)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (envp[i] != 0)
-		i++;
-	pipex->envp = malloc((i + 1) * sizeof(char *));
-	i = -1;
-	while (envp[++i] != 0)
-		pipex->envp[i] = ft_strdup(envp[i]);
-	pipex->envp[i] = 0;
-}
-
-void	free_envp(t_pipex *pipex)
-{
-	int	i;
-
-	i = -1;
-	while (pipex->envp[++i])
-		free(pipex->envp[i]);
-	free(pipex->envp);
-}
-
-void	ft_env(t_pipex *pipex)
-{
-	int	i;
-
-	i = -1;
-	while (pipex->envp[++i])
+	while (pipex->envp[i])
 	{
-		write(1, pipex->envp[i], ft_strlen(pipex->envp[i]));
-		write(1, "\n", 1);
+		if (ft_strncmp("PATH", pipex->envp[i], 4) == 0)
+			break ;
+		i++;
 	}
+	return (i);
+}
+
+void	unset_pat(t_pipex *pipex)
+{
+		int	i;
+
+		i = find_path(pipex);
+		free(pipex->envp[i]);
+		pipex->envp[i] = ft_strdup("PATH="); 
+}
+
+void	set_path(char *s, t_pipex *pipex)
+{
+		int		i;
+		char	*tmp;
+
+		i = find_path(pipex);
+		tmp = ft_strjoin(pipex->envp[i], s);
+		free(pipex->envp[i]);
+		pipex->envp[i] = tmp; 
 }

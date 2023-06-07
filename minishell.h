@@ -48,5 +48,6 @@
 extern int g_exitcode;
 void	add_exitstatus(t_pipex *pipex);
 void	create_exit_status(t_pipex *pipex);
+void	free_path(t_pipex *pipex);
 
 #endif

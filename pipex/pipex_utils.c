@@ -12,18 +12,18 @@
 
 #include "../minishell.h"
 
-void	path(char *envp[], t_pipex *pipex)
+void	path(t_pipex *pipex)
 {
 	int		i;
 
 	i = 0;
-	while (envp[i])
+	while (pipex->envp[i])
 	{
-		if (ft_strncmp("PATH", envp[i], 4) == 0)
+		if (ft_strncmp("PATH", pipex->envp[i], 4) == 0)
 			break ;
 		i++;
 	}
-	pipex->path = ft_split(envp[i] + 5, ':');
+	pipex->path = ft_split(pipex->envp[i] + 5, ':');
 }
 
 char	*get_cmd(char **paths, char *cmd)
