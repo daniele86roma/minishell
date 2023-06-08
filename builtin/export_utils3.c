@@ -6,7 +6,7 @@
 /*   By: dcastagn <dcastagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 11:44:08 by dcastagn          #+#    #+#             */
-/*   Updated: 2023/06/06 12:00:09 by dcastagn         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:43:59 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print_mat_reverse(char **mat)
 		i--;
 	}
 }
+
 char	**create_empty_export_mat(t_pipex *pipex)
 {
 	int		i;
@@ -40,11 +41,11 @@ char	**create_empty_export_mat(t_pipex *pipex)
 		tmp = tmp->next;
 		i++;
 	}
-	mat = malloc(sizeof(char**)*i);
-	return(mat);
+	mat = malloc(sizeof(char **) * i);
+	return (mat);
 }
 
-void    print_argsexp(t_pipex *pipex)
+void	print_argsexp(t_pipex *pipex)
 {
 	t_args	*tmp;
 	int		i;
@@ -55,7 +56,7 @@ void    print_argsexp(t_pipex *pipex)
 	mat = create_empty_export_mat(pipex);
 	i = 0;
 	tmp = pipex->args;
-	while(tmp)
+	while (tmp)
 	{
 		if (ft_strcmp_args(tmp->key, "?"))
 		{
@@ -77,9 +78,8 @@ void	ft_blankexport(t_pipex *pipex)
 	char	*str;
 	int		i;
 
-
 	i = -1;
-	while(pipex->envp[++i])
+	while (pipex->envp[++i])
 	{
 		str = ft_strjoin("declare -x ", pipex->envp[i]);
 		printf("%s\n", str);

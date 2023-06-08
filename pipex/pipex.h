@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:24:54 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_commands
 	int					fdin;
 	int					fdout;
 	char				*args;
-	char				**cmd_args; 
-	char				*command;  
+	char				**cmd_args;
+	char				*command;
 	char				*filein;
 	char				*fileout;
 	struct s_commands	*next;

@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:39:11 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*mat_to_string_export(char **mat)
 		i++;
 	}
 	free(arg);
-	return(tmp);
+	return (tmp);
 }
 
 void	export_trim(char **mat)
@@ -42,15 +42,15 @@ void	export_trim(char **mat)
 	{
 		if (mat[i][0] == '"')
 		{
-		tmp = ft_strtrim(mat[i], "\"");
-		free(mat[i]);
-		mat[i] = tmp;
+			tmp = ft_strtrim(mat[i], "\"");
+			free(mat[i]);
+			mat[i] = tmp;
 		}
 		if (mat[i][0] == '\'')
 		{
-		tmp = ft_strtrim(mat[i], "'");
-		free(mat[i]);
-		mat[i] = tmp;
+			tmp = ft_strtrim(mat[i], "'");
+			free(mat[i]);
+			mat[i] = tmp;
 		}
 	}
 }

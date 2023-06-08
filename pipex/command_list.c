@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:26:32 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	add_command(t_commands *new, t_pipex *list)
 	if (!list->commands)
 	{
 		list->commands = new;
-		return;
+		return ;
 	}
 	while (tmp->next != 0)
 		tmp = tmp->next;
 	tmp->next = new;
-	return;
+	return ;
 }
 
 void	new_commands(t_commands *com, t_pipex *list)

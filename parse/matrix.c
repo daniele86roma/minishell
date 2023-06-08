@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:12:03 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,16 @@ char	*fnd_wrd(char *s, int *i)
 
 	j = 0;
 	k = *i;
-	while (s[k] && s[k] != ' ' && s[k] != '|' && s[k] != '<' && s[k] != '>' && s[k] != '"' && s[k] != '\'')
+	while (s[k] && s[k] != ' ' && s[k] != '|' && s[k] != '<'
+		&& s[k] != '>' && s[k] != '"' && s[k] != '\'')
 	{
 		j++;
 		k++;
 	}
 	s2 = malloc(j + 1);
 	j = 0;
-	while (s[*i] && s[*i] != ' ' && s[*i] != '|' && s[*i] != '<' && s[*i] != '>' && s[*i] != '"' && s[*i] != '\'')
+	while (s[*i] && s[*i] != ' ' && s[*i] != '|' && s[*i] != '<'
+		&& s[*i] != '>' && s[*i] != '"' && s[*i] != '\'')
 	{
 		s2[j] = s[*i];
 		j++;
@@ -132,12 +134,11 @@ char	**create_matrix(char	*s)
 		{
 			wrd = fnd_qts(s, &i);
 			mat = add_wrd(mat, wrd);
-			continue;
+			continue ;
 		}
 		else
 		{
-			wrd = fnd_wrd(s, &i); 
-			
+			wrd = fnd_wrd(s, &i);
 			mat = add_wrd(mat, wrd);
 		}
 	}

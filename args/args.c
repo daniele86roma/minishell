@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:43:10 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_args(t_args *arg, t_pipex *pipex)
 	t_args	*tmp;
 
 	tmp = pipex->args;
-	while(tmp)
+	while (tmp)
 	{
 		if (ft_strcmp_args(arg->key, tmp->key) == 0)
 		{
@@ -34,9 +34,10 @@ void	add_ordered(t_args *new, t_pipex *pipex)
 	t_args	*tmp;
 
 	tmp = pipex->args;
-	while(tmp)
+	while (tmp)
 	{
-		if (ft_strcmp_args(new->key, tmp->key) <= 0 && (tmp->next == 0 || ft_strcmp_args(new->key, tmp->next->key) >= 0))
+		if (ft_strcmp_args(new->key, tmp->key) <= 0 && (tmp->next == 0
+				|| ft_strcmp_args(new->key, tmp->next->key) >= 0))
 		{
 			new->next = tmp->next;
 			tmp->next = new;
@@ -54,16 +55,16 @@ void	add_arg(t_args *arg, t_pipex *pipex)
 
 	unset_args(arg->key, pipex);
 	if (check_args(arg, pipex))
-		return;
+		return ;
 	new = malloc(sizeof(t_args));
 	new->key = arg->key;
 	new->value = arg->value;
 	if (!pipex->args)
-		{
-			new->next = 0;
-			pipex->args = new;
-			return;
-		}
+	{
+		new->next = 0;
+		pipex->args = new;
+		return ;
+	}
 	add_ordered(new, pipex);
 }
 
@@ -75,7 +76,7 @@ void	unset_args(char *key, t_pipex *pipex)
 	if (ft_strcmp_args(key, "PATH") == 0)
 	{
 		unset_pat(pipex);
-		return;
+		return ;
 	}
 	tmp = pipex->args;
 	prev = tmp;
@@ -87,7 +88,7 @@ void	unset_args(char *key, t_pipex *pipex)
 		free(tmp);
 		return ;
 	}
-	while(tmp)
+	while (tmp)
 	{
 		prev = tmp;
 		tmp = tmp->next;
@@ -99,5 +100,5 @@ void	unset_args(char *key, t_pipex *pipex)
 			free(tmp);
 			return ;
 		}
-	}	
+	}
 }

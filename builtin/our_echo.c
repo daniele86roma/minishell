@@ -6,7 +6,7 @@
 /*   By: dcastagn <dcastagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:15:11 by dcastagn          #+#    #+#             */
-/*   Updated: 2023/05/26 11:16:22 by dcastagn         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:50:57 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	printwoquotes(char *cmd)
 	int	i;
 
 	i = -1;
-	 while (cmd[++i])
+	while (cmd[++i])
 	{
 		if (cmd[i] == '\"')
 			while (cmd[++i] != '\"')

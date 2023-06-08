@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:50:26 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 char	**remove_space_from(char **mat)
 {
 	int		i;
-	int 	count;
+	int		count;
 	char	**newmat;
 
 	i = -1;
 	count = 0;
-	while(mat[++i])
+	while (mat[++i])
 	{
 		if (mat[i][0] != ' ')
 			count++;
 	}
 	count++;
-	newmat = malloc(sizeof(char **) *count);
+	newmat = malloc(sizeof(char **) * count);
 	i = -1;
 	count = 0;
 	while (mat[++i])
@@ -46,8 +46,8 @@ void	compact_mat(char **mat)
 {
 	int		i;
 	char	*tmp;
-	int 	j;
-	
+	int		j;
+
 	i = 0;
 	while (mat[i])
 		i++;
@@ -60,7 +60,7 @@ void	compact_mat(char **mat)
 			tmp = ft_strjoin(mat[i - 1], mat[i]);
 			free(mat[i]);
 			free(mat[i - 1]);
-			mat[i] =ft_strdup(" ");
+			mat[i] = ft_strdup(" ");
 			mat[i -1] = tmp;
 			i = j;
 		}
@@ -85,7 +85,7 @@ char	**parsing_export(char *s)
 		{
 			wrd = fnd_qts(s, &i);
 			mat = add_wrd(mat, wrd);
-			continue;
+			continue ;
 		}
 		else
 		{
@@ -96,7 +96,7 @@ char	**parsing_export(char *s)
 	return (mat);
 }
 
-int contain_equals(char *s)
+int	contain_equals(char *s)
 {
 	int	i;
 
@@ -132,7 +132,7 @@ void	export_string(char *s, t_pipex *pipex)
 	if (!s[i])
 	{
 		free(key);
-		return;
+		return ;
 	}
 	if (s[i] == '=')
 		i++;
@@ -151,15 +151,15 @@ void	export_string(char *s, t_pipex *pipex)
 	}
 	else
 	{
-	arg.value = sost_arg(value, pipex);
-	arg.key= ft_strdup(key);
-	add_arg(&arg, pipex);
+		arg.value = sost_arg(value, pipex);
+		arg.key = ft_strdup(key);
+		add_arg(&arg, pipex);
 	}
 	free(value);
 	free(key);
 }
 
-void export_mat(t_pipex *pipex, char *str)
+void	export_mat(t_pipex *pipex, char *str)
 {
 	int		i;
 	char	**mat;
@@ -173,7 +173,7 @@ void export_mat(t_pipex *pipex, char *str)
 		if (!ft_isalpha(mat[i][0]))
 		{
 			write(2, "Minishell: bad identifier\n", 27);
-			continue;
+			continue ;
 		}
 		if (contain_equals(mat[i]))
 			export_string(mat[i], pipex);

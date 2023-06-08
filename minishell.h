@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/05/30 10:37:31 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:01:31 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 # include "parse/parse.h"
 
 //libreria per signal
-#include "signal/signal.h"
+# include "signal/signal.h"
 
-extern int g_exitcode;
+extern int	g_exitcode;
 void	add_exitstatus(t_pipex *pipex);
 void	create_exit_status(t_pipex *pipex);
 void	free_path(t_pipex *pipex);

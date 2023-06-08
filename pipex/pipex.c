@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:40:48 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec(t_pipex *pipex, int *fd, int *pip, t_commands *commands)
 	if (commands->redout == 0 && commands->next == 0)
 		dup2(pipex->stdout, 1);
 	else if (commands->redout != 0)
-		dup2(commands->fdout, 1);	
+		dup2(commands->fdout, 1);
 	else
 		dup2(pip[1], 1);
 	close(pip[1]);
@@ -81,7 +81,7 @@ void	exe(t_pipex *pipex)
 {
 	int			tmp;
 	int			fd[2];
-	t_commands  *wp;
+	t_commands	*wp;
 	t_commands	*commands;
 
 	if (!pipex->commands)
@@ -100,7 +100,7 @@ void	exe(t_pipex *pipex)
 			dup2(pipex->stdin, 0);
 			dup2(pipex->stdout, 1);
 			commands = commands->next;
-			continue;
+			continue ;
 		}
 		commands->pid = fork();
 		if (!commands->pid)

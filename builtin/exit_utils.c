@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:38:43 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_num(char *s)
 	while (s[++i])
 	{
 		if (s[i] < 48 || s[i] > 57)
-		return (1);
+			return (1);
 	}
 	return (0);
 }
@@ -36,7 +36,7 @@ void	ft_exit(char *s, t_pipex *pipex)
 	mat = create_matrix(s);
 	cmd_trim(mat);
 	i = 0;
-	while(mat[i])
+	while (mat[i])
 		i++;
 	if (i > 2)
 		write (2, "Minishell: exit: too many arguments\n", 37);
@@ -56,10 +56,10 @@ void	ft_exit(char *s, t_pipex *pipex)
 	}
 	else
 	{
-	n = ft_atoi(mat[1]);
-	write(1, "exit\n", 5);
-	free_mat(mat);
-	free_total(pipex);
-	exit (n);
+		n = ft_atoi(mat[1]);
+		write(1, "exit\n", 5);
+		free_mat(mat);
+		free_total(pipex);
+		exit (n);
 	}
 }

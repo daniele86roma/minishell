@@ -6,13 +6,13 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:47:49 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    print_args(t_pipex *pipex)
+void	print_args(t_pipex *pipex)
 {
 	t_args	*tmp;
 
@@ -29,7 +29,7 @@ void    print_args(t_pipex *pipex)
 
 int	ft_strcmp_args(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
@@ -53,7 +53,7 @@ void	free_args(t_pipex *pipex)
 
 char	*get_var(char *key, t_pipex *pipex)
 {
-	t_args *tmp;
+	t_args	*tmp;
 
 	if (!key)
 		return (0);

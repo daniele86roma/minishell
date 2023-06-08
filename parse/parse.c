@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:21:05 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	return_builtin(char **mat, int *i)
 {
-	if (ft_strcmp_args(mat[*i], "pwd") == 0 || ft_strcmp_args(mat[*i], "env") == 0 || ft_strcmp_args(mat[*i], "echo") == 0)
+	if (ft_strcmp_args(mat[*i], "pwd") == 0 || ft_strcmp_args(mat[*i], "env")
+		== 0 || ft_strcmp_args(mat[*i], "echo") == 0)
 		return (1);
-	if (ft_strcmp_args(mat[*i], "cd") == 0 || ft_strcmp_args(mat[*i], "unset") == 0 || ft_strcmp_args(mat[*i], "exit") == 0 || ft_strcmp_args(mat[*i], "export") == 0)
+	if (ft_strcmp_args(mat[*i], "cd") == 0 || ft_strcmp_args(mat[*i], "unset")
+		== 0 || ft_strcmp_args(mat[*i], "exit") == 0
+		|| ft_strcmp_args(mat[*i], "export") == 0)
 		return (2);
 	return (0);
 }
@@ -35,7 +38,8 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<')
 			return (1);
 		mat[*i] = trim_red(mat[*i]);
-		if ((fd = open(mat[*i], O_CREAT | O_RDWR | O_CREAT, 0666)) < 0)
+		fd = open(mat[*i], O_CREAT | O_RDWR | O_CREAT, 0666);
+		if (fd < 0)
 			return (1);
 		else
 			close (fd);
@@ -47,10 +51,12 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 	if (ft_strcmp_args(mat[*i], ">") == 0 && mat[*i + 1][0] == '>')
 	{
 		*i = *i + 2;
-		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '<' || mat[*i][0] == '>')
+		if (mat[*i] == 0 || mat[*i][0] == '|'
+			|| mat[*i][0] == '<' || mat[*i][0] == '>')
 			return (1);
 		mat[*i] = trim_red(mat[*i]);
-		if ((fd = open(mat[*i], O_TRUNC | O_RDWR | O_CREAT, 0666)) < 0)
+		fd = open(mat[*i], O_TRUNC | O_RDWR | O_CREAT, 0666);
+		if (fd < 0)
 			return (1);
 		else
 			close (fd);
@@ -59,7 +65,7 @@ int	set_red_out(char **mat, int *i, t_commands *com)
 		*i = *i + 1;
 		return (0);
 	}
-	return  (0);
+	return (0);
 }
 
 int	set_red_in(char **mat, int *i, t_commands *com)
@@ -71,7 +77,8 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 	if (ft_strcmp_args(mat[*i], "<") == 0 && mat[*i + 1][0] != '<')
 	{
 		*i = *i + 1;
-		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>' || access(mat[*i], F_OK))
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>'
+			|| access(mat[*i], F_OK))
 			return (1);
 		mat[*i] = trim_red(mat[*i]);
 		com->filein = mat[*i];
@@ -82,7 +89,8 @@ int	set_red_in(char **mat, int *i, t_commands *com)
 	if (ft_strcmp_args(mat[*i], "<") == 0 && mat[*i + 1][0] == '<')
 	{
 		*i = *i + 2;
-		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>' || mat[*i][0] == '<')
+		if (mat[*i] == 0 || mat[*i][0] == '|' || mat[*i][0] == '>'
+			|| mat[*i][0] == '<')
 			return (1);
 		mat[*i] = trim_red(mat[*i]);
 		com->filein = mat[*i];
@@ -111,12 +119,11 @@ void	parse(char **mat, t_pipex *pipex)
 		com.builtin = return_builtin(mat, &i);
 		while (mat[i] && mat[i][0] != '|')
 		{
-			
 			err = set_red_in(mat, &i, &com);
 			if (err != 1)
 				err = set_red_out(mat, &i, &com);
 			if (!mat[i] || mat[i][0] == '|' || err == 1)
-				break;
+				break ;
 			if (mat[i][0] != '|' && mat[i][0] != '>' && mat[i][0] != '<')
 			{
 				tmp = ft_strjoin(arg, " ");
@@ -132,13 +139,13 @@ void	parse(char **mat, t_pipex *pipex)
 			free(arg);
 			free_commands(pipex);
 			pipex->commands = 0;
-			break;
+			break ;
 		}
 		com.args = ft_strtrim(arg, " ");
 		new_commands(&com, pipex);
 		free(arg);
 		if (!mat[i])
-			break;
+			break ;
 		i++;
 	}
 }
@@ -149,9 +156,9 @@ void	trim_mat(char **mat)
 	int		i;
 
 	i = -1;
-	if(!mat)
-		return;
-	while(mat[++i])
+	if (!mat)
+		return ;
+	while (mat[++i])
 	{
 		tmp = ft_strtrim(mat[i], " ");
 		free(mat[i]);

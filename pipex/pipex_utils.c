@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:33:26 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ void	cmd_trim(char **mat)
 	while (mat[++i])
 	{
 		if (mat[i] == 0)
-			continue;
+			continue ;
 		if (mat[i][0] == '"')
 		{
-		tmp = ft_strtrim(mat[i], "\"");
-		free(mat[i]);
-		mat[i] = tmp;
+			tmp = ft_strtrim(mat[i], "\"");
+			free(mat[i]);
+			mat[i] = tmp;
 		}
 		if (mat[i][0] == '\'')
 		{
-		tmp = ft_strtrim(mat[i], "'");
-		free(mat[i]);
-		mat[i] = tmp;
+			tmp = ft_strtrim(mat[i], "'");
+			free(mat[i]);
+			mat[i] = tmp;
 		}
 	}
 }
@@ -78,17 +78,18 @@ void	cmd_trim(char **mat)
 char	*trim_red(char *s)
 {
 	char	*tmp;
+
 	if (s[0] == '"')
-		{
+	{
 		tmp = ft_strtrim(s, "\"");
 		free(s);
 		return (tmp);
-		}
-		if (s[0] == '\'')
-		{
+	}
+	if (s[0] == '\'')
+	{
 		tmp = ft_strtrim(s, "'");
 		free(s);
 		return (tmp);
-		}
-		return (s);
+	}
+	return (s);
 }

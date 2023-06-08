@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:34:51 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ int	find_path(t_pipex *pipex)
 
 void	unset_pat(t_pipex *pipex)
 {
-		int	i;
+	int	i;
 
-		i = find_path(pipex);
-		free(pipex->envp[i]);
-		pipex->envp[i] = ft_strdup("PATH="); 
+	i = find_path(pipex);
+	free(pipex->envp[i]);
+	pipex->envp[i] = ft_strdup("PATH=");
 }
 
 void	set_path(char *s, t_pipex *pipex)
 {
-		int		i;
-		char	*tmp;
+	int		i;
+	char	*tmp;
 
-		i = find_path(pipex);
-		tmp = ft_strjoin(pipex->envp[i], s);
-		free(pipex->envp[i]);
-		pipex->envp[i] = tmp; 
+	i = find_path(pipex);
+	tmp = ft_strjoin(pipex->envp[i], s);
+	free(pipex->envp[i]);
+	pipex->envp[i] = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/05/30 11:46:33 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:23:43 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init(char *envp[], t_pipex *pipex, int argc, char **argv)
 	path(pipex);
 	pipex->commands = 0;
 	pipex->args = 0;
-		
 }
 
 int	main(int argc, char **argv, char *envp[])
@@ -51,12 +50,12 @@ int	main(int argc, char **argv, char *envp[])
 		{
 			free(pipex.input);
 			free_mat(pipex.mat);
-			continue;
+			continue ;
 		}
 		parse(pipex.mat, &pipex);
 		exe(&pipex);
 		add_exitstatus(&pipex);
-		g_exitcode = 0;		
+		g_exitcode = 0;
 		free_mat(pipex.mat);
 		free(pipex.input);
 		free_path(&pipex);

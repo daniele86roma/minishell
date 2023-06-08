@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lde-mich <lde-mich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:43:09 by lde-mich          #+#    #+#             */
-/*   Updated: 2023/05/08 12:43:26 by lde-mich         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:00:10 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ char	ft_strcmp(char *s1, char *s2)
 
 void	print_mat(char **mat)
 {
-	int i = -1;
+	int	i;
 
-	while(mat[++i])
+	i = -1;
+	while (mat[++i])
 	{
 		printf("%s\n", mat[i]);
 	}
@@ -50,5 +51,5 @@ char	*mat_to_string(char **mat)
 	}
 	tmp = ft_strtrim(arg, " ");
 	free(arg);
-	return(tmp);
+	return (tmp);
 }

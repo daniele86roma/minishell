@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:46:53 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	var_mat(t_pipex *pipex, char **mat)
 	while (mat[++i])
 	{
 		if (mat[i][0] == '\'')
-			continue;
+			continue ;
 		tmp = sost_arg(mat[i], pipex);
 		free(mat[i]);
 		mat[i] = tmp;
@@ -89,7 +89,7 @@ char	*cpy_str(char *newstr, char s)
 	free(tmp);
 	newstr[j] = s;
 	newstr[++j] = 0;
-	return(newstr);
+	return (newstr);
 }
 
 char	*sost_arg(char *s, t_pipex *pipex)
@@ -109,12 +109,10 @@ char	*sost_arg(char *s, t_pipex *pipex)
 				i++;
 			}
 			else if (s[i + 1] && ft_isalpha(s[i + 1]))
-			{
 				newstr = add_var2string(&i, pipex, s, newstr);
-			}
-			else if (s[i + 1] && s[i + 1] >=48 && s[i + 1] <= 57 && s[i + 1])
+			else if (s[i + 1] && s[i + 1] >= 48 && s[i + 1] <= 57 && s[i + 1])
 			{
-				if(s[i + 2])
+				if (s[i + 2])
 					i += 1;
 			}
 		}
