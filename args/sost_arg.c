@@ -37,11 +37,11 @@ char	*get_name_var(char *s, int *i)
 	j = *i;
 	if (s[j] == '?')
 		return (ft_strdup("?"));
-	while (s[j] && ft_isalnum(s[j]))
+	while (s[j] && s[j] != ' ')
 		j++;
 	var = malloc(j + 1);
 	j = 0;
-	while (s[*i] && ft_isalnum(s[*i]))
+	while (s[*i] && s[*i] != ' ')
 	{
 		var[j] = s[*i];
 		*i = *i + 1;
@@ -108,7 +108,7 @@ char	*sost_arg(char *s, t_pipex *pipex)
 				newstr = add_var2string(&i, pipex, s, newstr);
 				i++;
 			}
-			else if (s[i + 1] && ft_isalpha(s[i + 1]))
+			else if (s[i + 1] && (ft_isalpha(s[i + 1]) || s[i + 1] == '_'))
 				newstr = add_var2string(&i, pipex, s, newstr);
 			else if (s[i + 1] && s[i + 1] >= 48 && s[i + 1] <= 57 && s[i + 1])
 			{

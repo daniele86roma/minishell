@@ -118,7 +118,7 @@ void	export_string(char *s, t_pipex *pipex)
 	t_args	arg;
 
 	i = 0;
-	while (s[i] && !ft_isalpha(s[i]))
+	while (s[i] && (!ft_isalpha(s[i]) && s[i] != '_'))
 		i++;
 	key = malloc(ft_strlen(s));
 	j = 0;
@@ -170,7 +170,7 @@ void	export_mat(t_pipex *pipex, char *str)
 	mat = parsing_export_final(pipex->input, pipex);
 	while (mat[++i])
 	{
-		if (!ft_isalpha(mat[i][0]))
+		if (!ft_isalpha(mat[i][0]) && mat[i][0] != '_')
 		{
 			write(2, "Minishell: bad identifier\n", 27);
 			continue ;

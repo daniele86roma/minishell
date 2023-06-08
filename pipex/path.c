@@ -45,3 +45,41 @@ void	set_path(char *s, t_pipex *pipex)
 	free(pipex->envp[i]);
 	pipex->envp[i] = tmp;
 }
+
+int	find_ambient_var(char *key, t_pipex *pipex)
+{
+	int		i;
+
+	i = 0;
+	while (pipex->envp[i])
+	{
+		if (ft_strncmp(key, pipex->envp[i], ft_strlen(key)) == 0)
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+void	unset_ambient(char *key, t_pipex *pipex)
+{
+		int	i;
+
+		i = find_ambient_var(key, pipex);
+		free(pipex->envp[i]);
+		pipex->envp[i] = ft_strdup(key); 
+}
+
+void	set_ambient(char *key, char *value, t_pipex *pipex)
+{
+		int		i;
+		char	*tmp;
+		char	*def;
+
+		i = find_ambient_var(key, pipex);
+		unset_ambient(key, pipex);
+		tmp = ft_strjoin(key, "=");
+		def = ft_strjoin(tmp, value);
+		free(tmp);
+		free(pipex->envp[i]);
+		pipex->envp[i] = def; 
+}
