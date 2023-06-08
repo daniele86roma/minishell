@@ -145,9 +145,9 @@ void	export_string(char *s, t_pipex *pipex)
 		i++;
 	}
 	value[j] = 0;
-	if (ft_strcmp_args(key, "PATH") == 0)
+	if (exist_ambient_var(key, pipex) == 1)
 	{
-		set_path(value, pipex);
+		set_ambient(key, value, pipex);
 	}
 	else
 	{

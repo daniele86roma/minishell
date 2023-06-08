@@ -80,9 +80,10 @@ int		is_path(char *s);
 //in_redirect.c
 void	in_redirect(t_commands *command, t_pipex *pipex);
 
-//path.c
-int		find_path(t_pipex *pipex);
-void	unset_pat(t_pipex *pipex);
-void	set_path(char *s, t_pipex *pipex);
+//ambient.c
+int		exist_ambient_var(char *key, t_pipex *pipex);
+int		find_ambient_var(char *key, t_pipex *pipex);
+void	unset_ambient(char *key, t_pipex *pipex);
+void	set_ambient(char *key, char *value, t_pipex *pipex);
 
 #endif
