@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_utils.c                                       :+:      :+:    :+:   */
+/*   args_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,58 @@
 
 #include "../minishell.h"
 
-void	print_args(t_pipex *pipex)
+char	*copy_var_amb(char *key, char *old)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	j = ft_strlen(key) + 1;
+	new = malloc(ft_strlen(old));
+	while (old[j])
+	{
+		new[i] = old[j];
+		i++;
+		j++;
+	}
+	new[i] = 0;
+	return (new);
+}
+
+char	*get_var_amb(char *key, t_pipex *pipex)
+{
+	int		i;
+	char	*var;
+
+	i = -1;
+	while (pipex->envp[++i])
+	{
+		if (ft_strncmp(key, pipex->envp[i], ft_strlen(key)) == 0)
+		{
+			var = copy_var_amb(key, pipex->envp[i]);
+			return (var);
+		}
+	}
+	return (0);
+}
+
+char	*get_var(char *key, t_pipex *pipex)
 {
 	t_args	*tmp;
+	char	*var;
 
+	if (!key)
+		return (0);
+	var = get_var_amb(key, pipex);
+	if (var != 0)
+		return (var);
 	tmp = pipex->args;
 	while (tmp)
 	{
-		if (ft_strcmp_args(tmp->key, "?"))
-		{
-			printf("%s=%s\n", tmp->key, tmp->value);
-		}	
+		if (ft_strcmp_args(key, tmp->key) == 0)
+			return (tmp->value);
 		tmp = tmp->next;
 	}
-}
-
-int	ft_strcmp_args(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-void	free_args(t_pipex *pipex)
-{
-	t_args	*tmp;
-
-	while (pipex->args != 0)
-	{
-		tmp = pipex->args->next;
-		free(pipex->args->key);
-		free(pipex->args->value);
-		free(pipex->args);
-		pipex->args = tmp;
-	}
+	return (0);
 }
