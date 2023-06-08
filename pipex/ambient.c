@@ -44,11 +44,13 @@ int	exist_ambient_var(char *key, t_pipex *pipex)
 
 void	unset_ambient(char *key, t_pipex *pipex)
 {
-		int	i;
+		int		i;
+		char	*tmp;
 
 		i = find_ambient_var(key, pipex);
 		free(pipex->envp[i]);
-		pipex->envp[i] = ft_strdup(key); 
+		tmp = ft_strjoin(key, "=");
+		pipex->envp[i] = ft_strdup(tmp); 
 }
 
 void	set_ambient(char *key, char *value, t_pipex *pipex)
