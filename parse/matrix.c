@@ -82,39 +82,6 @@ char	*fnd_wrd(char *s, int *i)
 	return (s2);
 }
 
-char	*fnd_qts(char *s, int *i)
-{	
-	int		k;
-	int		j;
-	char	*s2;
-	char	c;
-
-	j = 1;
-	k = *i;
-	c = s[k];
-	k++;
-	while (s[k] && s[k] != c)
-	{
-		j++;
-		k++;
-	}
-	s2 = malloc(j + 2);
-	j = 1;
-	*i = *i + 1;
-	s2[0] = c;
-	while (s[*i] && s[*i] != c)
-	{
-		s2[j] = s[*i];
-		j++;
-		*i = *i + 1;
-	}
-	s2[j] = s[*i];
-	s2[j + 1] = 0;
-	if (!s[*i])
-		*i = *i - 1;
-	return (s2);
-}
-
 char	**create_matrix(char	*s)
 {
 	int		i;
@@ -131,16 +98,10 @@ char	**create_matrix(char	*s)
 		else if (s[i] == '<' || s[i] == '>' || s[i] == '|')
 			mat = add_chr(mat, s[i]);
 		else if (s[i] == '\'' || s[i] == '"')
-		{
 			wrd = fnd_qts(s, &i);
-			mat = add_wrd(mat, wrd);
-			continue ;
-		}
 		else
-		{
 			wrd = fnd_wrd(s, &i);
-			mat = add_wrd(mat, wrd);
-		}
+		mat = add_wrd(mat, wrd);
 	}
 	return (mat);
 }
