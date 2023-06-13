@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/06/08 19:39:11 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	export_trim(char **mat)
 		if (mat[i][0] == '"')
 		{
 			tmp = ft_strtrim(mat[i], "\"");
-			free(mat[i]);
+			free (mat[i]);
 			mat[i] = tmp;
 		}
 		if (mat[i][0] == '\'')
@@ -53,4 +53,31 @@ void	export_trim(char **mat)
 			mat[i] = tmp;
 		}
 	}
+}
+
+void	export_mat(t_pipex *pipex, char *str)
+{
+	int		i;
+	char	**mat;
+
+	if (!str[6])
+	{
+		ft_blankexport(pipex);
+		return ;
+	}
+	i = -1;
+	mat = parsing_export_final(pipex->input, pipex);
+	while (mat[++i])
+	{
+		if (!ft_isalpha(mat[i][0]) && mat[i][0] != '_')
+		{
+			pipex->exit_builtin = 1;
+			g_exitcode = 1;
+			write(2, "Minishell: bad identifier\n", 27);
+			continue ;
+		}
+		if (contain_equals(mat[i]))
+			export_string(mat[i], pipex);
+	}
+	free_mat(mat);
 }

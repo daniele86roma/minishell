@@ -6,7 +6,7 @@
 /*   By: dfiliagg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 09:17:05 by dfiliagg          #+#    #+#             */
-/*   Updated: 2023/06/07 18:37:23 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:17:08 by dfiliagg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	ft_create_envp(t_pipex *pipex, char **envp)
 	i = 0;
 	while (envp[i] != 0)
 		i++;
-	pipex->envp = malloc((i + 1) * sizeof(char *));
+	pipex->envp = malloc((i + 2) * sizeof(char *));
 	i = -1;
 	while (envp[++i] != 0)
 		pipex->envp[i] = ft_strdup(envp[i]);
-	pipex->envp[i] = 0;
+	pipex->envp[i] = ft_strdup("OLDPWD");
+	pipex->envp[++i] = 0;
 }
 
 void	free_envp(t_pipex *pipex)

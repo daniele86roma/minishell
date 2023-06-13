@@ -6,7 +6,7 @@
 /*   By: lde-mich <lde-mich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:43:09 by lde-mich          #+#    #+#             */
-/*   Updated: 2023/06/07 18:00:10 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:43:26 by lde-mich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,34 @@ char	*mat_to_string(char **mat)
 	tmp = ft_strtrim(arg, " ");
 	free(arg);
 	return (tmp);
+}
+
+void	trim_mat(char **mat)
+{
+	char	*tmp;
+	int		i;
+
+	i = -1;
+	if (!mat)
+		return ;
+	while (mat[++i])
+	{
+		tmp = ft_strtrim(mat[i], " ");
+		free(mat[i]);
+		mat[i] = tmp;
+	}
+}
+
+int	return_builtin(char **mat, int *i)
+{
+	if (ft_strcmp_args(mat[*i], "pwd") == 0
+		|| ft_strcmp_args(mat[*i], "env") == 0
+		|| ft_strcmp_args(mat[*i], "echo") == 0
+		|| ft_strcmp_args(mat[*i], "export") == 0
+		|| ft_strcmp_args(mat[*i], "cd") == 0)
+		return (1);
+	if (ft_strcmp_args(mat[*i], "unset") == 0
+		|| ft_strcmp_args(mat[*i], "exit") == 0)
+		return (1);
+	return (0);
 }
